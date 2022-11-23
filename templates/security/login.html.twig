@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+<div class="formulaireBackground">
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                Vous êtes connecté avec {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnection</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+        
+        <div class="loginForm">
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+
+            <label for="inputPassword">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        </div>
+
+        {# securité faille csrf : permet de véfifier qu'il s'agit bien de l'utilisateur qui vient de s'inscrire et non une tierce personne malvaillante #}
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}"
+        >
+
+        {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+        #}
+
+        <div class="button-box"><button class="btn btn-submit" type="submit">Connectez-vous</button></div>
+
+    </form>
+
+    
+
+    <a href="{{path('connect_discord_start')}}" class="socialNetwork-connection"> 
+        <i class="fa-brands fa-discord socialNetwork-logo"></i>M'authentifier via discord ?
+    </a>
+
+    
+
+</div>
+{% endblock %}

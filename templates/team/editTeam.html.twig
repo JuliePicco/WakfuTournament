@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un équipe{% endblock %}
+
+{% block body %}
+
+<div class="teamFormBackground">
+ 
+    <h1>Modifier une équipe</h1>
+
+    {% if app.user %}
+   
+        {{ form_start(addTeamForm) }}
+        
+            <div class="addTeamFormulaire">  
+                
+                <div class="addTeamPartOne">
+
+                    <figure class="preview">
+                        <img id="preview_img" class="imgProfil" src="{{ asset('img/user/team/team-default.jpg') }}" >
+                    </figure>
+
+                    {{ form_row(addTeamForm.teamLogo) }}
+                    
+                </div>
+                
+                <div class="addTeamPartTwo">
+                    
+                    {{ form_row(addTeamForm.teamName) }}
+                    {{ form_row(addTeamForm.server) }}
+                    {{ form_row(addTeamForm.description) }}
+
+                </div>    
+                
+            </div> 
+            
+            <div class="submitAddTeamPosition">
+                {{ form_row(addTeamForm.submit) }}
+            </div>
+
+        {{ form_end(addTeamForm)}}
+
+    {% else %}
+        <p>Vous devez vous connecter pour pouvoir faire des modifications !</p>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/preview.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}

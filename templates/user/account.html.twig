@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte Utilisateur{% endblock %}
+
+{% block body %}
+
+<div class="accountBackground">
+    <h1>Compte</h1>
+
+    {% if app.user %}
+    
+        <div class="accountContent">
+            <div class="modifyAccount">
+                <p>Email : {{ user.email}}</p>
+                <a class="btn btn-edit" href="{{ path('edit_profil', {'id' : user.id}) }}">Modifier</a>
+            </div>
+
+            <div class="modifyAccount">
+                <p>Mot de passe</p>
+                <a class="btn btn-edit" href="{{ path('edit_password', {'id' : user.id}) }}">Modifier</a>
+            </div>
+        </div>
+
+        {# Bouton qui permet l'ouverture de la modal #}
+        <button class="btn btn-delete" onclick="document.getElementById('modalDeleteAccount').style.display='flex'">Supprimer compte</button>
+
+        <div id="modalDeleteAccount" class="modal">
+
+            <div class="modalContainer">
+
+                <h1>Suppression de compte</h1>
+
+                <div class="deleteAccountWarning">
+                    <p class="warningMessage">ATTENTION ! Cette action sera définitive !</p>
+
+                    <p>êtes vous bien sur de vouloir supprimer ce compte ?</p>
+                </div>
+                
+                <div class="deleteAccountButtons">
+
+                    <button class="cancelbtn" onclick="document.getElementById('modalDeleteAccount').style.display='none'" >Annuler</button>
+
+                    <button class="deletebtn">
+                        <a href="{{ path('delete_account', {'id' : user.id}) }}">Supprimer</a>
+                    </button>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+    {% else %}
+
+        <p>Veuillez vous conneter pour accèder à cette page</p>
+   
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/deleteConfirmation.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script> 
+{% endblock %}

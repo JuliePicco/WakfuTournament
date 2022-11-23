@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un personnage{% endblock %}
+
+{% block body %}
+
+<div class="formulaireBackground">
+
+    {% if app.user %}
+        
+        <h1>Ajouter un personnage</h1>
+
+
+        <div class="addCharacterFormulaire">   
+            {{ form_start(addCharacterForm) }}
+            
+                {{ form_row(addCharacterForm.server) }}
+                {{ form_row(addCharacterForm.characterName) }}
+                {{ form_row(addCharacterForm.classCharacter) }}
+                {{ form_row(addCharacterForm.gender) }}
+                {{ form_row(addCharacterForm.nation) }}
+                {{ form_row(addCharacterForm.guild) }}
+                
+            {{ form_end(addCharacterForm)}}
+
+        </div> 
+                
+
+        
+    {% else %}
+        
+    <p>Veuillez vous connecter !</p>
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user }}{% endblock %}
+
+{% block body %}
+
+<div class="profilBackground profilUser">
+
+    <div class="profil">
+
+        <h1>{{ user }}</h1>
+
+        <div class="allInfo">
+            <figure>
+                <img class="imgProfil" src="{{ asset('img/user/avatar/' ~ user.avatar) }}">
+            </figure>
+
+            <div class="profilInfo">
+                <h2>Informations</h2>
+            
+                <p>Inscrit depuis le : {{ user.creationDate | date('d-m-Y')}}</p>
+
+                <div class="modifyInfoP">
+
+                    <p>
+                        <i class="fa-brands fa-discord"></i> Discord : {{ user.discordPseudo}} 
+                        <br>
+                        <i class="fa-brands fa-twitch"></i> Twitch : {{ user.twitchLink}}
+                    </p>                 
+    
+                    
+                    {% if app.user %}
+
+                        {% if app.user.id == user.id %}
+                        <a class="btn btn-edit btn-editProfil" href="{{ path('edit_profil', {'id' : user.id}) }}">Modifier</a>
+                        {% endif %}
+
+                    {% endif %}
+                </div>
+
+            </div>
+    
+            <div class="profilInfoMatch">
+                <h2>Match</h2>
+    
+                <p class="warningMessage"> PROCHAINEMENT DISPONIBLE</p>
+                {# <p>A participé dans XX Match</p>
+
+                <p class="stats">
+                    Victoires : <br>
+                    Défaites:   <br>
+                    Match nul: <br>
+                </p> #}
+    
+            </div>
+        </div>
+    
+
+    </div>
+
+    <!-- Onglet me permettant de choisir entre Personnages et Equipes-->
+    <div class="tab-profil">
+        <button class="tablinksProfil" onclick="userInfo(event, 'Characters')" id="defaultOpen">Personnages</button>
+        <button class="tablinksProfil" onclick="userInfo(event, 'Teams')">équipes</button>
+        <button class="tablinksProfil" onclick="userInfo(event, 'Tournaments')">Tournois organisés</button>
+    </div>
+    
+    <!-- Contenu des onglets -->
+    <div id="Characters" class="tabcontentProfil">
+
+        {# {% for server in servers %}
+            <div class="sud-tab-profil">
+                <button class="sub-tablinksProfil" onclick="userServerInfo(event, 'Servers')" id="defaultOpen">{{server.serverName}}</button>
+            </div>
+        {% endfor %}
+    #}
+
+        <div id="Servers" class="characterCollection sub-tabcontentProfil">
+
+            {% for  character in user.characters %}
+    
+                <div class="characterProfil">
+
+                    <figure>
+                        <img src="{{ asset('img/classLogo/' ~ character.classCharacter.logo) }}">
+                    </figure>
+                    
+                    <div class="characterClass">
+                        <p class="characterName">{{character.characterName}}</p>
+
+                        {% if app.user %}
+                            
+                            {% if app.user.id == user.id %}
+
+                                <a class="btn btn-delete-cross" href="{{ path('delete_character', {'idUser' : user.id ,'idCharacter' : character.id}) }}">X</a>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
+                   
+                </div>
+
+
+            {% endfor %}
+
+        </div>
+
+        {% if app.user %}
+            
+            {% if app.user.id == user.id %}
+            <a class="btn addElementTab" href="{{ path('add_character', {'id' : user.id}) }}">Ajouter un personnage</a>
+            {% endif %}
+        
+        {% endif %}
+        
+    </div>
+    
+
+    <div id="Teams" class="tabcontentProfil">
+
+        <div class="teamsUserCollection">
+
+            {% for team in user.teams %}
+
+                <div class="teamUserProfil">
+
+                    <a href="{{ path('show_team', {'id' : team.id}) }}">
+                        <figure>
+                            <img src="{{ asset('img/user/team/' ~ team.teamLogo) }}">
+                        </figure>
+                    
+                            {% if user.id == team.leader.id %}
+                                <i class="fa-solid fa-crown"></i>
+                            {% endif %}
+
+                        {{team.teamName}}
+                        
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+
+        {% if app.user %}
+        
+            {% if app.user.id == user.id %}
+        
+                {% if app.user.nbTeams < 3 %}
+                    <div class="teamChoice">
+                        
+                        <a class="btn addElementTab" href="{{ path('add_team', {'idUser' : app.user.id}) }}">Créer une nouvelle équipe</a>
+                        <a class="btn addElementTab" href="{{ path('app_team') }}">Rejoindre une équipe</a>
+                    </div>
+
+                {% else %}
+
+                        <p class="warningMessage">Vous ne pouvez pas créér ou rejoindre d'avantage d'équipe !</p>
+
+                {% endif %}
+
+                {% endif %}
+
+            {% endif %}
+        
+
+    </div>
+
+
+    <div id="Tournaments" class="tabcontentProfil">
+
+        <div class="tournamentUserCollection">
+
+            
+            {% for  tournament in user.tournaments %}
+            
+                <div class="tournamentUserProfil">
+                
+                    <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
+                        <figure>
+                            <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+                        </figure>
+                        
+                        {{tournament.tournamentName}}
+                    </a> 
+
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+
+        {% if app.user %}
+            
+            {% if app.user.id == user.id %}
+                <a class="btn addElementTab" href="{{ path('add_tournament', {'id' : app.user.id}) }}">Organiser tournois</a>
+            {% endif %}
+
+        {% endif %}
+        
+        
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/tabs.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script> 
+{% endblock %}
+

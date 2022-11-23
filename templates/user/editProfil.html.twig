@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier profil{% endblock %}
+
+{% block body %}
+
+<div class="editProfilBackground">
+
+    {% if app.user %}
+        
+        <h1>Modifier profil</h1>
+
+        <figure class="preview avatarPosition">
+            <img id="preview_img" class="editAvatar" src="{{ asset('img/user/avatar/' ~ app.user.avatar) }}" >
+        </figure>
+
+        <div class="profilFormulaire">   
+            {{ form_start(editProfilForm) }}
+
+                <div class="avatarForm">{{ form_row(editProfilForm.avatar) }}</div>
+
+                {# la div "buffer" sert uniquement pour acceder à la div créée par le formulaire dont on a pas accès #}
+
+                <div class="profilFormGroup">
+                    <div class="buffer">
+                        {{ form_row(editProfilForm.email) }}
+                        {{ form_row(editProfilForm.pseudonyme) }}
+                    </div>
+
+                    <div class="buffer">
+                        {{ form_row(editProfilForm.discordPseudo) }}
+                        {{ form_row(editProfilForm.twitchLink) }}
+                    </div>
+                </div>
+
+                <div class="profilFormSubmit">{{form_row(editProfilForm.submit)}}</div>
+                
+            {{ form_end(editProfilForm)}}
+
+        </div> 
+        {# <a href="{{path('connect_discord_start')}}" ></a> #}
+                
+
+        
+    {% else %}
+        
+    <p>Veuillez vous connecter !</p>
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/preview.js') }}"></script>
+<script src="{{ asset('js/menuBurger.js') }}"></script> 
+{% endblock %}

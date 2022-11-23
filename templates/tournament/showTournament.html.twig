@@ -1,0 +1,239 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournament Information{% endblock %}
+
+{% block body %}
+
+<div class="profilBackground">
+
+    <div class="profil profilTournament">
+
+        <h1>{{tournament.tournamentName}}</h1>
+
+        <div class="allInfo allInfoTournament">
+            <figure>
+                <img class="imgProfil" src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+            </figure>
+
+            <div class="profilInfo">
+                
+                <div>
+                    <h2>Informations</h2>
+
+                    <div>
+                        <p>Du {{tournament.startDate | date('d-m-Y')}} au {{tournament.endDate | date('d-m-Y')}}</p>
+                        <p>Serveur : {{tournament.server}}</p>
+                        <p>Organisé par : {{tournament.organisator}}</p>
+                        <p>Mode de jeu : {{tournament.mode.modeName}}</p>
+                    </div>
+
+                    <div class="infoPartTwo">
+                        <p>Place limitée : {% if tournament.limitedInscription == "true" %} Oui {% else %} Non {% endif %}</p>
+                        <p>Nombre de participant : {% if tournament.limitedInscription == "true" %} {{tournament.Nbreserved}}/{{tournament.nbTeamLimit}} {% else %} {{tournament.Nbreserved}} {% endif %}</p>
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+            <div class="rewardTournamentSection">
+
+                <div>
+                    <h2>Récompenses à la clef </h2> 
+                    <p> {% if tournament.rewardChoice == "true" %} 
+        
+                        {{tournament.reward}}
+                        
+                        {% else %} 
+        
+                        Ceci est un tournois amical. <br> Il n'y as pas de récompenses prévues !
+                        
+                        {% endif %} </p>
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div class="tournamentDescription">
+
+            <h2>Description</h2>
+            <p>{{tournament.descriptionTournament}}</p>
+
+        </div>
+
+
+        <div class="tournamentInscription">
+
+            {# si la date est dépassé alors tournois terminé #}
+            {% if date(tournament.endDate) < date('d') %}
+
+                <p class="warningMessage">Tournois terminé !</p>
+
+            {# si la date est en cours, alors tournois en cours#}
+            {% elseif date(tournament.startDate) < date('d') or date(tournament.startDate) == date('d')%}
+
+                <p class="warningMessage">Tournois en cours, vous ne pouvez plus vous inscrire !</p>
+
+            {% else %}
+
+                {% if app.user.id == tournament.organisator.id %}
+
+                    <a class="btn btn-edit btn-editProfil" href="#">Supprimer Tournois</a>
+                    <br><br>
+                    <p class="warningMessage">Vous ne pouvez pas vous inscrire à un tournois que vous organisez</p>
+
+                {% else %}
+
+                    {% if tournament.limitedInscription == "true" %}
+
+                        {% if tournament.Nbreserved == tournament.nbTeamLimit %}
+                                    
+                            <p class="warningMessage">Le tournois est complet !</p>     
+
+                        {% else %}   
+
+                            <h2>Inscrire son équipe <span class="littleInfo">(Vous devez être leader de votre équipe pour pouvoir l'inscrire)</span></h2>
+    
+                            {% for team in unregisteredTeams %}
+        
+                                {% if team.server == tournament.server %}
+                                
+                                    {% if app.user.id == team.leader.id %}                                 
+
+                                        <p class="inscriptionTeams">
+                                            {{team}} 
+                                            <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
+                                        </p>
+                                    
+                                    {% endif %}
+                                
+                                {% endif %}
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    {% else %}
+
+                        <h2>Inscrire son équipe <span class="littleInfo">(Vous devez être leader de votre équipe pour pouvoir l'inscrire)</span></h2>
+
+                        {% for team in unregisteredTeams %}
+
+                            {% if team.server == tournament.server %}
+                            
+                                {% if app.user.id == team.leader.id %}                                 
+
+                                    <p class="inscriptionTeams">
+                                        {{team}} 
+                                        <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
+                                    </p>
+                                
+                                {% endif %}
+                            
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+
+            <!-- Onglet me permettant de choisir les infos du tournois-->
+        <div class="tab-profil">
+            <button class="tablinksProfil" onclick="userInfo(event, 'Teams')" id="defaultOpen">équipes participantes</button>
+            <button class="tablinksProfil" onclick="userInfo(event, 'Bracket')">Bracket</button>
+            <button class="tablinksProfil" onclick="userInfo(event, 'Matchs')">Planning Match</button>
+            <button class="tablinksProfil" onclick="userInfo(event, 'Results')">Résultat</button>
+        </div>
+        
+        <!-- Contenu des onglets -->
+        <div id="Teams" class="tabcontentProfil participatingTeam">
+
+            
+            {% for participatingTeam in tournament.participatingTeams %}
+
+               
+                <div class="entity">
+
+                    <figure>
+                        <img src="{{ asset('img/user/team/' ~ participatingTeam.teamLogo) }}">
+                    </figure>
+
+                    <div class="allInfoEntity">
+                        <div class="infoEntity">
+                
+                            <div class="infoEntity-one">
+                                <h3>{{participatingTeam.teamName}}</h3>
+                                <p>Leader : {{participatingTeam.leader}}</p>
+                            </div>
+
+                            <a class="plusInfo" href="{{ path('show_team', {'id' : participatingTeam.id}) }}">+ d'info</a>  
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                
+                
+                {% else %}
+                
+                <p class="noParticipation"> il n'y a pas de participation pour le moment</p>
+                
+                {% endfor %}
+                
+                
+           
+            
+        </div>
+
+        <div id="Bracket" class="tabcontentProfil participatingTeam">
+
+            <div class="bracketInfo">
+
+                <p class="noParticipation"> PROCHAINEMENT DISPONIBLE</p>
+
+            </div>
+            
+        </div>
+
+
+        <div id="Matchs" class="tabcontentProfil participatingTeam">
+
+            <div class="matchsInfo">
+
+                <p class="noParticipation"> PROCHAINEMENT DISPONIBLE</p>
+
+            </div>
+            
+        </div>
+
+
+        <div id="Results" class="tabcontentProfil participatingTeam">
+
+            <div class="resultsInfo">
+
+                <p class="noParticipation"> PROCHAINEMENT DISPONIBLE</p>
+
+            </div>
+            
+        </div>
+
+ 
+
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/tabs.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}

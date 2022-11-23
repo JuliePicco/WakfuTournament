@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des joueurs{% endblock %}
+
+{% block body %}
+
+
+    
+
+    {# {% for user in users %}
+
+        <a href="{{ path('profil_user', {'id' : user.id}) }}">{{user}}</a> <br>
+
+    {% endfor %} #}
+
+<div class="listBackground">
+
+    <h1>Liste des joueurs</h1>
+
+    <div class="searchBarList">
+        <p>Trié par :</p>
+        <p>Rechercher</p>
+    </div>
+
+    <div class="list">
+        {% for user in users %}
+            <div class="entity">
+                
+                <figure>
+                    <img src="{{ asset('img/user/avatar/' ~ user.avatar) }}">
+                </figure>
+
+                <div class="allInfoEntity">
+
+                    <div class="infoEntity">
+                        <div class="infoEntity-one">
+                            <h3><a href="{{ path('profil_user', {'id' : user.id}) }}">{{ user }}</a></h3>
+                            <p>Inscrit depuis le : {{ user.creationDate | date('d-m-Y')}}</p>
+                        </div>
+    
+                        <a class="plusInfo" href="{{ path('profil_user', {'id' : user.id}) }}">+ d'info</a> 
+                    </div>
+                    
+                    <div class="infoEntity-two">
+                        <p>A déjà participé à : XX match</p>
+                    </div>
+
+                </div>
+
+                
+                
+    
+            </div>
+        {% endfor %}
+
+        <p class="noNext">Pas d'autre joueurs</p>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

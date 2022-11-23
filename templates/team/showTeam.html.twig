@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Team Information{% endblock %}
+
+{% block body %}
+
+    <div class="profilBackground profilTeam">
+
+        <div class="profil">
+
+            <h1>{{team.teamName}}</h1>
+
+            <div class="allInfo">
+                <figure>
+                    <img class="imgProfil" src="{{ asset('img/user/team/' ~ team.teamLogo) }}">
+                </figure>
+
+                <div class="profilInfo">
+                    
+                    <div>
+                        <h2>Informations</h2>
+
+                        <p>Date de création : {{ team.creationDate | date('d-m-Y')}}</p>
+                        <p>Serveur : {{team.server}}</p>
+                        <p>Leader : {{team.leader}}</p>
+                    </div>
+                    
+                    <div class="btnTeamInfo">
+                        {% if app.user %}
+
+                            {% if app.user.id == team.leader.id %}
+                                <a class="btn btn-edit btn-editProfil" href="{{ path('edit_team', {'idTeam' : team.id, 'idUser' : app.user.id}) }}">Modifier</a>
+                            {% endif %}
+
+                        {% endif %}
+                    </div>
+
+                </div>
+        
+                <div class="profilInfoMatch">
+                    <h2>Match</h2>
+        
+                    <p class="warningMessage"> PROCHAINEMENT DISPONIBLE</p>
+                    {# <p>A participé dans XX Match</p>
+
+                    <p class="stats">
+                        Victoires : <br>
+                        Défaites:   <br>
+                        Match nul: <br>
+                    </p> #}
+        
+                </div>
+            </div>
+
+            <div class="teamDescription">
+
+                <h2>Description</h2>
+                <p>{{team.description}}</p>
+    
+            </div>
+
+            <div class="">
+
+                {% if app.user %}
+                                   
+                    {% if team.nbMembers < 6 %}
+
+                        {% if app.user not in team.members %} 
+                            {% if app.user.nbTeams < 3 %}
+
+                                <a class="btn btn-join"  href="{{ path('join_team', {'idTeam' : team.id}) }}">Rejoindre la Team</a>
+
+                            {% else %}
+
+                                <p class="warningMessage">Vous ne pouvez pas rejoindre d'avantage d'équipes !</p></p>
+                            
+                            {% endif %}
+                        {% endif %} 
+
+                    {% else %}
+
+                        <p class="warningMessage"> Equipes complètes !</p>
+                        
+                    {% endif %}
+                    
+                    {% for member in team.members %}
+                        {% if app.user.id == member.id %}
+                            <a class="btn btn-warning" href="{{ path('leave_team', {'idTeam' : team.id}) }}">Quitter la team</a>
+                        {% endif %}                         
+                    {% endfor %}
+
+                {% endif %}
+                
+            </div>
+        
+
+        </div>
+
+        <!-- Onglet me permettant de choisir entre Personnages et Equipes-->
+        <div class="tab-profil">
+            <button class="tablinksProfil" onclick="userInfo(event, 'Members')" id="defaultOpen">Membre de l'équipe</button>
+            <button class="tablinksProfil" onclick="userInfo(event, 'Tournament')">Tournois Inscrit</button>
+            <button class="tablinksProfil" onclick="userInfo(event, 'TournamentFinished')">Tournois participé</button>
+        </div>
+        
+        <!-- Contenu des onglets -->
+        <div id="Members" class="tabcontentProfil">
+
+            <div class="teamsUserCollection">
+
+                {% for member in team.members %}
+        
+                    <div class="teamUserProfil">
+
+                        <a href="{{ path('profil_user', {'id' : member.id}) }}">
+
+                            <figure>
+                                <img src="{{ asset('img/user/avatar/' ~ member.avatar) }}">
+                            </figure>
+
+                            {% if member.id == team.leader.id %}
+                                <i class="fa-solid fa-crown"></i>
+                            {% endif %}
+                        
+                            {{member.pseudonyme}}
+
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            
+
+            {% if app.user %}
+            
+                {% if app.user.id == team.leader.id %}
+                    <a class="btn addElementTab"  href="#">Inviter un joueur</a>
+                {% endif %}
+
+                
+            {% endif %}
+
+            
+        </div>
+        
+
+        <div id="Tournament" class="tabcontentProfil">
+
+            <div class="tournamentUserCollection">
+                
+                {% for  tournament in team.tournaments %}
+
+                    {% if date(tournament.startDate) > date('d') %}
+     
+                        <div class="tournamentUserProfil">
+                            
+                            <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
+                                <figure>
+                                    <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+                                </figure>
+                                
+                                {{tournament.tournamentName}}
+                            </a> 
+                            
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+            {% if app.user %}
+            
+                {% if app.user.id == team.leader.id %}
+                    <a class="btn addElementTab"  href="{{ path('app_tournament') }}">S'inscrire à un tournois</a>
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+
+        <div id="TournamentFinished" class="tabcontentProfil">
+
+            <div class="tournamentUserCollection">
+
+                {% for  tournament in team.tournaments %}
+
+                    {% if date(tournament.endDate) < date('d') %}
+                
+                        <div class="tournamentUserProfil">
+                        
+                            <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
+                                <figure>
+                                    <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+                                </figure>
+                                
+                                {{tournament.tournamentName}}
+                            </a> 
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+   
+            </div>
+
+        </div>
+
+       
+
+    </div>
+
+
+
+{% endblock %}
+
+ 
+{% block javascripts %}
+    <script src="{{ asset('js/tabs.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}

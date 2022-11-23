@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome to Wakfu Tournament{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/middlescreen.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/smallscreen.css') }}">
+        {% endblock %}
+
+    </head>
+
+    
+    <body>
+
+        <article>
+
+            <header>
+                <div class="infoHeader">
+    
+                    <h1><a href="{{ path('app_home') }}">Wakfu Tournament</a></h1>
+    
+                    <div class="navigation">
+    
+                        <nav class="menu">
+    
+                            {# Icône menu burger #}
+                            <a href="#" id="openBtn" class="menuBurger" onclick="myFunction(this)" >
+                                <span class="burger-icon">
+                                    <span class="bar1"></span>
+                                    <span class="bar2"></span>
+                                    <span  class="bar3"></span>
+                                </span>
+                            </a>
+                            {# fin Icone menu burger #}
+    
+                            {# menu burger  #}
+    
+                            <div id="mySidenav" class="sidenav" >
+                                <a href="#" id="closeBtn"  class="close">×</a>
+                                <ul class="ul-burger">
+                                    <li class="homeBurger"><a href="{{ path('app_home')}}" onclick="navigation()">Accueil</a></li>
+    
+                                    <div class="dropdown-burger">
+                                        <li class="menuBurger-item">Tournois <i class="fa-solid fa-caret-down"></i></li>
+    
+                                        <ul class="dropdown-content-burger">
+                                            <li class="sub-menuBurger-item"><a href="{{ path('app_tournament') }}">Tournois à venir</a></li>
+                                            <li class="sub-menuBurger-item"><a href="{{ path('app_finishedTournaments') }}">Tournois Terminés</a></li>
+                                            {% if app.user %}
+                                                <li class="sub-menuBurger-item"><a href="{{ path('add_tournament', {'id' : app.user.id}) }}">Organiser un tournois</a></li>
+                                            {% endif %}
+                                        </ul>
+    
+                                    </div>
+    
+                                    <div class="dropdown-burger">
+                                        <li class="menuBurger-item">Equipe <i class="fa-solid fa-caret-down"></i></li>
+    
+                                        <ul class="dropdown-content-burger">
+                                            {% if app.user %}
+                                                <li class="sub-menuBurger-item"><a href="{{ path('add_team', {'idUser' : app.user.id}) }}">Créer une équipe</a></li>
+                                            {% endif %}
+                                            <li class="sub-menuBurger-item"><a href="{{ path('app_team') }}">Liste des équipes</a></li>
+                                            <li class="sub-menuBurger-item"><a href="{{ path('app_user') }}">Liste des joueurs</a></li>
+                                        </ul>
+                                    </div>
+    
+                                    <li><a href="{{ path('app_home')}}" onclick="navigation()">Forum</a></li>
+                                    <li><a href="{{ path('app_home')}}" onclick="navigation()">Règlements</a></li>
+        
+                                </ul>
+                            </div>
+    
+                            {# fin menu burger #}
+    
+                            <ul class="ul-navLeft">
+    
+                                <div class="dropdown">
+                                    <li class="menu-item">Tournois  <i class="fa-solid fa-caret-down"></i></li>
+                                    
+                                    <ul class="dropdown-content">
+                                        <li class="sub-menu-item"><a href="{{ path('app_tournament') }}">Tournois à venir</a></li>
+                                        <li class="sub-menu-item"><a href="{{ path('app_finishedTournaments') }}">Tournois Terminés</a></li>
+                                        {% if app.user %}
+                                            <li class="sub-menu-item"><a href="{{ path('add_tournament', {'id' : app.user.id}) }}">Organiser un tournois</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+     
+                                <div class="dropdown">
+                                    <li class="menu-item">Equipe<i class="fa-solid fa-caret-down"></i></li>
+                                    
+                                    <ul class="dropdown-content">
+                                        {% if app.user %}
+                                            <li class="sub-menu-item"><a href="{{ path('add_team', {'idUser' : app.user.id}) }}">Créer une équipe</a></li>
+                                        {% endif %}
+                                        <li class="sub-menu-item"><a href="{{ path('app_team') }}">Liste des équipes</a></li>
+                                        <li class="sub-menu-item"><a href="{{ path('app_user') }}">Liste des joueurs</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <li class="menu-item"><a href="">Forum</a></li>
+                                <li class="menu-item"><a href="">Règlements</a></li>
+                                
+    
+                            </ul>
+    
+                        </nav>
+    
+                        <nav class="connexion">
+                            <ul class="ul-navRight">
+    
+                                {% if app.user %}
+    
+                                    <div class="dropdown">
+    
+                                        <li class="menu-item menu-profil">
+                                            {{app.user.pseudonyme}}
+                                            <figure>
+                                                <img class ="miniAvatarProfil" src="{{ asset('img/user/avatar/' ~ app.user.avatar) }}">
+                                            </figure>
+                                        
+                                        </li>
+    
+                                        <ul class="dropdown-content">
+                                            <li class="sub-menu-item"><a href="{{ path('profil_user', {'id' : app.user.id})}}">Profil</a></li>
+                                            <li class="sub-menu-item"><a href="{{ path('account_user', {'id' : app.user.id})}}">Compte</a></li>
+                                            <li class="sub-menu-item"><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                                        </ul>
+    
+                                    </div>    
+                                    
+    
+                                {% else %}
+                                    <li class="menu-item"><a href="{{ path('app_register') }}">Inscription</a></li>
+                                    <li class="menu-item"><a href="{{ path('app_login') }}">Connexion</a></li>
+    
+                                {% endif %}
+    
+                            </ul>
+                        </nav>
+    
+                    </div>
+    
+                </div>
+    
+            </header>
+    
+            
+            <main>
+
+                <div>
+                    
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success flash" role="alert">
+                            <i class="fa-solid fa-circle-check alert-icon"></i> {{ message }}
+                        </div>
+                    {% endfor %}
+                
+        
+                    {% for message in app.flashes('warning') %}
+                        <div class="alert alert-warning flash" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation alert-icon"></i> {{ message }}
+                        </div>
+                    {% endfor %}
+        
+        
+                </div>
+
+                {% block body %}{% endblock %}
+                
+            </main>
+    
+    
+    
+            
+            <footer>
+                <div class="droit">
+                    <small>Wakfu est un MMORPG édité par Ankama Studio. Tous droits réservés.<br>
+                        Le site internet “Wakfu Tournament” est un site non-officiel du MMORPG Wakfu entièrement développé par Achanga<br>
+                        Toutes les images du sites appartiennent à Ankama (pour les images officiels) et à Achanga (pour les créations originales)</small>
+                    </div>
+                </footer>
+                
+            </article>
+
+            {% block javascripts %}
+                <script src="{{ asset('js/menuBurger.js') }}"></script>
+            {% endblock %}
+            
+          
+    </body>
+    
+</html>

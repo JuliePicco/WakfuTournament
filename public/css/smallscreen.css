@@ -1,0 +1,528 @@
+@media screen and (max-width: 450px) {
+
+  /** BODY  */
+
+  body{
+    background-position-x: left;
+  }
+  
+  /** HEADER */
+
+
+  .infoHeader{
+    flex-direction: column;
+  }
+
+  .infoHeader h1{
+    margin-bottom: 10px;
+    font-size: 40px;
+  }
+
+  .ul-navLeft{
+    content-visibility: hidden;
+    width: 0;
+  }
+
+ 
+  
+  /* ! Menu burger */
+  
+  .menuBurger{
+    content-visibility: visible;
+  }
+
+  .ul-burger{
+    display: flex;
+    flex-direction: column;
+    color: white;
+  }
+
+  .homeBurger{
+    margin-bottom: 20px;
+  }
+  
+  /* Sidenav menu */
+  .sidenav {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: -100%;
+    background:rgb(81 6 138 / 90%);
+    border-right: solid 3px white;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    padding-top: 60px;
+    transition: left 0.5s ease;
+    content-visibility: visible;
+  }
+  
+  /* Sidenav menu links */
+  .sidenav li {
+    display: block;
+    padding-left: 20px;
+    padding-top: 10px;
+    font-size: 35px;
+    text-decoration: none;
+    transition: 0.3s
+  }
+  
+  .sidenav li:hover, .sidenav a:hover {
+    color: darkcyan;
+   
+  }
+
+  .sidenav li:hover{
+    background-color: rgba(255, 255, 255, 0.600);
+  }
+  
+  .sidenav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Active class */
+  .sidenav.active {
+    left: 0;
+    background:rgb(81 6 138 / 90%);
+    border-right: solid 3px white;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+  }
+  
+  /* Bouton de fermeture X */
+  .sidenav .close {
+    position: absolute;
+    top: -20px;
+    right: 20px;
+    color: white;
+    font-size: 90px;
+    padding-left: 8px;
+    padding-top: 0;
+}
+  
+  
+  /* Icône burger */
+  
+  .burger-icon span{
+    display: block;
+    cursor: pointer;
+  }
+  
+  .bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+  
+
+  /* dropdown menu burger */
+
+.dropdown-burger {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content-burger {
+  display: none;
+  z-index: 1;
+  font-size: smaller;
+  }
+    
+.dropdown-burger:hover .dropdown-content-burger {
+display: block;
+}
+
+
+.menuBurger-item{
+  list-style: none;
+  font-size: larger;
+}
+
+.sub-menuBurger-item{
+  list-style: none;
+  font-size: larger;
+  padding: 10px 10px;
+  font-size: 25px !important;
+}
+
+.sub-menuBurger-item:hover{
+  background-color: rgba(255, 255, 255, 0.600);
+}
+  
+  /* ! fin Menu burger */
+
+
+   /** CSS relatif à toutes les pages */
+
+
+   footer{
+    display: flex;
+    height: 80px;
+    background: #51068a;
+    box-shadow: 0px 0px 5px black;
+    padding: 5px 10px;
+    
+}
+
+  footer small{
+    font-size: 11px;
+  }
+
+  /* bouton */
+
+  .btn-edit {
+    cursor: pointer;
+    color: #51068a;
+    background:white;
+    font-size: larger;
+    padding: 5px 10px;
+    border: #51068a solid 4px;
+    border-radius: 10px;
+  }
+
+  .btn-delete {
+    font-size: 25px;
+    margin-top: 25px;
+    padding: 7px;
+}
+
+
+  /** INSCRIPTION, CONNECTION et FORMULAIRE */
+
+  .formulaireBackground{
+    width: 100%;
+    margin: 0px;
+    border-radius: 0;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .formulaireBackground h1{
+    font-size: 35px;
+    margin-bottom: 50px;
+  }
+
+  .loginForm label {
+    font-size: 25px;
+  }
+
+  .sub-menu-item{
+    font-size: 25px;
+  }
+
+
+  /** PROFIL */
+
+  .profilBackground {
+    width: 100%; 
+    margin: 0;
+    padding: 40px 0px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+}
+
+  .profil h1 {
+    text-align: -webkit-center;
+  }
+
+  .allInfo {
+    flex-direction: column;
+    margin-bottom: 0px;
+    text-align: center;
+  }
+
+  .allInfo figure {
+    margin-right: 0;
+}
+
+  .imgProfil{
+    margin-bottom: 20px;
+  }
+
+  .profilInfo {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.btn-editProfil {
+  margin-top: 20px;
+  align-self: center;
+}
+
+.profilInfoMatch {
+  width: 100%;
+
+}
+
+.tournamentDescription, .teamDescription{
+  margin: 30px 20px;
+}
+
+.tournamentDescription h2, .teamDescription h2{
+  text-align: -webkit-center;
+ 
+}
+
+.tab-profil button {
+  width: 33%;
+  font-size: 20px;
+  padding: 5px 8px;
+
+}
+
+.characterCollection, .tournamentUserCollection, .teamsUserCollection {
+
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.addElementTab {
+  align-self: unset;
+  font-size: 20px;
+}
+
+.teamChoice {
+  width: 100%;
+}
+
+.characterProfil, .tournamentUserProfil, .teamUserProfil {
+  font-size: larger;
+  margin: 0px 10px;
+}
+
+.btn-delete-cross {
+  padding: 0;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+
+
+/**  MODIFIER PROFILE */
+
+.editProfilBackground {
+  background: white;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 20px 0px;
+  border-radius: 0;
+}
+
+.editProfilBackground h1{
+  font-size: 45px;
+}
+
+.profilFormGroup {
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.profilFormulaire label {
+  font-size: 25px;
+  
+}
+
+.avatarForm div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.form-select{
+  font-size: 22px;
+}
+
+.file-form-control{
+  font-size: 18px;
+
+}
+
+.profilFormSubmit{
+  font-size: 25px;
+  margin: 15px 0px;
+
+}
+
+
+/** MODIFIER COMPTE */
+
+.accountBackground {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0px;
+  border-radius: unset;
+  justify-content: unset;
+}
+
+.accountContent{
+  text-align: center;
+}
+
+.modifyAccount {
+  flex-direction: column;
+  margin-bottom: 25px;
+  font-size: 25px;
+}
+
+.modifyAccount .btn-edit{
+  margin: 15px auto;
+  font-size: 25px ;
+}
+
+/* modal suppresion compte */
+
+.modalContainer {
+  padding: 35px 20px;
+}
+
+.deleteAccountWarning {
+  font-size: 25px;
+}
+
+.deleteAccountButtons button {
+  font-size: 30px;
+}
+
+
+/** CSS LISTE TOURNOIS, JOUEUR, TEAM  */
+
+.listBackground {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0;
+}
+
+.list {
+  border-right: unset;
+  border-left: unset;
+  margin: 0px;
+  margin-bottom: 50px;
+  height: 500px;
+}
+
+.entity{
+  flex-direction: column;
+}
+
+.entity img {
+  width: 150px;
+  height: 150px;
+}
+
+.allInfoEntity {
+  margin: 0px;
+}
+
+.infoEntity {
+  flex-direction: column;
+  height: 90%;
+}
+
+.infoEntity-one h3{
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.infoEntity-one p {
+  text-align: center;
+}
+ 
+.infoEntity-two{
+  content-visibility: hidden;
+}
+
+.plusInfo{
+  font-size: unset;
+}
+
+/** ORGANISER UN TOURNOIS - CREER UNE TEAM */
+
+.tournamentFormBackground, .teamFormBackground{
+  width: 100%;
+  height: 100%;
+  padding: 25px;
+  margin: 0;
+  border-radius: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.tournamentFormBackground form, .teamFormBackground form{
+  font-size: 25px;
+}
+
+.form-tournament {
+  width: 100%;
+}
+
+.addTournamentFormulaire, .addTeamFormulaire {
+  display: flex;
+  flex-direction: column;
+  justify-content: unset; 
+  padding: 0px;
+}
+
+.tournamentFormBackground h1, .teamFormBackground h1 {
+  margin-bottom: 30px;
+
+}
+
+.addTournamentPartOne, .addTournamentPartTwo, .addTournamentPartThree, .addTeamPartOne, .addTeamPartTwo, .addTeamPartThree {
+  margin: 0px; 
+}
+
+.addTournamentPartOne .preview, .addTeamPartOne .preview{
+  align-self: center;
+}
+
+.addTournamentPartOne div, .addTournamentPartTwo div, .addTournamentPartThree div, .addTeamPartOne div, .addTeamPartTwo div, .addTeamPartThree div {
+  margin-bottom: 40px;
+}
+
+.limitedInscription div, .limitedInscription .form-tournament, .rewardChoice div, .rewardChoice .form-tournament{
+  margin: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+.limitedInscription, .rewardChoice{
+  margin-bottom: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+}

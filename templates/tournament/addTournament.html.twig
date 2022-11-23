@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organiser un tournois{% endblock %}
+
+{% block body %}
+
+<div class="tournamentFormBackground">
+  
+    <h1>Organiser un tournois</h1>
+    
+    {% if app.user %}
+        
+        {{ form_start(addTournamentForm) }}
+        
+            <div class="addTournamentFormulaire">  
+                
+                <div class="addTournamentPartOne">
+                    
+                    <figure class="preview">
+                        <img id="preview_img" class="imgProfil" src="{{ asset('img/user/tournament/tournament-default.jpg') }}" >
+                    </figure>
+
+                    {{ form_row(addTournamentForm.imgTournament) }}
+                    {{ form_row(addTournamentForm.server) }}
+                    {{ form_row(addTournamentForm.tournamentName) }}
+
+                </div>
+
+                <div class="addTournamentPartTwo">
+                    
+                    {{ form_row(addTournamentForm.startDate) }}
+                    {{ form_row(addTournamentForm.endDate) }}
+                    {{ form_row(addTournamentForm.place) }}
+                    {{ form_row(addTournamentForm.mode) }}
+                    {{ form_row(addTournamentForm.descriptionTournament) }}
+
+                </div>
+                <div class="addTournamentPartThree">
+                    <div class="limitedInscription">
+                        {{ form_row(addTournamentForm.limitedInscription) }}
+                        {{ form_row(addTournamentForm.nbTeamLimit) }}
+                    </div>
+                    <div class="rewardChoice">
+                        {{ form_row(addTournamentForm.rewardChoice) }}
+                        {{ form_row(addTournamentForm.reward) }}
+                    </div>
+                </div>
+                
+                
+            </div> 
+            
+            <div class="submitAddTournamentPosition">
+                {{ form_row(addTournamentForm.submit) }}
+            </div>
+
+        {{ form_end(addTournamentForm)}}
+
+    {% else %}
+
+        <p>Vous devez vous connecter pour pouvoir créer un tournois !</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/preview.js') }}"></script>
+    <script src="{{ asset('js/checkbox.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}

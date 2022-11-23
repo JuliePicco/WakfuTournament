@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TeamController!{% endblock %}
+
+{% block body %}
+
+<div class="listBackground">
+
+    <h1>Liste des équipes</h1>
+
+    <div class="searchBarList">
+        <p>Trié par :</p>
+        <p>Rechercher</p>
+    </div>
+
+    <div class="list">
+        {% for team in teams %}
+            <div class="entity">
+                
+                <figure>
+                    <img src="{{ asset('img/user/team/' ~ team.teamLogo) }}">
+                </figure>
+
+                <div class="allInfoEntity">
+
+                    <div class="infoEntity">
+                        <div class="infoEntity-one">
+                            <h3>{{team.teamName}}</h3>
+                            <p>Serveur : {{team.server}}</p>
+                            <p>Leader : {{team.leader}}</p>
+                        </div>
+    
+                        <a class="plusInfo" href="{{ path('show_team', {'id' : team.id}) }}">+ d'info</a>  
+                    </div>
+                    
+                    <div class="infoEntity-two">
+                        
+                       
+                    </div>
+
+                </div>
+
+                
+                
+ 
+            </div>
+        {% endfor %}
+
+        <p class="noNext">Pas d'autres équipes pour le moment</p>
+
+    </div>
+
+
+</div>
+{% endblock %}

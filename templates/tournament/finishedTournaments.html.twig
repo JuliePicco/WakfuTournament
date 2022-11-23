@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TournamentController{% endblock %}
+
+{% block body %}
+
+
+<div class="listBackground">
+
+    <h1>Liste des tournois en cours et terminés</h1>
+
+    <div class="searchBarList">
+        <p>Trié par :</p>
+        <p>Rechercher</p>
+    </div>
+
+    <div class="list">
+        {% for tournament in tournaments %}
+            {% if date(tournament.startDate) <= date('d') %} 
+            
+                <div class="entity">
+                    
+                    <figure>
+                        <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+                    </figure>
+
+                    <div class="allInfoEntity">
+
+                        <div class="infoEntity">
+
+                            <div class="infoEntity-one">
+                                <h3>{{tournament.tournamentName}}</h3>
+
+                                {% if date(tournament.endDate) < date('+1d') %}
+    
+                                        <p>{{tournament.startDate | date('d-m-Y')}} au {{tournament.endDate | date('d-m-Y')}}</p>
+    
+                                {% else %}
+
+                                    <p>tournois en cours</p>
+
+                                {% endif %}
+
+                                <p>Serveur : {{tournament.server}}</p>
+                            </div>
+        
+                            <a class="plusInfo" href="{{ path('show_tournament', {'id' : tournament.id}) }}">+ d'info</a> 
+
+                        </div>
+                        
+                        <div class="infoEntity-two">
+                            <p>Mode de jeu : {{tournament.mode.modeName}}</p>
+
+                            <p>Nombre de participant : 
+                                {% if tournament.limitedInscription == "true" %} 
+                                    {{tournament.Nbreserved}}/{{tournament.nbTeamLimit}} 
+                                {% else %} 
+                                    {{tournament.Nbreserved}} 
+                                {% endif %}</p>
+                                
+                            <p>Récompenses à la clef : {% if tournament.rewardChoice == "true" %} Oui {% else %} Non {% endif %}</p>
+                        </div>
+
+                    </div>
+
+                </div> 
+
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+
+</div>
+
+{% endblock %}

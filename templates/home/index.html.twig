@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+<div class="homeBackground">
+
+    <h1>Bienvenue sur Wakfu Tournament</h1><br>
+
+    <div class="stream">
+
+    </div>
+
+    <div class="slideShowTournament">
+
+        <h2>prochain tournois prévus</h2>
+        
+        <div class="slider">
+    
+            {% for tournament in tournaments %}
+    
+                {% if date(tournament.startDate) > date('d') %} 
+    
+                <div class="mySlides">
+    
+                    <figure>
+                        <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+                    </figure>
+    
+                    <div>
+    
+                        <p class="slideTournamentName">{{tournament.tournamentName}}</p>
+    
+                        <div class="slideTournamentInfo">
+                            <p>du {{tournament.startDate | date('d-m-Y')}} au {{tournament.endDate | date('d-m-Y')}}</p>
+                            <p>sur {{tournament.server}}</p>
+                        </div>
+    
+                    </div>
+    
+                </div>
+    
+                {% endif %}
+            
+            {% endfor %}
+    
+            <button class="slideButton left-button" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="slideButton right-button" onclick="plusDivs(+1)">&#10095;</button>
+    
+        </div>
+
+    </div>
+
+    
+
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+    <script src="{{ asset('js/slideShow.js') }}"></script>
+{% endblock %}
