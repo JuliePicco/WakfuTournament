@@ -40,6 +40,7 @@ class TournamentRepository extends ServiceEntityRepository
     }
 
 
+
     //* Fonction  permettant de trouver les teams non inscrit
     
     public function findUnregistered($tournament_id){

@@ -46,9 +46,9 @@ class SecurityController extends AbstractController
     //* MODIFICATION DU PROFIL
 
     /**
-     * @Route("/security/editProfil/{id}", name="edit_profil")
+     * @Route("/security/editProfil", name="edit_profil")
      */
-    public function editProfil(ManagerRegistry $doctrine, User $user, Request $request) : Response {
+    public function editProfil(ManagerRegistry $doctrine, Request $request) : Response {
 
         // Vérifie qu'il y a un user en session
         if ($this->getUser()){
@@ -303,6 +303,7 @@ class SecurityController extends AbstractController
         
         } else {
             
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
             return $this->redirectToRoute('app_home');
             
         } 
@@ -313,7 +314,7 @@ class SecurityController extends AbstractController
     //* MODIFICATION DU MOT DE PASSE
 
     /**
-     * @Route("/security/editPassword/{id}", name="edit_password")
+     * @Route("/security/editPassword", name="edit_password")
      */
 
     public function editPassword(ManagerRegistry $doctrine, Request $request, UserPasswordHasherInterface $passwordHasher)
@@ -381,6 +382,7 @@ class SecurityController extends AbstractController
         // S il n'y a pas d'utilisateur en session on le redirige vers la page d'acceuil du site
         } else {
 
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
             return $this -> redirectToRoute('app_home');
 
         }
@@ -391,7 +393,7 @@ class SecurityController extends AbstractController
     // * SUPPRESSION DU COMPTE
 
     /**
-     * @Route("/security/profil/deleteAccount", name="delete_account")
+     * @Route("/security/deleteAccount", name="delete_account")
      */
     public function deleteAccount(ManagerRegistry $doctrine, Request $request)
     {

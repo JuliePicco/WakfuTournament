@@ -9,55 +9,54 @@
     <h1>Création d'une équipe</h1>
 
     {% if app.user %}
-        
-        
-        {{ form_start(addTeamForm) }}
-        <div class="addTeamFormulaire">  
-            
-            <div class="addTeamPartOne">
 
-                <figure class="preview">
-                    <img id="preview_img" class="imgProfil" src="{{ asset('img/user/team/team-default.jpg') }}" >
-                </figure>
-
-                {{ form_row(addTeamForm.teamLogo) }}
-                
-            </div>
-            
-            <div class="addTeamPartTwo">
-                
-                {{ form_row(addTeamForm.teamName) }}
-                {{ form_row(addTeamForm.server) }}
-                {{ form_row(addTeamForm.description) }}
-
-            </div>
-            
-            <div class="addTeamPartThree">
-
-                {# <div id="members" class ="ajouterMembre"  
-                data-prototype="{{ form_row(addTeamForm.members.vars.prototype)|e('html_attr') }}">
-                    {{ form_row(addTeamForm.members) }}
-                    <span></span>
-
-                </div> #}
-
-            </div>
-                
-        </div> 
-        
         {% if app.user.nbTeams < 3 %}
+        
+            {{ form_start(addTeamForm) }}
+            <div class="addTeamFormulaire">  
+                
+                <div class="addTeamPartOne">
+
+                    <figure class="preview">
+                        <img id="preview_img" class="imgProfil" src="{{ asset('img/user/team/team-default.jpg') }}" >
+                    </figure>
+
+                    {{ form_row(addTeamForm.teamLogo) }}
+                    
+                </div>
+                
+                <div class="addTeamPartTwo">
+                    
+                    {{ form_row(addTeamForm.teamName) }}
+                    {{ form_row(addTeamForm.server) }}
+                    {{ form_row(addTeamForm.description) }}
+
+                </div>
+                
+                <div class="addTeamPartThree">
+
+
+
+                </div>
+                    
+            </div> 
+        
+       
 
             <div class="submitAddTeamPosition">
                 {{ form_row(addTeamForm.submit) }}
             </div>
 
+            {{ form_end(addTeamForm)}}
         {% else %}
 
+            <figure>
+                <img class="imgWarning" src="{{ asset('img/godIop.png') }}">
+            </figure>
             <p class="warningMessage">Vous ne pouvez pas créer d'avantage d'équipe.</p>
             
         {% endif %}
 
-        {{ form_end(addTeamForm)}}
 
     {% else %}
 

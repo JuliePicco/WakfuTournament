@@ -32,7 +32,7 @@
                     {% if app.user %}
 
                         {% if app.user.id == user.id %}
-                        <a class="btn btn-edit btn-editProfil" href="{{ path('edit_profil', {'id' : user.id}) }}">Modifier</a>
+                        <a class="btn btn-edit btn-editProfil" href="{{ path('edit_profil')}}">Modifier</a>
                         {% endif %}
 
                     {% endif %}
@@ -68,13 +68,6 @@
     <!-- Contenu des onglets -->
     <div id="Characters" class="tabcontentProfil">
 
-        {# {% for server in servers %}
-            <div class="sud-tab-profil">
-                <button class="sub-tablinksProfil" onclick="userServerInfo(event, 'Servers')" id="defaultOpen">{{server.serverName}}</button>
-            </div>
-        {% endfor %}
-    #}
-
         <div id="Servers" class="characterCollection sub-tabcontentProfil">
 
             {% for  character in user.characters %}
@@ -92,7 +85,7 @@
                             
                             {% if app.user.id == user.id %}
 
-                                <a class="btn btn-delete-cross" href="{{ path('delete_character', {'idUser' : user.id ,'idCharacter' : character.id}) }}">X</a>
+                                <a class="btn btn-delete-cross" href="{{ path('delete_character', {'idCharacter' : character.id}) }}">X</a>
 
                             {% endif %}
 
@@ -110,7 +103,7 @@
         {% if app.user %}
             
             {% if app.user.id == user.id %}
-            <a class="btn addElementTab" href="{{ path('add_character', {'id' : user.id}) }}">Ajouter un personnage</a>
+                <a class="btn addElementTab" href="{{ path('add_character') }}">Ajouter un personnage</a>
             {% endif %}
         
         {% endif %}
@@ -153,7 +146,7 @@
                 {% if app.user.nbTeams < 3 %}
                     <div class="teamChoice">
                         
-                        <a class="btn addElementTab" href="{{ path('add_team', {'idUser' : app.user.id}) }}">Créer une nouvelle équipe</a>
+                        <a class="btn addElementTab" href="{{ path('add_team') }}">Créer une nouvelle équipe</a>
                         <a class="btn addElementTab" href="{{ path('app_team') }}">Rejoindre une équipe</a>
                     </div>
 
@@ -163,9 +156,9 @@
 
                 {% endif %}
 
-                {% endif %}
-
             {% endif %}
+
+        {% endif %}
         
 
     </div>
@@ -198,7 +191,7 @@
         {% if app.user %}
             
             {% if app.user.id == user.id %}
-                <a class="btn addElementTab" href="{{ path('add_tournament', {'id' : app.user.id}) }}">Organiser tournois</a>
+                <a class="btn addElementTab" href="{{ path('add_tournament')}}">Organiser tournois</a>
             {% endif %}
 
         {% endif %}

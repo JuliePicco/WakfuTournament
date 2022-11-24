@@ -295,6 +295,10 @@ header a {
 
     /** ADDFLASH */
 
+.flashMessage{
+    width: 100%;
+    position: absolute;
+}
 
 .flash{
     display: flex;
@@ -347,8 +351,6 @@ header a {
     width: 80%;
     height: 100%;
     margin: auto;
-    padding: 40px 50px;
-
 }
 
 .homeBackground h1{
@@ -356,14 +358,14 @@ header a {
     text-align: center;
     font-size: 35px;
     text-shadow: 0px 2px 2px black;
-
+    margin-top: 25px;
 }
 
 /* stream */
 
 .stream{
     display: flex;
-    width: 80%;
+    width: 65%;
     height: 100%;
     margin: auto;
     margin-bottom: 30px;
@@ -380,6 +382,7 @@ header a {
 .slideShowTournament{
     width: 75vh;
     place-self: center;
+    margin-bottom: 25px;
 }
 
 .slideShowTournament h2{

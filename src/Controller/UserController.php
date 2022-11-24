@@ -33,50 +33,63 @@ class UserController extends AbstractController
     // * Permet d'ajouter un personnage
 
     /**
-     * @Route("/user/{id}/addCharacter", name="add_character")
+     * @Route("/user/addCharacter", name="add_character")
      */
-    public function addCharacter(ManagerRegistry $doctrine, Character $character =  null, User $user, Request $request)
+    public function addCharacter(ManagerRegistry $doctrine, Character $character =  null, Request $request)
     {
-        $character = new Character();
 
-        $form = $this->createForm(CharacterType::class, $character);
-        
-        // gère la requête envoyée dans le formulaire
-        $form->handleRequest($request);
+        if ($this->getUser()){
 
-        if($form->isSubmitted() && $form->isValid()){
+            $user = $this->getUser();
 
-            $user->addCharacter($character);
-            $entityManager = $doctrine->getManager(); 
+            $character = new Character();
 
-            // lorsque l'on ajoute en BDD, on passe toujours par ces 2 lignes de commandes (persist qui est égale au prepare, et flush qui est égal au insert into (execute) et qui envoi en bdd)
-            $entityManager->persist($character);
-            $entityManager->flush();
+            $form = $this->createForm(CharacterType::class, $character);
+            
+            // gère la requête envoyée dans le formulaire
+            $form->handleRequest($request);
 
-            // permet de rediriger vers la bonne vue qui correspond au profil de l'utilisateur
-            return $this->redirectToRoute('profil_user', ['id'=>$user->getId()]);
+            if($form->isSubmitted() && $form->isValid()){
+
+                $user->addCharacter($character);
+                $entityManager = $doctrine->getManager(); 
+
+                // lorsque l'on ajoute en BDD, on passe toujours par ces 2 lignes de commandes (persist qui est égale au prepare, et flush qui est égal au insert into (execute) et qui envoi en bdd)
+                $entityManager->persist($character);
+                $entityManager->flush();
+
+                // permet de rediriger vers la bonne vue qui correspond au profil de l'utilisateur
+                return $this->redirectToRoute('profil_user', ['id'=>$user->getId()]);
+            }
+
+            // Permet d'afficher le formulaire d'add character
+            return $this->render('user/addCharacter.html.twig', [
+                'addCharacterForm' => $form->createView(),
+                'user' => $user,
+                'characterId' => $character->getId(),
+            
+            ]);
+
+        } else{
+
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
+            return $this->redirectToRoute('app_home');
+
         }
-
-        // Permet d'afficher le formulaire d'add character
-        return $this->render('user/addCharacter.html.twig', [
-            'addCharacterForm' => $form->createView(),
-            'user' => $user,
-            'characterId' => $character->getId(),
-         
-        ]);
 
     }
 
     // * suppression d'un personnage
 
     /**
-     * @Route("/user/{idUser}/deleteCharacter/{idCharacter}", name="delete_character")
-     * @ParamConverter("user", options={"mapping": {"idUser" : "id"}})
+     * @Route("/user/deleteCharacter/{idCharacter}", name="delete_character")
      * @ParamConverter("character", options={"mapping": {"idCharacter" : "id"}})
     */
-    public function deleteCharacter(ManagerRegistry $doctrine, User $user, Character $character): Response
+    public function deleteCharacter(ManagerRegistry $doctrine, Character $character): Response
     {
         if($this -> getUser() && $this -> getUser() == $character -> getUser()){
+
+            $user = $this->getUser();
 
             $entityManager = $doctrine->getManager(); 
             $entityManager->remove($character);
@@ -86,6 +99,7 @@ class UserController extends AbstractController
 
         } else {
 
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
             return $this -> redirectToRoute('app_home');
         }
     

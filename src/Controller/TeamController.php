@@ -32,10 +32,9 @@ class TeamController extends AbstractController
     // * Créer une équipe :
 
     /**
-     * @Route("/team/addTeam/{idUser}", name="add_team")
-     * @ParamConverter("user", options={"mapping": {"idUser" : "id"}})
+     * @Route("/team/addTeam", name="add_team")
      */
-    public function addTeam(ManagerRegistry $doctrine, Team $team = null, User $user, Request $request)
+    public function addTeam(ManagerRegistry $doctrine, Team $team = null, Request $request)
     {
 
         // Vérifie qu'il y a un user en session
@@ -146,6 +145,7 @@ class TeamController extends AbstractController
 
         } else {
             
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
             return $this->redirectToRoute('app_home');
             
         } 
@@ -153,21 +153,16 @@ class TeamController extends AbstractController
 
 
     /**
-     * @Route("/team/{idTeam}/edit/{idUser}", name="edit_team")
+     * @Route("/team/editTeam/{idTeam}", name="edit_team")
      * @ParamConverter("team", options={"mapping": {"idTeam" : "id"}})
-     * @ParamConverter("user", options={"mapping": {"idUser" : "id"}})
      */
-    public function editTeam(ManagerRegistry $doctrine, Team $team =  null, User $user, Request $request)
+    public function editTeam(ManagerRegistry $doctrine, Team $team =  null, Request $request)
     {
         // Vérifie qu'il y a un user en session
         if ($this->getUser() == $team -> getLeader()){
 
             //recupère l'user en session
             $user = $this->getUser();
-
-            if(!$team){
-                $team = new Team();
-            }
 
             $teamLogo = $team -> getTeamLogo();
             
@@ -263,7 +258,7 @@ class TeamController extends AbstractController
             }
 
             // Permet d'afficher le formulaire d'add tournament
-            return $this->render('team/addTeam.html.twig', [
+            return $this->render('team/editTeam.html.twig', [
                 'addTeamForm' => $form->createView(),
                 'user' => $user,
                 'edit' => $team->getId(),
@@ -272,9 +267,7 @@ class TeamController extends AbstractController
 
         } else {
             
-            // TODO comment faire fonctionner le add flash #tristesse
-            $this -> addFlash('danger', "L'action que vous avez tentez de faire n'est pas autorisé");
-
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
             return $this->redirectToRoute('app_home');
             
         } 
@@ -286,7 +279,8 @@ class TeamController extends AbstractController
      */
     public function joinTeam(ManagerRegistry $doctrine, Team $team){
 
-        if ($this->getUser()){
+        // on ajoute des contraintes pour éviter qu'une personne face des modifications via l'URL
+        if ($this->getUser() && $this->getUser()->nbTeams() < 3 && $team->nbMembers() < 6){
 
             $user=$this->getUser();
 
@@ -303,6 +297,7 @@ class TeamController extends AbstractController
 
         } else{
 
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
             return $this->redirectToRoute('app_home');
 
         }
@@ -332,6 +327,7 @@ class TeamController extends AbstractController
 
         } else{
 
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
             return $this->redirectToRoute('app_home');
 
         }
@@ -344,6 +340,7 @@ class TeamController extends AbstractController
      */
     public function show(Team $team, TeamRepository $tr): Response
     {
+        
         $notMembers = $tr->findNotMembers($team->getId());
         
             

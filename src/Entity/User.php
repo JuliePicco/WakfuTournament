@@ -412,8 +412,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     
 
-
-
     //Fonction qui permet de compter le nombre d'équipe dans lequel on est présent
 
     public function nbTeams(){

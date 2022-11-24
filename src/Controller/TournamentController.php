@@ -45,9 +45,9 @@ class TournamentController extends AbstractController
     // * Permet d'ajouter un tournois
 
     /**
-     * @Route("/tournament/addTournament/{id}", name="add_tournament")
+     * @Route("/tournament/addTournament", name="add_tournament")
      */
-    public function addTournament(ManagerRegistry $doctrine, Tournament $tournament =  null, User $user, Request $request)
+    public function addTournament(ManagerRegistry $doctrine, Tournament $tournament =  null, Request $request)
     {
         // Vérifie qu'il y a un user en session
         if ($this->getUser()){
@@ -153,6 +153,7 @@ class TournamentController extends AbstractController
 
         } else {
             
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
             return $this->redirectToRoute('app_home');
             
         } 
@@ -162,25 +163,73 @@ class TournamentController extends AbstractController
     //* Permet de s'inscrire à un tournois
 
     /**
-     * @Route("/tournament/{idTournament}/team/{idTeam}", name="inscription_team")
+     * @Route("/subscribe/tournament/{idTournament}/team/{idTeam}", name="inscription_team")
      * @ParamConverter("tournament", options={"mapping": {"idTournament" : "id"}})
      * @ParamConverter("team", options={"mapping": {"idTeam" : "id"}})
     */
     public function tournamentInscription(ManagerRegistry $doctrine, Tournament $tournament, Team $team ) {
 
-        // on récupère la méthode addParticipatingTeam dans tournament
-        $tournament -> addParticipatingTeam($team);
+            // on recherche si l 'utilisateur est le leader
+        if ($this->getUser() == $team -> getLeader() && 
+            //si l'utilisateur n est pas l'organisateur du tournois
+            $this->getUser() != $tournament ->getOrganisator() && 
+            // et si le tournois n'est pas complet,
+            $tournament->Nbreserved() != $tournament->getNbTeamLimit())
+            // alors, le l'utilisateur peut s'inscire au tournois
+            {
 
-        // nous permet d'acceder à la fonction persist et flush
-        $entityManager = $doctrine->getManager();
+            // on récupère la méthode addParticipatingTeam dans tournament
+            $tournament -> addParticipatingTeam($team);
 
-        $entityManager->persist($team);
-        $entityManager->flush();
+            // nous permet d'acceder à la fonction persist et flush
+            $entityManager = $doctrine->getManager();
 
-        return $this->redirectToRoute('show_tournament', ['id'=>$tournament->getId()] );
+            $entityManager->persist($team);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_tournament', ['id'=>$tournament->getId()] );
+
+        } else {
+
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
+            return $this->redirectToRoute('app_home');
+
+        }
 
     
     }
+
+
+    /**
+     * @Route("/unsubscribe/tournament/{idTournament}/team/{idTeam}", name="desinscrire_team")
+     * @ParamConverter("tournament", options={"mapping": {"idTournament" : "id"}})
+     * @ParamConverter("team", options={"mapping": {"idTeam" : "id"}})
+    */
+    public function tournamentDesinscrire(ManagerRegistry $doctrine, Tournament $tournament, Team $team){
+        
+        if ($this->getUser() == $team -> getLeader()){
+
+            // on récupère la méthode removeParticipatingTeam dans tournament
+            $tournament -> removeParticipatingTeam($team);
+
+            // nous permet d'acceder à la fonction persist et flush
+            $entityManager = $doctrine->getManager();
+
+            $entityManager->persist($team);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_tournament', ['id'=>$tournament->getId()] );
+
+        } else {
+
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
+            return $this->redirectToRoute('app_home');
+
+        }
+
+    }
+
+
 
 
      // ! il est préférable de mettre cette fonction à la fin pour pas qu'elle rentre en conflit avec les autres (à cause de la route "/{id}")
@@ -189,6 +238,7 @@ class TournamentController extends AbstractController
      */
     public function show(ManagerRegistry $doctrine, Tournament $tournament, TournamentRepository $unregistered): Response
     {
+        // fonction qui permet de trouver les teams ou l'on est leader qui ne sont pas enregistré dans un tournois
         $unregisteredTeams = $unregistered -> findUnregistered($tournament->getId());
 
         return $this->render('tournament/showTournament.html.twig', [

@@ -176,7 +176,7 @@ display: block;
   .btn-edit {
     cursor: pointer;
     color: #51068a;
-    background:white;
+    background: rgb(255 255 255 / 80%);
     font-size: larger;
     padding: 5px 10px;
     border: #51068a solid 4px;
@@ -219,36 +219,44 @@ display: block;
   .profilBackground {
     width: 100%; 
     margin: 0;
-    padding: 40px 0px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 0;
+}
+
+.profil{
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0px;
+  margin-bottom: 0px;
 }
 
   .profil h1 {
     text-align: -webkit-center;
   }
 
-  .allInfo {
+.allInfo {
     flex-direction: column;
     margin-bottom: 0px;
     text-align: center;
   }
 
-  .allInfo figure {
+.allInfo figure {
     margin-right: 0;
 }
 
-  .imgProfil{
+.imgProfil{
     margin-bottom: 20px;
   }
 
-  .profilInfo {
+.profilInfo {
     width: 100%;
     margin-bottom: 20px;
 }
 
 .btn-editProfil {
   margin-top: 20px;
+  align-self: center;
+}
+
+.modifyInfoP{
+  text-align: left;
   align-self: center;
 }
 

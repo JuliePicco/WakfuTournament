@@ -29,7 +29,7 @@
                         {% if app.user %}
 
                             {% if app.user.id == team.leader.id %}
-                                <a class="btn btn-edit btn-editProfil" href="{{ path('edit_team', {'idTeam' : team.id, 'idUser' : app.user.id}) }}">Modifier</a>
+                                <a class="btn btn-edit btn-editProfil" href="{{ path('edit_team', {'idTeam' : team.id}) }}">Modifier</a>
                             {% endif %}
 
                         {% endif %}

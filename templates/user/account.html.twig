@@ -12,12 +12,12 @@
         <div class="accountContent">
             <div class="modifyAccount">
                 <p>Email : {{ user.email}}</p>
-                <a class="btn btn-edit" href="{{ path('edit_profil', {'id' : user.id}) }}">Modifier</a>
+                <a class="btn btn-edit" href="{{ path('edit_profil') }}">Modifier</a>
             </div>
 
             <div class="modifyAccount">
                 <p>Mot de passe</p>
-                <a class="btn btn-edit" href="{{ path('edit_password', {'id' : user.id}) }}">Modifier</a>
+                <a class="btn btn-edit" href="{{ path('edit_password')}}">Modifier</a>
             </div>
         </div>
 

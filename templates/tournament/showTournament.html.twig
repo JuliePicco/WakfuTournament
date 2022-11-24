@@ -141,6 +141,24 @@
 
             {% endif %}
 
+            {# Permet de désincrire son équipe à un tournois #}
+            {% for team in tournament.participatingTeams %}
+
+                {% if team.server == tournament.server %}
+
+                    {% if app.user.id == team.leader.id %}
+
+                        <p class="inscriptionTeams">
+                            {{team}} 
+                            <a class="btn btn-warning" href="{{ path('desinscrire_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Désinscrire</a>
+                        </p>
+
+                    {% endif %} 
+
+                {% endif %}  
+
+            {% endfor %}
+
         </div>
 
 

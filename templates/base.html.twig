@@ -63,8 +63,8 @@
                                         <li class="menuBurger-item">Equipe <i class="fa-solid fa-caret-down"></i></li>
     
                                         <ul class="dropdown-content-burger">
-                                            {% if app.user %}
-                                                <li class="sub-menuBurger-item"><a href="{{ path('add_team', {'idUser' : app.user.id}) }}">Créer une équipe</a></li>
+                                            {% if app.user %}                                      
+                                                <li class="sub-menuBurger-item"><a href="{{ path('add_team') }}">Créer une équipe</a></li>                                              
                                             {% endif %}
                                             <li class="sub-menuBurger-item"><a href="{{ path('app_team') }}">Liste des équipes</a></li>
                                             <li class="sub-menuBurger-item"><a href="{{ path('app_user') }}">Liste des joueurs</a></li>
@@ -88,7 +88,7 @@
                                         <li class="sub-menu-item"><a href="{{ path('app_tournament') }}">Tournois à venir</a></li>
                                         <li class="sub-menu-item"><a href="{{ path('app_finishedTournaments') }}">Tournois Terminés</a></li>
                                         {% if app.user %}
-                                            <li class="sub-menu-item"><a href="{{ path('add_tournament', {'id' : app.user.id}) }}">Organiser un tournois</a></li>
+                                            <li class="sub-menu-item"><a href="{{ path('add_tournament') }}">Organiser un tournois</a></li>
                                         {% endif %}
                                     </ul>
                                 </div>
@@ -155,7 +155,7 @@
             
             <main>
 
-                <div>
+                <div class="flashMessage">
                     
                     {% for message in app.flashes('success') %}
                         <div class="alert alert-success flash" role="alert">
@@ -166,6 +166,13 @@
         
                     {% for message in app.flashes('warning') %}
                         <div class="alert alert-warning flash" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation alert-icon"></i> {{ message }}
+                        </div>
+                    {% endfor %}
+
+
+                    {% for message in app.flashes('danger') %}
+                        <div class="alert alert-danger flash" role="alert">
                             <i class="fa-solid fa-triangle-exclamation alert-icon"></i> {{ message }}
                         </div>
                     {% endfor %}
