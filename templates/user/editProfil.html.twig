@@ -11,7 +11,7 @@
         <h1>Modifier profil</h1>
 
         <figure class="preview avatarPosition">
-            <img id="preview_img" class="editAvatar" src="{{ asset('img/user/avatar/' ~ app.user.avatar) }}" >
+            <img id="preview_img" class="editAvatar" src="{{ asset('img/user/avatar/' ~ app.user.avatar) }}" alt="Preview de l'avatar">
         </figure>
 
         <div class="profilFormulaire">   
@@ -22,7 +22,7 @@
                 {# la div "buffer" sert uniquement pour acceder à la div créée par le formulaire dont on a pas accès #}
 
                 <div class="profilFormGroup">
-                    <div class="buffer">
+                    <div class="buffer editMailPseudo">
                         {{ form_row(editProfilForm.email) }}
                         {{ form_row(editProfilForm.pseudonyme) }}
                     </div>
@@ -32,6 +32,13 @@
                         {{ form_row(editProfilForm.twitchLink) }}
                     </div>
                 </div>
+
+                
+                {% if app.user.discordId is empty %}
+                <a href="{{path('connect_discord_start')}}" class="socialNetwork-update"> 
+                    <i class="fa-brands fa-discord socialNetwork-logo"></i>M'authentifier via discord ?
+                </a>
+                {% endif %}
 
                 <div class="profilFormSubmit">{{form_row(editProfilForm.submit)}}</div>
                 

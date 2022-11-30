@@ -242,7 +242,8 @@ class SecurityController extends AbstractController
                                         $file
                                     );
     
-                                    // On récupère dans notre disque local l'avatar actuel avant sa modification par l'utilisateur. On passe donc par le getParameter('avatar_directory') pour le retrouver dans son fichier (avatar)
+                                    // On récupère dans notre disque local l'avatar actuel avant sa modification par l'utilisateur. 
+                                    // On passe donc par le getParameter('avatar_directory') pour le retrouver dans son fichier (avatar)
                                     // pour ce faire j'utilise de nouveau le getParameter('avatar_directory') pour localiser le fichier dans public/img/avatars 
                                     $avatarName = $this -> getParameter('avatar_directory'). '/' . $user -> getAvatar();
     
@@ -256,7 +257,6 @@ class SecurityController extends AbstractController
                                         }
     
                                     }
-    
                                     // Initialisation du nouvelle avatar
                                     $user -> setAvatar($file);
                                             
@@ -269,14 +269,10 @@ class SecurityController extends AbstractController
                                     $entityManager->flush();
 
                                 } else {
-    
                                     // erreur si le poid dépasse les 200ko
                                     $this -> addFlash('warning', "Votre avatar ne doit pas dépasser les 200Ko !");
-    
                                 }
-    
                             }else {
-    
                                 // erreur si le format de l'avatar est mauvais
                                 $this -> addFlash('warning', "Le format de votre avatar n'est pas supporté ! Format possible : png, jpeg, jpg et webp");
                             }

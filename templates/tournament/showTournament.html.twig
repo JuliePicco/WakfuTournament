@@ -12,7 +12,7 @@
 
         <div class="allInfo allInfoTournament">
             <figure>
-                <img class="imgProfil" src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+                <img class="imgProfil" src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois" {{tournament.tournamentName}}>
             </figure>
 
             <div class="profilInfo">
@@ -62,7 +62,6 @@
 
         </div>
 
-
         <div class="tournamentInscription">
 
             {# si la date est dépassé alors tournois terminé #}
@@ -93,24 +92,32 @@
 
                         {% else %}   
 
-                            <h2>Inscrire son équipe <span class="littleInfo">(Vous devez être leader de votre équipe pour pouvoir l'inscrire)</span></h2>
-    
-                            {% for team in unregisteredTeams %}
-        
-                                {% if team.server == tournament.server %}
-                                
-                                    {% if app.user.id == team.leader.id %}                                 
+                            {% if app.user.nbLeaderTeams == 0 %}
 
-                                        <p class="inscriptionTeams">
-                                            {{team}} 
-                                            <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
-                                        </p>
+                                <h2>Inscrire son équipe <span class="littleInfo">(Vous devez être leader de votre équipe pour pouvoir l'inscrire)</span></h2>
+
+                                <p >Vous n'avez pas d'équipe à inscrire ou vous êtes le leader</p>
+
+                            {% else %}
+
+                                {% for team in unregisteredTeams %}
+            
+                                    {% if team.server == tournament.server %}
                                     
-                                    {% endif %}
-                                
-                                {% endif %}
+                                        {% if app.user.id == team.leader.id %}                                 
 
-                            {% endfor %}
+                                            <p class="inscriptionTeams">
+                                                {{team}} 
+                                                <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
+                                            </p>
+                                            
+                                        {% endif %}
+                                
+                                    {% endif %}
+                                            
+                                {% endfor %}
+
+                            {% endif %}
 
                         {% endif %}
 
@@ -180,7 +187,7 @@
                 <div class="entity">
 
                     <figure>
-                        <img src="{{ asset('img/user/team/' ~ participatingTeam.teamLogo) }}">
+                        <img src="{{ asset('img/user/team/' ~ participatingTeam.teamLogo) }}" alt="Logo de l'équipe" {{participatingTeam.teamName}}>
                     </figure>
 
                     <div class="allInfoEntity">

@@ -12,7 +12,7 @@
 
             <div class="allInfo">
                 <figure>
-                    <img class="imgProfil" src="{{ asset('img/user/team/' ~ team.teamLogo) }}">
+                    <img class="imgProfil" src="{{ asset('img/user/team/' ~ team.teamLogo) }}" alt="Logo de l'équipe" {{team.teamName}}>
                 </figure>
 
                 <div class="profilInfo">
@@ -115,7 +115,7 @@
                         <a href="{{ path('profil_user', {'id' : member.id}) }}">
 
                             <figure>
-                                <img src="{{ asset('img/user/avatar/' ~ member.avatar) }}">
+                                <img src="{{ asset('img/user/avatar/' ~ member.avatar) }}" alt="Avatar de" {{member.pseudonyme}}>
                             </figure>
 
                             {% if member.id == team.leader.id %}
@@ -159,7 +159,7 @@
                             
                             <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
                                 <figure>
-                                    <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+                                    <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois">
                                 </figure>
                                 
                                 {{tournament.tournamentName}}
@@ -196,7 +196,7 @@
                         
                             <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
                                 <figure>
-                                    <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}">
+                                    <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois" {{tournament.tournamentName}} >
                                 </figure>
                                 
                                 {{tournament.tournamentName}}

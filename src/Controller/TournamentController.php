@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Team;
-use App\Entity\User;
 use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
@@ -168,16 +167,17 @@ class TournamentController extends AbstractController
      * @ParamConverter("team", options={"mapping": {"idTeam" : "id"}})
     */
     public function tournamentInscription(ManagerRegistry $doctrine, Tournament $tournament, Team $team ) {
-
             // on recherche si l 'utilisateur est le leader
         if ($this->getUser() == $team -> getLeader() && 
             //si l'utilisateur n est pas l'organisateur du tournois
-            $this->getUser() != $tournament ->getOrganisator() && 
+            $this->getUser() != $tournament ->getOrganisator() 
             // et si le tournois n'est pas complet,
-            $tournament->Nbreserved() != $tournament->getNbTeamLimit())
-            // alors, le l'utilisateur peut s'inscire au tournois
+            // $tournament->Nbreserved() != $tournament->getNbTeamLimit()
+            )
+            // alors, l'utilisateur peut s'inscrire au tournois
             {
 
+                
             // on récupère la méthode addParticipatingTeam dans tournament
             $tournament -> addParticipatingTeam($team);
 
@@ -195,8 +195,6 @@ class TournamentController extends AbstractController
             return $this->redirectToRoute('app_home');
 
         }
-
-    
     }
 
 

@@ -98,7 +98,7 @@
                                     
                                     <ul class="dropdown-content">
                                         {% if app.user %}
-                                            <li class="sub-menu-item"><a href="{{ path('add_team', {'idUser' : app.user.id}) }}">Créer une équipe</a></li>
+                                            <li class="sub-menu-item"><a href="{{ path('add_team') }}">Créer une équipe</a></li>
                                         {% endif %}
                                         <li class="sub-menu-item"><a href="{{ path('app_team') }}">Liste des équipes</a></li>
                                         <li class="sub-menu-item"><a href="{{ path('app_user') }}">Liste des joueurs</a></li>
@@ -123,7 +123,7 @@
                                         <li class="menu-item menu-profil">
                                             {{app.user.pseudonyme}}
                                             <figure>
-                                                <img class ="miniAvatarProfil" src="{{ asset('img/user/avatar/' ~ app.user.avatar) }}">
+                                                <img class ="miniAvatarProfil" src="{{ asset('img/user/avatar/' ~ app.user.avatar) }}" alt="Votre avatar">
                                             </figure>
                                         
                                         </li>

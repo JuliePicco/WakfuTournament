@@ -73,7 +73,7 @@ class TeamRepository extends ServiceEntityRepository
       // ! FIN DES REQUETES DQL PERSONNALISEES
 
 
-    // //* Fonction  qui permet de trouver les joueurs qui ne sont pas dans l'équipe
+    //* Fonction  qui permet de trouver les joueurs qui ne sont pas dans l'équipe
     
     public function findNotMembers($team_id){
 

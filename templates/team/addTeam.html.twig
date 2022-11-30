@@ -18,7 +18,7 @@
                 <div class="addTeamPartOne">
 
                     <figure class="preview">
-                        <img id="preview_img" class="imgProfil" src="{{ asset('img/user/team/team-default.jpg') }}" >
+                        <img id="preview_img" class="imgProfil" src="{{ asset('img/user/team/team-default.jpg') }}" alt="Preview du logo de l'équipe à ajouter">
                     </figure>
 
                     {{ form_row(addTeamForm.teamLogo) }}
@@ -51,7 +51,7 @@
         {% else %}
 
             <figure>
-                <img class="imgWarning" src="{{ asset('img/godIop.png') }}">
+                <img class="imgWarning" src="{{ asset('img/godIop.png') }}" alt="Image du dieu Iop créé par Ankama">
             </figure>
             <p class="warningMessage">Vous ne pouvez pas créer d'avantage d'équipe.</p>
             
