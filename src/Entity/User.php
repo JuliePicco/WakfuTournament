@@ -410,6 +410,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
    // Fonction qui permet de compter le nombre de fois ou on est leader d une team
 
     public function nbLeaderTeams(){

@@ -48,14 +48,7 @@ class TeamType extends AbstractType
                 'label' => 'Description de votre team',
             ])
 
-            // ->add('members', CollectionType::class, [
-            //     'entry_type' => MembersType::class,
-            //     'label' => 'Voulez-vous ajouter des membres à votre team ?',
-            //     'entry_options' => ['label' =>false],
-            //     'allow_add' => true,
-            //     'allow_delete' => true,
-            //     'by_reference' => false
-            // ])
+          
 
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'submitAddTournament'],

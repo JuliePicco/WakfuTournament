@@ -224,7 +224,6 @@ class TournamentController extends AbstractController
             return $this->redirectToRoute('app_home');
 
         }
-
     }
 
 

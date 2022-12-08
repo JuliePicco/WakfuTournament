@@ -314,9 +314,7 @@ class Tournament
 
     // permet de compter le nombre de place réservé
     public function Nbreserved(){
-
         $reserved = count($this->participatingTeams) ;
-
         return $reserved;
     }
 

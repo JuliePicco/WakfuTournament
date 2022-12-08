@@ -84,6 +84,7 @@
 
                 {% else %}
 
+                {# Condition si le tournois est limité #}
                     {% if tournament.limitedInscription == "true" %}
 
                         {% if tournament.Nbreserved == tournament.nbTeamLimit %}
@@ -92,11 +93,11 @@
 
                         {% else %}   
 
+                            <h2>Inscrire son équipe<span class="littleInfo">(Vous devez être leader de votre équipe pour pouvoir l'inscrire)</span></h2>
+
                             {% if app.user.nbLeaderTeams == 0 %}
-
-                                <h2>Inscrire son équipe <span class="littleInfo">(Vous devez être leader de votre équipe pour pouvoir l'inscrire)</span></h2>
-
-                                <p >Vous n'avez pas d'équipe à inscrire ou vous êtes le leader</p>
+                                
+                                <p class="warningMessage">Vous n'êtes pas leader d'un équipe que vous pouvez inscrire</p>
 
                             {% else %}
 
@@ -112,41 +113,65 @@
                                             </p>
                                             
                                         {% endif %}
-                                
+
                                     {% endif %}
                                             
                                 {% endfor %}
+                                
+                                        {# todo a modifier #}
+                                {% if app.user.nbLeaderTeams in tournament.server == 0 %}
 
+                                    <br><p class="warningMessage">Vous n'avez pas d'autre équipe dans ce serveur</p>
+
+                                {% endif %}
+                                
                             {% endif %}
 
                         {% endif %}
 
-                    {% else %}
+                    {# Condition si le tournois n'est pas limité #}
 
+                    {% else %}
+                        
                         <h2>Inscrire son équipe <span class="littleInfo">(Vous devez être leader de votre équipe pour pouvoir l'inscrire)</span></h2>
 
-                        {% for team in unregisteredTeams %}
+                        {% if app.user.nbLeaderTeams == 0 %}
+                                
+                            <p class="warningMessage">Vous n'êtes pas leader d'une équipe</p>
 
-                            {% if team.server == tournament.server %}
+                        {% else %}
+
+                            {% for team in unregisteredTeams %}
                             
-                                {% if app.user.id == team.leader.id %}                                 
-
-                                    <p class="inscriptionTeams">
-                                        {{team}} 
-                                        <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
-                                    </p>
+                                {% if team.server == tournament.server %}
+                                
+                                    {% if app.user.id == team.leader.id %}                                 
+                                    
+                                        <p class="inscriptionTeams">
+                                            {{team}} 
+                                            <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
+                                        </p>
+                                    
+                                    {% endif %}
                                 
                                 {% endif %}
                             
+                            {% endfor %}
+                                    {# todo a modifier #}
+                            {% if app.user.nbLeaderTeams in tournament.server == 0 %}
+
+                               <br><p class="warningMessage">Vous n'avez pas d'autre équipe dans ce serveur</p>
+
                             {% endif %}
 
-                        {% endfor %}
+                        {% endif %}
 
                     {% endif %}
 
                 {% endif %}
 
             {% endif %}
+
 
             {# Permet de désincrire son équipe à un tournois #}
             {% for team in tournament.participatingTeams %}

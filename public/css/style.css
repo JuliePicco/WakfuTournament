@@ -365,6 +365,7 @@ header a {
 
 .stream{
     display: flex;
+    flex-direction: column;
     width: 65%;
     height: 100%;
     margin: auto;

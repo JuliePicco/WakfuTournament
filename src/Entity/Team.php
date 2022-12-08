@@ -215,9 +215,7 @@ class Team
     // Fonction permettant de savoir combien y a t'il de membre dans l'équipe
 
     public function nbMembers(){
-
         $nbMembers = count($this->members);
-
         return $nbMembers;
     }
 
