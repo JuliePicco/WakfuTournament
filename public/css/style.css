@@ -363,11 +363,11 @@ header a {
 
 /* stream */
 
-.stream{
+.newContent{
     display: flex;
     flex-direction: column;
     width: 65%;
-    height: 100%;
+    min-height: 400px;
     margin: auto;
     margin-bottom: 30px;
     padding: 30px;
@@ -381,7 +381,7 @@ header a {
 /* slideShow */
 
 .slideShowTournament{
-    width: 75vh;
+    width: 60%;
     place-self: center;
     margin-bottom: 25px;
 }
@@ -447,7 +447,7 @@ header a {
 }
 
 .slideTournamentName{
-    font-size: 50px;
+    font-size: 45px;
 
 }
 
