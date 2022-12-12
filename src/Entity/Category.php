@@ -29,6 +29,7 @@ class Category
      */
     private $subCategories;
 
+    
     public function __construct()
     {
         $this->subCategories = new ArrayCollection();

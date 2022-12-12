@@ -36,6 +36,7 @@ class SubCategory
      */
     private $topics;
 
+    
     public function __construct()
     {
         $this->topics = new ArrayCollection();

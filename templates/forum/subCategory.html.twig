@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ForumController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="forum-background">
+
+        <div class="previous-links">
+            <a href="{{ path('app_home') }}">Accueil</a>
+            <i class="fa-solid fa-angle-right"></i>
+            <a href="{{ path('app_forum') }}">Forum</a>
+        </div>
+
+        <div class="forum-title">
+            <figure>
+                <img src="{{ asset('img/bubble.png')}}" >
+            </figure>
+
+            <div class="forum-title-name">
+                <h1>{{subCategory.subCategoryName}}</h1>
+                <a href="">Créer un nouveau sujet</a>
+            </div>
+        </div>
+
+
+        <div class="forum-subject">
+
+            <table class="table-forum">
+                
+                <thead>
+                    <tr>
+                        <th class="principal-subject">Toutes les discussions</th>
+                        <th class="secondary-subject">Dernière activé</th>
+                        <th class="tertiary-subject">Réponses</th>
+                        
+                    </tr>
+    
+                </thead>
+    
+                <tbody>
+
+                    {% if subCategory.topics is empty %}
+                        <tr>
+                            <td class="noTopic">Pas de topic sur le sujet pour le moment ! </td> 
+                        </tr>
+                    {% else %}
+
+                        {% for topic in subCategory.topics %}
+                            <tr>
+                                <td class="principal-subject"><a href="{{ path('topic', {'id' : topic.id}) }}">{{topic.topicName}}</a></td>
+                                <td class="secondary-subject"></td>
+                                <td class="tertiary-subject">{{topic.posts|length}}</td>
+                            </tr>
+                                    
+                        {% endfor %}
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+           
+
+        </div>
+        
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/accordeon.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}

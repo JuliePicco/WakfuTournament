@@ -1301,314 +1301,215 @@ background-color: rgba(0, 0, 0, 0.700);
 
 
 
-/** CSS MESSAGERIE */
+/** CSS FORUM */
 
-.wrapperMessage {
-    position: relative;
-    left: 50%;
-    height: 800px;
-    transform: translate(-50%, 0);
+.forum-background{
+    width: 80%;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 50px auto;
+    padding: 20px;
 }
 
-.containerMessage {
+.previous-links{
+    margin-left: 10px;
+}
+
+.previous-links i{
+    color: #0d2f31;
+}
+
+.previous-links a{
+    text-decoration: none;
+    color: black;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.previous-links a:hover{
+    text-decoration: underline;
+}
+
+.forum-title{
     display: flex;
-    position: relative;
-    width: 60%;
-    height: 75%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-bottom: 10px;
+}
+
+.forum-title figure{
     background-color: white;
-    border-radius: 20px;
 }
 
-ul {
-    list-style: none;
-}
-
-
-/* Partit gauche */
-
-.left {
-    width: 37.6%;
-    height: 100%;
-    border-right: solid gainsboro 1px
-}
-
-.left-top {
+.forum-title-name{
     display: flex;
-    position: relative; 
-    place-content: space-between;
-    padding: 30px;
-}
-
-/* ligne entre les personnes */
-.left-top:after {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    display: block;
-    width: 80%;
-    height: 1px;
-    content: "";
-    background-color: gainsboro;
-    transform: translate(-50%, 0);
-}
-
-.searchBar {
-    width: 60%;
-    padding: 0 15px;
-    border: 1px solid gainsboro;
-    background-color: #eceff1;
-    border-radius: 20px;
-    font-family: "Source Sans Pro", sans-serif;
-    font-weight: 400;
-}
-
-.search {
-    width: 42px;
-    height: 42px;
-    background-color: #40b2b5;
-    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/name-type.png);
-    background-repeat: no-repeat;
-    background-position: top 12px left 14px;
-    border-radius: 50%;
-}
-
-.friends-list {
-    margin-left: -1px;
-    width: calc(100% + 2px);
-}
-
-
-.friend {
-    display: flex;
-    position: relative;
+    justify-content: space-between;
+    background: #40b2b5;
     width: 100%;
-    padding: 12px 10% 16px;
-    cursor: pointer;
+    align-items: center;
 }
 
-.friend:after {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    display: block;
-    width: 80%;
-    height: 1px;
-    content: "";
-    background-color: gainsboro;
-    transform: translate(-50%, 0);
-}
-
-.friend.active, .friend:hover {
-    margin-top: -1px;
-    margin-left: -1px;
-    padding-top: 13px;
-    border: 0;
-    background-color: #40b2b5;
-    width: calc(100% + 2px);
-    padding-left: calc(10% + 1px);
-}
-
-.friend.active span, .friend:hover span {
+.forum-title-name h1{
+    font-size: 36px;
     color: white;
+    text-shadow: 0px 1px 1px black;
+    margin-left: 20px
 }
 
-.messageAvatar{
-    background: white;
-    border: solid 2px gainsboro;
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
+.forum-title-name a{
+    font-size: 22px;
+    text-decoration: none;
+    background-color: #015a5b;
+    color: white;
+    text-shadow: 0px 1px 1px black;
+    padding: 10px;
+    margin-right: 20px
 }
 
-.infoMessage{
+.forum-title-name a:hover{
+    background-color: #015a5b8e;
+}
+
+.accordion{
+    background-color: #81c9c8;
+    color: white;
+    text-shadow: 0px 1px 1px black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    border-bottom: solid 1px #ffffff;
+    text-align: left;
+    outline: none;
+    font-size: 26px;
+    transition: 0.4s;
+  }
+
+    /* Petit logo + */
+thead.accordion:after {
+    content: '\2212';
+    color:#0d2f31;
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
+}
+    
+/* Petit logo - */
+thead.accordion.active:after {
+    content: "\002B";
+}
+
+.panel {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    background-color: white;
+    overflow: hidden;
 }
 
-.left-top .pseudo {
-    font-size: 14px;
-    line-height: 22px;
-    color: #222;
-    font-weight: 600;
+.panel a{
+    padding: 15px;
+    font-family: 'Roboto Condensed';
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
+    }
+
+.panel a:hover{
+    text-decoration: underline;
 }
 
-.friend .time {
-    font-size: 14px;
-    color: grey;
-}
+/* table forum */
 
-.message-preview {
-    font-size: 14px;
-    overflow: hidden !important;
-    width: 70%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: grey;
-}
-
-
-
-/* Partit droite */
-
-.right {
+.table-forum{
     display: flex;
     flex-direction: column;
-    position: relative;
-    width: 62.4%;
-    height: 100%;
 }
 
-.right-top {
+.table-forum thead{
+    display: flex;
+    background-color: #81c9c8;
+    color: white;
+    padding: 18px;
     width: 100%;
-    height: 47px;
-    padding: 15px 29px;
-    background-color: #eceff1;
-    border-radius: 0px 20px 0px 0px;
+    font-size: 26px;
+    text-shadow: 0px 1px 1px black;
+
 }
 
-.right-top span {
-    font-size: 15px;
-    color: grey;
-}
-
-.right-top .pseudo{
-    color: dark;
-    font-weight: 600;
-}
-
-
-.conversation-start {
-    position: relative;
+.table-forum thead tr, .table-forum tbody tr {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    margin-bottom: 27px;
+}
+
+.table-forum tbody tr {
+    padding: 15px;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
+}
+
+.table-forum tbody tr a{
+    font-family: 'Roboto Condensed';
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+}
+
+.table-forum tbody tr a:hover{
+    text-decoration: underline;
+}
+
+.table-forum tbody {
+    background-color: white;
+}
+
+.principal-subject{
+    width: 40%;
+    text-align: left;
+}
+
+.secondary-subject{
+    width: 40%;
+    text-align: center;
+    padding: 0px 10px;
+    }
+
+.short-list-topic{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.short-list-topic a {
+    font-weight: 100 !important;
+}
+
+.tertiary-subject{
+    width: 20%;
     text-align: center;
 }
 
-/* jour et date */
-.conversation-start span:before, .conversation-start span:after {
-    position: absolute;
-    top: 10px;
-    display: inline-block;
-    width: 30%;
-    height: 1px;
-    content: "";
-    background-color: gainsboro;
+td.tertiary-subject-accordeon{
+    width: 20%;
+    text-align: center;
+    margin-right: 20px;
 }
 
-.conversation-start span:before {
-    left: 0;
+.noTopic{
+    color: red;
+    text-align: center;
+    font-size: 20px;
 }
 
-.conversation-start span:after {
-    right: 0;
+/* topic */
+.content-topic{
+    background: white;
+    padding: 24px 75px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 100;
+    text-align: justify;
 }
-
-.conversation-start span {
-    font-size: 14px;
-    display: inline-block;
-    color: gainsboro;
-}
-
-/* conversation */
-
-.chat.active-chat {
-    display: flex;
-}
-
-.scrollBar{
-    overflow-y: scroll;
-}
-
-.chat {
-    display: flex;
-    position: relative;
-    /* display: none; */
-    /* overflow: hidden; */
-    padding: 0 35px 92px;
-    border-color: gainsboro;
-    height: calc(100% - 48px);
-    flex-direction: column;
-}
-
-.message {
-    font-size: 16px;
-    position: relative;
-    display: inline-block;
-    clear: both;
-    margin-bottom: 8px;
-    padding: 13px 14px;
-    vertical-align: top;
-    border-radius: 5px;
-}
-
-.message:before {
-    position: absolute;
-    top: 19px;
-    display: block;
-    width: 8px;
-    height: 6px;
-    content: " ";
-    transform: rotate(29deg) skew(-35deg);
-}
-
-.message.you {
-    color: white;
-    background-color: #40b2b5;
-    align-self: flex-start;
-}
-
-.message.you:before {
-    left: -3px;
-    background-color: #40b2b5;
-}
-
-.message.me {
-    color:#222;
-    background-color: #eceff1;
-    align-self: flex-end;
-}
-
-.message.me:before {
-    right: -3px;
-    background-color: #eceff1;
-}
-
-.write {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 20px auto;
-    height: 42px;
-    border: 1px solid gainsboro;
-    background-color: #eceff1;
-    width: calc(100% - 58px);
-    border-radius: 5px
-}
-
-.write input {
-    font-size: 16px;
-    width: 90%;
-    height: 40px;
-    padding: 0 10px;
-    color:#222;
-    border: 0;
-    outline: none;
-    background-color: #eceff1;
-    font-weight: 400;
-}
-
-.write .write-link.send:before {
-    display: inline-block;
-    width: 20px;
-    height: 42px;
-    padding: 0 10px;
-    content: "";
-    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/send.png);
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
 

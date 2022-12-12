@@ -74,6 +74,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private ?string $twitchId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $twitchLink="Non renseigné";
 
     /**
@@ -96,6 +101,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $tournaments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="user")
+     */
+    private $posts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Topic::class, mappedBy="user")
+     */
+    private $topics;
+
 
     
     public function __construct()
@@ -105,6 +120,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->teams = new ArrayCollection();
         $this->leaderTeams = new ArrayCollection();
         $this->tournaments = new ArrayCollection();
+        $this->posts = new ArrayCollection();
+        $this->topics = new ArrayCollection();
 
     }
 
@@ -278,6 +295,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         
         return $this;
     }
+
+
+    public function getTwitchId(): ?string
+    {
+        return $this->twitchId;
+    }
+
+    public function setTwitchId(?string $twitchId): self
+    {
+        $this->twitchId = $twitchId;
+
+        return $this;
+    }
     
 
     public function getTwitchLink(): ?string
@@ -444,6 +474,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->pseudonyme;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getUser() === $this) {
+                $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Topic>
+     */
+    public function getTopics(): Collection
+    {
+        return $this->topics;
+    }
+
+    public function addTopic(Topic $topic): self
+    {
+        if (!$this->topics->contains($topic)) {
+            $this->topics[] = $topic;
+            $topic->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTopic(Topic $topic): self
+    {
+        if ($this->topics->removeElement($topic)) {
+            // set the owning side to null (unless already changed)
+            if ($topic->getUser() === $this) {
+                $topic->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
    

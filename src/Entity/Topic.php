@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TopicRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,9 +20,14 @@ class Topic
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=50)
      */
     private $topicName;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $content;
 
     /**
      * @ORM\Column(type="datetime")
@@ -38,6 +45,25 @@ class Topic
      */
     private $subCategory;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="topics")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="topic")
+     */
+    private $posts;
+
+
+
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +77,18 @@ class Topic
     public function setTopicName(string $topicName): self
     {
         $this->topicName = $topicName;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }
@@ -90,4 +128,51 @@ class Topic
 
         return $this;
     }
+
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setTopic($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getTopic() === $this) {
+                $post->setTopic(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
 }

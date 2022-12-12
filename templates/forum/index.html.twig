@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ForumController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="forum-background">
+
+        <div class="previous-links">
+            <a class="previous-link" href="{{ path('app_home') }}">Accueil</a>
+        </div>
+
+        <div class="forum-title">
+            <figure>
+                <img src="{{ asset('img/bubble.png')}}" >
+            </figure>
+
+            <div class="forum-title-name">
+                <h1>Forum Wakfu Tournament</h1>
+            </div>
+        </div>
+
+        <div class="forum-subject<">
+
+            {% for category in categories %}
+
+                <table class="table-forum">
+                    
+                   
+                    <thead class="accordion">
+                        <tr>
+                            <th class="principal-subject">{{category.categoryName}}</th>
+                            <th class="secondary-subject">Derniers Topics</th>
+                            <th class="tertiary-subject">Sujets</th>
+                        </tr>
+                    </thead>
+                    
+        
+                    <div class="panel">
+                        
+                        <tbody>
+     
+                                {% for subCategory in category.subCategories %}
+                                    <tr>
+                                        <td class="principal-subject"><a href="{{ path('subCategory', {'id' : subCategory.id}) }}">{{subCategory.subCategoryName}}</a></td>
+
+                                        <td class="secondary-subject short-list-topic">
+                                           {# ! question #}
+                                            {% for limitedTopic in limitedTopics %}
+
+                                                {% if limitedTopic.subCategory.id == subCategory.id  %}
+                                                    
+                                                    <a href="">{{limitedTopic.topicName}}</a>
+
+                                                {% endif %}
+                                        
+                                            {% endfor %}
+                                            
+                                            {# {% for topic in subCategory.topics %}
+                                       
+                                                <a href="{{ path('topic', {'id' : topic.id}) }}">{{topic.topicName}}</a>
+                                                
+                                            {% endfor %} #}
+                                        </td>
+
+                                        <td class="tertiary-subject-accordeon">{{subCategory.topics|length}}</td>
+                                    
+                                    </tr>
+                                            
+                                {% endfor %}
+        
+                        </tbody>
+                        
+                    </div>
+
+                </table>
+
+            {% endfor %}
+
+        </div>
+        
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/accordeon.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}

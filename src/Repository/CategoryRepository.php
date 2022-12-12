@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +39,30 @@ class CategoryRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    // ! trouver les topics d'un categorie avec un max de 3 resultats
+
+    // public function findTopicsInSubcategory($topic_id){
+
+    //     $em = $this->getEntityManager();
+    //     $sub = $em->createQueryBuilder();
+
+    //     // Requete permettant de chercher les topics d'un subcategory
+    //     $qb = $sub;
+    //     $qb->select('t')
+    //         ->from('App\Entity\Topic', 't')
+    //         ->leftJoin('t.subCategory', 'sc')
+    //         ->where('sc.id = :id')
+    //         ->OrderBy('t.creationDate DESC' )
+    //         ->setMaxResults(3)
+    //         ->setParameter('id', $topic_id);
+        
+    //     $query = $sub->getQuery();
+    //     return $query->getResult();
+
+    // }
+
+
 
 //    /**
 //     * @return Category[] Returns an array of Category objects

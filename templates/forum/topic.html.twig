@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ForumController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="forum-background">
+
+        <div class="previous-links">
+            <a href="{{ path('app_home') }}">Accueil</a>
+            <i class="fa-solid fa-angle-right"></i>
+            <a href="{{ path('app_forum') }}">Forum</a>
+            <i class="fa-solid fa-angle-right"></i>
+            <a href="{{ path('subCategory', {'id' : topic.subCategory.id}) }}">{{topic.subCategory.subCategoryName}}</a>
+        </div>
+
+        <div class="forum-title">
+            <figure>
+                <img src="{{ asset('img/bubble.png')}}" >
+            </figure>
+
+            <div class="forum-title-name">
+                <h1>{{topic.topicName}}</h1>
+            </div>
+        </div>
+
+        <div class="forum-subject">
+
+            <p class="content-topic">{{topic.content}}</p>
+
+        </div>
+        
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/accordeon.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}
