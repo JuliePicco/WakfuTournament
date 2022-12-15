@@ -37,7 +37,7 @@
 
                     {% endif %}
                 </div>
-
+                
             </div>
     
             <div class="profilInfoMatch">
@@ -170,20 +170,64 @@
 
             
             {% for  tournament in user.tournaments %}
-            
-                <div class="tournamentUserProfil">
+
+                {% if  date(tournament.startDate) > date(now)  %}   
                 
-                    <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
-                        <figure>
-                            <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois"{{tournament.tournamentName}}>
-                        </figure>
+                    <div class="tournamentUserProfil">
                         
-                        {{tournament.tournamentName}}
-                    </a> 
+                        <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
+                            <figure>
+                                <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois"{{tournament.tournamentName}}>
+                            </figure>
+                            
+                            {{tournament.tournamentName}}
+                        </a> 
+                        <p>Prochain tournoi</p>
+                    </div>
 
-                </div>
+                {% endif %}  
 
-            {% endfor %}
+                {% if date(tournament.startDate) < date(now) or date(tournament.startDate) == date(now) %}
+                    {% if date(tournament.endDate) > date(now) or date(tournament.endDate) == date(now) %}
+                                            
+                        <div class="tournamentUserProfil">
+                            
+                            <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
+                                <figure>
+                                    <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois"{{tournament.tournamentName}}>
+                                </figure>
+                                
+                                {{tournament.tournamentName}}
+                            </a> 
+                            <p>tournoi en cours</p>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+
+            {% endfor %}    
+
+            {% for  tournament in user.tournaments %}
+                {% if date(tournament.endDate) < date(now) %}
+
+                    <div class="tournamentUserProfil">
+                        
+                        <a href="{{ path('show_tournament', {'id' : tournament.id}) }}">
+                            <figure>
+                                <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois"{{tournament.tournamentName}}>
+                            </figure>
+                            
+                            {{tournament.tournamentName}}
+
+                            
+                        </a> 
+                    
+                    </div>
+                    
+                {% endif %}
+            {% endfor %} 
+
+            
 
 
         </div>

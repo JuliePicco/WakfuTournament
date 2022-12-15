@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Team;
 use App\Entity\User;
 use App\Entity\Server;
@@ -273,6 +274,31 @@ class TeamController extends AbstractController
         } 
     }
 
+
+    /**
+     * @Route("/team/deleteTeam/{idTeam}", name="delete_team")
+     * @ParamConverter("team", options={"mapping": {"idTeam" : "id"}})
+    */
+    public function deleteTeam(ManagerRegistry $doctrine, Team $team): Response
+    {
+        if($this -> getUser() && $this -> getUser() == $team -> getLeader()){
+
+            $user = $this->getUser();
+
+            $entityManager = $doctrine->getManager(); 
+            $entityManager->remove($team);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('profil_user', ['id'=>$user->getId()]);
+
+        } else {
+
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
+            return $this -> redirectToRoute('app_home');
+        }
+    
+    }
+
      /**
      * @Route("/joinTeam/{idTeam}", name="join_team")
      * @ParamConverter("team", options={"mapping": {"idTeam" : "id"}})
@@ -340,13 +366,13 @@ class TeamController extends AbstractController
      */
     public function show(Team $team, TeamRepository $tr): Response
     {
-        
         $notMembers = $tr->findNotMembers($team->getId());
-        
-            
+        $now = new DateTime() ;
+         
         return $this->render('team/showTeam.html.twig', [
             'team' => $team,
             'notMembers' => $notMembers,
+            'now' => $now,
  
         ]);
     }

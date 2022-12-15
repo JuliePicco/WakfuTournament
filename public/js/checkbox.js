@@ -8,7 +8,7 @@ if (document.querySelector('input[name="tournament[limitedInscription]"]')) {
     document.querySelectorAll('input[name="tournament[limitedInscription]"]').forEach((elem) => {
       elem.addEventListener("change", function(event) {
         var checkBox = event.target.value;
-        if (checkBox=='false'){
+        if (checkBox== false){
             nbTeamLimit.disabled=true
         }else{
             nbTeamLimit.disabled=false
@@ -22,7 +22,7 @@ if (document.querySelector('input[name="tournament[limitedInscription]"]')) {
     document.querySelectorAll('input[name="tournament[rewardChoice]"]').forEach((elem) => {
       elem.addEventListener("change", function(event) {
         var checkBox = event.target.value;
-        if (checkBox=='false'){
+        if (checkBox== false){
             reward.disabled=true
         }else{
             reward.disabled=false

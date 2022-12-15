@@ -5,7 +5,7 @@
 {% block body %}
 
 
-    <div class="forum-background">
+    <div class="forum-background main-forum">
 
         <div class="previous-links">
             <a class="previous-link" href="{{ path('app_home') }}">Accueil</a>
@@ -43,25 +43,20 @@
      
                                 {% for subCategory in category.subCategories %}
                                     <tr>
-                                        <td class="principal-subject"><a href="{{ path('subCategory', {'id' : subCategory.id}) }}">{{subCategory.subCategoryName}}</a></td>
+                                        <td class="principal-subject"><a class="topic-name" href="{{ path('subCategory', {'id' : subCategory.id}) }}">{{subCategory.subCategoryName}}</a></td>
 
                                         <td class="secondary-subject short-list-topic">
-                                           {# ! question #}
+                                           {# ! question sur la limitation de 3 #}
                                             {% for limitedTopic in limitedTopics %}
 
                                                 {% if limitedTopic.subCategory.id == subCategory.id  %}
                                                     
-                                                    <a href="">{{limitedTopic.topicName}}</a>
+                                                    <a class="topic-name" href="">{{limitedTopic.topicName}}</a>
 
                                                 {% endif %}
                                         
                                             {% endfor %}
                                             
-                                            {# {% for topic in subCategory.topics %}
-                                       
-                                                <a href="{{ path('topic', {'id' : topic.id}) }}">{{topic.topicName}}</a>
-                                                
-                                            {% endfor %} #}
                                         </td>
 
                                         <td class="tertiary-subject-accordeon">{{subCategory.topics|length}}</td>

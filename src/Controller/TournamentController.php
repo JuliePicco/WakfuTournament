@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Team;
 use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +23,26 @@ class TournamentController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
         $tournaments = $doctrine->getRepository(Tournament::class)->findBy([], ["startDate" => "ASC"]);
+        $now = new DateTime() ;
 
         return $this->render('tournament/index.html.twig', [
             'tournaments' => $tournaments,
+            'now' => $now,
+            
+        ]);
+    }
+
+    /**
+     * @Route("/tournament/current", name="app_currentTournaments")
+     */
+    public function currentTournaments(ManagerRegistry $doctrine): Response
+    {
+        $tournaments = $doctrine->getRepository(Tournament::class)->findBy([], ["startDate" => "DESC"]);
+        $now = new DateTime() ;
+
+        return $this->render('tournament/currentTournaments.html.twig', [
+            'tournaments' => $tournaments,
+            'now' => $now,
         ]);
     }
 
@@ -34,9 +53,11 @@ class TournamentController extends AbstractController
     public function finishedTournaments(ManagerRegistry $doctrine): Response
     {
         $tournaments = $doctrine->getRepository(Tournament::class)->findBy([], ["startDate" => "DESC"]);
+        $now = new DateTime() ;
 
         return $this->render('tournament/finishedTournaments.html.twig', [
             'tournaments' => $tournaments,
+            'now' => $now,
         ]);
     }
 
@@ -48,11 +69,13 @@ class TournamentController extends AbstractController
      */
     public function addTournament(ManagerRegistry $doctrine, Tournament $tournament =  null, Request $request)
     {
+        $now = new DateTime() ;
         // Vérifie qu'il y a un user en session
         if ($this->getUser()){
 
             //recupère l'user en session
             $user = $this->getUser();
+
 
             $tournament = new Tournament();
 
@@ -147,6 +170,7 @@ class TournamentController extends AbstractController
                 'addTournamentForm' => $form->createView(),
                 'user' => $user,
                 'tournamentId' => $tournament->getId(),
+                'now' => $now,
             
             ]);
 
@@ -156,6 +180,31 @@ class TournamentController extends AbstractController
             return $this->redirectToRoute('app_home');
             
         } 
+    }
+
+
+     /**
+     * @Route("/tournament/deleteTournament/{idTournament}", name="delete_tournament")
+     * @ParamConverter("tournament", options={"mapping": {"idTournament" : "id"}})
+    */
+    public function deleteTournament(ManagerRegistry $doctrine, Tournament $tournament): Response
+    {
+        if($this -> getUser() && $this -> getUser() == $tournament -> getOrganisator()){
+
+            $user = $this->getUser();
+
+            $entityManager = $doctrine->getManager(); 
+            $entityManager->remove($tournament);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('profil_user', ['id'=>$user->getId()]);
+
+        } else {
+
+            $this -> addFlash('danger', "Une erreur est survenue, veuillez réessayer !");
+            return $this -> redirectToRoute('app_home');
+        }
+    
     }
 
 
@@ -171,7 +220,7 @@ class TournamentController extends AbstractController
         if ($this->getUser() == $team -> getLeader() && 
             //si l'utilisateur n est pas l'organisateur du tournois
             $this->getUser() != $tournament ->getOrganisator() 
-            // et si le tournois n'est pas complet,
+            
             // $tournament->Nbreserved() != $tournament->getNbTeamLimit()
             )
             // alors, l'utilisateur peut s'inscrire au tournois
@@ -233,14 +282,16 @@ class TournamentController extends AbstractController
     /**
      * @Route("/showTournament/{id}", name="show_tournament")
      */
-    public function show(ManagerRegistry $doctrine, Tournament $tournament, TournamentRepository $unregistered): Response
+    public function show(Tournament $tournament, TournamentRepository $unregistered): Response
     {
         // fonction qui permet de trouver les teams ou l'on est leader qui ne sont pas enregistré dans un tournois
         $unregisteredTeams = $unregistered -> findUnregistered($tournament->getId());
+        $now = new DateTime() ;
 
         return $this->render('tournament/showTournament.html.twig', [
             'tournament' => $tournament,
-            'unregisteredTeams' => $unregisteredTeams
+            'unregisteredTeams' => $unregisteredTeams,
+            'now' => $now,
         ]);
     }
 

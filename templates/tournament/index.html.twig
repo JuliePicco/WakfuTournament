@@ -16,7 +16,7 @@
 
     <div class="list">
         {% for tournament in tournaments %}
-            {% if date(tournament.startDate) > date('d') %} 
+            {% if date(tournament.startDate) > date(now) %} 
 
                 <div class="entity">
                     
@@ -51,10 +51,10 @@
                         
                         <div class="infoEntity-two">
                             <p>Mode de jeu : {{tournament.mode.modeName}}</p>
-                            <p>Place limitée : {% if tournament.limitedInscription == "true" %} Oui {% else %} Non {% endif %}</p>
+                            <p>Place limitée : {% if tournament.limitedInscription == true %} Oui {% else %} Non {% endif %}</p>
 
                             <p>Nombre de participant : 
-                                {% if tournament.limitedInscription == "true" %} 
+                                {% if tournament.limitedInscription == true %} 
                                     {{tournament.Nbreserved}}/{{tournament.nbTeamLimit}} 
                                 {% else %} 
                                     {{tournament.Nbreserved}} 
@@ -62,7 +62,7 @@
 
                             </p>
                             
-                            <p>Récompenses à la clef : {% if tournament.rewardChoice == "true" %} Oui {% else %} Non {% endif %}</p>
+                            <p>Récompenses à la clef : {% if tournament.rewardChoice == true %} Oui {% else %} Non {% endif %}</p>
                         </div>
 
                     </div>

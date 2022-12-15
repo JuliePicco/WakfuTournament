@@ -21,7 +21,7 @@ class Team
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=40)
      */
     private $teamName;
 

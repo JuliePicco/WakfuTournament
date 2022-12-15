@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -55,6 +56,41 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $this->add($user, true);
     }
+
+    
+
+    // ! a voir demain
+    //* fonction permettant de retrouver un leader enregistrer dans un tournois
+
+    public function findregistered($user_id){
+
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
+
+        // Requete permettant de cherche les équipes du leader/user
+        $qb = $sub;
+        $qb->select('t')
+            ->from('App\Entity\Team', 't')
+            ->leftJoin('t.tournaments', 'to')
+            ->where('t.leader = :id');
+
+        $sub = $em->createQueryBuilder();
+
+        // Sous requete pour obtenir les équipes inscrite du leader
+            $sub->select('te')
+            ->from('App\Entity\Team', 'te')
+            ->leftJoin('to.tournaments', 'to')
+            ->andWhere($sub->expr()->notIn('te.id', $qb->getDQL()))
+            ->setParameter('id', $user_id);
+         
+
+        $query = $sub->getQuery();
+        return $query->getResult();
+    }
+
+
+
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

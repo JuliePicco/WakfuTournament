@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -38,6 +39,12 @@ class Post
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    public function __construct()
+    {
+        $this->creationDate = new DateTime();
+      
+    }
 
     public function getId(): ?int
     {

@@ -48,7 +48,7 @@ class TournamentRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
 
-        // Requete permettant de cherche les teams inscrits dans un tournois
+        // Requete permettant de cherche les teams inscrits dans un tournoi
         $qb = $sub;
         $qb->select('t')
             ->from('App\Entity\Team', 't')
@@ -67,8 +67,8 @@ class TournamentRepository extends ServiceEntityRepository
 
         $query = $sub->getQuery();
         return $query->getResult();
-
     }
+    
 
 //    /**
 //     * @return Tournament[] Returns an array of Tournament objects

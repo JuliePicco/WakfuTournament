@@ -52,6 +52,7 @@
     
                                         <ul class="dropdown-content-burger">
                                             <li class="sub-menuBurger-item"><a href="{{ path('app_tournament') }}">Tournois à venir</a></li>
+                                            <li class="sub-menuBurger-item"><a href="{{ path('app_currentTournaments') }}">Tournois en cours</a></li>
                                             <li class="sub-menuBurger-item"><a href="{{ path('app_finishedTournaments') }}">Tournois Terminés</a></li>
                                             {% if app.user %}
                                                 <li class="sub-menuBurger-item"><a href="{{ path('add_tournament', {'id' : app.user.id}) }}">Organiser un tournois</a></li>
@@ -87,6 +88,7 @@
                                     
                                     <ul class="dropdown-content">
                                         <li class="sub-menu-item"><a href="{{ path('app_tournament') }}">Tournois à venir</a></li>
+                                        <li class="sub-menu-item"><a href="{{ path('app_currentTournaments') }}">Tournois en cours</a></li>
                                         <li class="sub-menu-item"><a href="{{ path('app_finishedTournaments') }}">Tournois Terminés</a></li>
                                         {% if app.user %}
                                             <li class="sub-menu-item"><a href="{{ path('add_tournament') }}">Organiser un tournois</a></li>

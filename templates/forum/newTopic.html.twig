@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Topic{% endblock %}
+
+{% block body %}
+
+<div class="formulaireBackground">
+
+    {% if app.user %}
+        
+        <h1>Nouveau Topic</h1>
+
+
+        <div class="addCharacterFormulaire">   
+            {{ form_start(newTopicForm) }}
+            
+                {{ form_row(newTopicForm.topicName) }}
+                {{ form_row(newTopicForm.content) }}
+
+                {{ form_row(newTopicForm.submit) }}
+ 
+                
+            {{ form_end(newTopicForm)}}
+
+        </div> 
+                
+
+        
+    {% else %}
+        
+    <p>Veuillez vous connecter !</p>
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}

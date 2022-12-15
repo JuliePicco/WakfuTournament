@@ -32,16 +32,8 @@
                     {{ form_row(addTeamForm.description) }}
 
                 </div>
-                
-                <div class="addTeamPartThree">
-
-
-
-                </div>
                     
             </div> 
-        
-       
 
             <div class="submitAddTeamPosition">
                 {{ form_row(addTeamForm.submit) }}
@@ -50,7 +42,7 @@
             {{ form_end(addTeamForm)}}
         {% else %}
 
-            <figure>
+            <figure class="figure-warning">
                 <img class="imgWarning" src="{{ asset('img/godIop.png') }}" alt="Image du dieu Iop créé par Ankama">
             </figure>
             <p class="warningMessage">Vous ne pouvez pas créer d'avantage d'équipe.</p>

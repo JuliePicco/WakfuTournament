@@ -76,7 +76,7 @@ class TournamentType extends AbstractType
             ->add('limitedInscription', ChoiceType::class, [
                 'attr' => ['class' => 'form-tournament btwn2Choice'],
                 'label' => "Nombre d'inscription limité ?",
-                'choices' => [ 'Oui' => 'true', 'Non' => 'false'],
+                'choices' => [ 'Oui' => true, 'Non' => false],
                 'expanded' => true,
                 'multiple' => false,
                 'required' => true,
@@ -91,7 +91,7 @@ class TournamentType extends AbstractType
             ->add('rewardChoice', ChoiceType::class, [
                 'attr' => ['class' => 'form-tournament btwn2Choice'],
                 'label' => 'Récompenses à la clef ?  :',
-                'choices' => [ 'Oui' => 'true', 'Non (tournois amical)' => 'false'],
+                'choices' => [ 'Oui' => true, 'Non (tournois amical)' => false],
                 'expanded' => true,
                 'multiple' => false,
                 'required' => true,

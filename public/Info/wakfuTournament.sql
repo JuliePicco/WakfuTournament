@@ -22,10 +22,14 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table wakfutournament.category : ~0 rows (environ)
+-- Listage des données de la table wakfutournament.category : ~3 rows (environ)
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` (`id`, `category_name`) VALUES
+	(1, 'News et Informations'),
+	(2, 'Wakfu Tournament'),
+	(3, 'Assistance');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
 -- Listage de la structure de la table wakfutournament. character
@@ -103,12 +107,14 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Listage des données de la table wakfutournament.doctrine_migration_versions : ~0 rows (environ)
+-- Listage des données de la table wakfutournament.doctrine_migration_versions : ~5 rows (environ)
 /*!40000 ALTER TABLE `doctrine_migration_versions` DISABLE KEYS */;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20221003135216', '2022-10-11 06:45:32', 299),
 	('DoctrineMigrations\\Version20221015083241', '2022-10-15 08:32:51', 1177),
-	('DoctrineMigrations\\Version20221122074941', '2022-11-22 07:50:06', 595);
+	('DoctrineMigrations\\Version20221122074941', '2022-11-22 07:50:06', 595),
+	('DoctrineMigrations\\Version20221212092959', '2022-12-12 09:30:15', 724),
+	('DoctrineMigrations\\Version20221212093656', '2022-12-12 09:37:02', 304);
 /*!40000 ALTER TABLE `doctrine_migration_versions` ENABLE KEYS */;
 
 -- Listage de la structure de la table wakfutournament. gender
@@ -179,6 +185,24 @@ INSERT INTO `nation` (`id`, `name`) VALUES
 	(5, 'Aucune');
 /*!40000 ALTER TABLE `nation` ENABLE KEYS */;
 
+-- Listage de la structure de la table wakfutournament. post
+CREATE TABLE IF NOT EXISTS `post` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `creation_date` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_5A8A6C8D1F55203D` (`topic_id`),
+  KEY `IDX_5A8A6C8DA76ED395` (`user_id`),
+  CONSTRAINT `FK_5A8A6C8D1F55203D` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`),
+  CONSTRAINT `FK_5A8A6C8DA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table wakfutournament.post : ~0 rows (environ)
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
+
 -- Listage de la structure de la table wakfutournament. server
 CREATE TABLE IF NOT EXISTS `server` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -202,10 +226,17 @@ CREATE TABLE IF NOT EXISTS `sub_category` (
   PRIMARY KEY (`id`),
   KEY `IDX_BCE3F79812469DE2` (`category_id`),
   CONSTRAINT `FK_BCE3F79812469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table wakfutournament.sub_category : ~0 rows (environ)
+-- Listage des données de la table wakfutournament.sub_category : ~6 rows (environ)
 /*!40000 ALTER TABLE `sub_category` DISABLE KEYS */;
+INSERT INTO `sub_category` (`id`, `category_id`, `sub_category_name`) VALUES
+	(1, 1, 'News sur Wakfu'),
+	(2, 1, 'Mise à jour Wakfu Tournament'),
+	(3, 2, 'Discussions Générales'),
+	(4, 2, 'Recrutement'),
+	(5, 2, 'Débats et suggestions'),
+	(6, 3, 'Signaler un bug');
 /*!40000 ALTER TABLE `sub_category` ENABLE KEYS */;
 
 -- Listage de la structure de la table wakfutournament. team
@@ -239,17 +270,26 @@ INSERT INTO `team` (`id`, `team_name`, `leader_id`, `team_logo`, `description`, 
 -- Listage de la structure de la table wakfutournament. topic
 CREATE TABLE IF NOT EXISTS `topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sub_category_id` int(11) NOT NULL,
-  `topic_name` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `topic_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci,
   `creation_date` datetime NOT NULL,
   `statut` tinyint(1) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `sub_category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_9D40DE1BF7BFE87C` (`sub_category_id`),
+  KEY `IDX_9D40DE1BA76ED395` (`user_id`),
+  CONSTRAINT `FK_9D40DE1BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_9D40DE1BF7BFE87C` FOREIGN KEY (`sub_category_id`) REFERENCES `sub_category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table wakfutournament.topic : ~0 rows (environ)
 /*!40000 ALTER TABLE `topic` DISABLE KEYS */;
+INSERT INTO `topic` (`id`, `topic_name`, `content`, `creation_date`, `statut`, `user_id`, `sub_category_id`) VALUES
+	(1, 'Nouvelle update sur les classes', 'OSAMODAS\r\nLes invocations de l’Osamodas ont toujours été sa plus grande richesse et ont toujours contribué à ce que cette classe ait un gameplay unique. Il s’agissait pour nous d’une refonte complexe, car nous voulions garder le système de capture d’invocation qui rend l’Osamodas si spécial.\r\n\r\nNous avons fait des modifications profondes sur les règles des invocations : dorénavant, les créatures capturées évoluent en fonction du niveau et des caractéristiques de son invocateur. Ce dernier peut tirer parti de la variété d’invocations qu’il a capturées grâce à une mécanique d’invocation et désinvocation plus dynamique. Les créatures capturées ont également un archétype qui renforce leur impact en fonction de leur rôle. Nous sommes très heureux d\'avoir pu mener à bien ce chantier qui a, en outre, eu une excellente réception de la communauté.\r\n\r\nÀ terme, une fois que d\'autres priorités seront passées, nous souhaiterions approfondir le nombre d\'invocations pouvant être capturées par tranche, toujours avec l\'objectif d\'ajouter davantage de personnalisation et de possibilité de jeu.\r\nOUGINAK\r\nUn sondage réalisé auprès de la communauté en 2021 a mis en évidence que l’Ouginak était une des classes les moins satisfaisantes.\r\n\r\nNous avons donc opéré des modifications sur l’Ouginak avec deux grandes directions :\r\nLe rendre plus efficace et décisif ;\r\nLui donner des rôles uniques et des spécificités.\r\nSur ce dernier point, il nous est apparu que l’Ouginak était vu comme une classe en compétition directe avec le Iop ou le Sram. Nous avons donc approfondi son aspect offtank, ses retraits de PM et sa génération d’Armure pour en faire le représentant d’une idée de jeu particulière. Nous sommes pleinement satisfaits de cette refonte qui a reçu un accueil très positif.\r\n \r\nSTEAMER\r\nToujours par le biais de ce même sondage, nous avons constaté que le Steamer était dans le lot des classes avec le plus bas taux de satisfaction. Nous avons fait une refonte totale de la classe en 2020. Il s\'agissait de la première classe sur le "nouveau modèle". Nous en avons tiré des enseignements précieux et avons décidé de la revoir afin d\'en faire une classe plus plaisante, plus efficace, avec une plus grande profondeur et une mécanique macro plus riche.\r\n\r\nNous avons décidé de remettre la tourelle au centre du gameplay du Steamer, et d\'ajouter les Points de Stasis qui contrôlent la puissance de frappe de la classe.\r\n\r\nLe Steamer était une classe compliquée à retravailler car elle possède de nombreux gadgets et de nombreuses orientations possibles. Mêlée, distance, monocible, zone, tank, support, DPT... Il y a suffisamment de concepts forts et originaux sur cette classe pour en faire deux classes distinctes. C\'est pourquoi la distinction entre les PW et les PS était aussi cruciale pendant le développement de la dernière refonte.\r\n\r\nÀ ce jour, la refonte hérite d\'un accueil positif dans la phase de Bêta. Nous comptons déployer la refonte lors du patch 1.78 et surveiller la réception et l\'utilisation que les joueurs en font.\r\n \r\nPASSIFS\r\nDepuis quelques années, nous pensons qu’il est très important d’améliorer les passifs sur toutes les classes afin qu’ils proposent des variations significatives dans les mécaniques et la façon de jouer. À ces fins, nous accompagnons généralement les bonus donnés par les passifs de contraintes. Ces dernières sont essentielles pour nous assurer que le choix du passif est réfléchi et qu’il provoque un véritable changement dans la manière de jouer le personnage. De plus, nous augmentons le nombre de passifs disponibles pour chaque classe, passant de huit ou dix à presque vingt par classe.\r\n\r\nÀ présent que le nouveau modèle de passifs est appliqué à 9 des 18 classes, nous avons analysé les données des joueurs et il s\'avère que si certaines classes utilisent des sorts et des passifs bien plus variés qu’avant l’équilibrage, d’autres semblent jouer en écrasante majorité certaines combinaisons.\r\n\r\nC’est surtout observable pour les classes ayant vocation à infliger des dommages.\r\n\r\nSur l’Osamodas, l\'Ouginak et le Steamer, nous avons pris le parti de faire très peu de passifs augmentant les dommages infligés. Ceux-ci sont trop souvent jugés nécessaires pour exploiter tout le potentiel d’une classe, au détriment des autres façons de jouer qui deviennent inintéressantes. Nous avons constaté sur l\'Osamodas et l\'Ouginak que les joueurs avaient tendance à jouer différents rôles, car ils ont une base de pourcentage de Dommages infligés commune.\r\n\r\nLa possibilité de personnalisation et d\'expression des joueurs est la chose la plus importante à nos yeux. Notre ambition principale est de tendre vers un modèle dans lequel tous les joueurs peuvent jouer une classe du plus de manières possible sans souffrir d\'un fort manque de compétitivité. WAKFU est un jeu à forte composante RPG et sans aléatoire fort dans les mécaniques de jeu : il est naturel que certaines compositions et gameplays soient plus forts que d\'autres et nous ne pourrons jamais corriger en totalité cet aspect du jeu. Néanmoins, nous voulons tendre vers davantage d\'équilibrage et de variations dans les façons de jeu.\r\n\r\nNous pensons avoir fortement amélioré cet aspect au cours des dernières années : il était par exemple impensable de jouer sans Féca dans l\'équipe il y a encore trois ans. Toutefois, notre chantier continue.\r\n\r\nÀ ces fins, nous avons développé davantage d\'outils pour mieux surveiller et référencer vos habitudes de jeu : d\'abord avec des données d\'utilisations (sorts, passifs), ensuite par le biais de sondages. Ces données croisées nous indiquent les préférences principales des joueurs.\r\n \r\nCONTRÔLE\r\nBien qu\'il ne s\'agisse pas d\'un sujet relié à l\'équilibrage des classes à proprement parler, nous souhaitons faire le point sur plusieurs caractéristiques.\r\n\r\nÀ ce jour, nous n\'avons pas statué sur les changements sur le contrôle, bien qu\'il devienne progressivement de moins en moins utile. Nous espérons pouvoir en faire une mécanique intéressante dans le futur, mais il est aussi possible que cette caractéristique finisse par totalement disparaître. Dans tous les cas, le contrôle ne servira plus à augmenter le nombre d\'invocations ou de mécanismes à la disposition du joueur comme aujourd\'hui.\r\n \r\nMAÎTRISES ZONE ET MONOCIBLE\r\nC\'est un sujet compliqué à aborder avec la communauté car nous comprenons qu\'un grand nombre de joueurs utilise ces deux caractéristiques. Les modifier rendrait un grand nombre de builds actuels caduques. Cependant, dans notre équipe, nous remettons régulièrement en question la pertinence de ces deux caractéristiques. De notre point de vue, elles contraignent le joueur à choisir des sorts différents et à se sur-spécialiser. La spécialisation n\'est pas un mal, mais là où les maîtrises mêlée, distance ou dos impliquent des modifications profondes sur la manière de jouer, les maîtrises zone et monocible ne font que restreindre les choix des joueurs et leur font composer des decks rigides.\r\n\r\nNous réfléchissons à plusieurs options pour régler ce souci, mais nous ne sommes pas encore convaincus par l\'état actuel de nos réflexions.\r\n\r\nOn pourrait imaginer les remplacer par des maîtrises alternatives :\r\nMaîtrise de côté ou de face ;\r\nMaîtrise qui requiert de posséder plus de 90% de ses PV ;\r\nMaîtrise indirecte ;\r\nMaîtrise non-critique ;\r\nMaîtrise contact ;\r\nMaîtrise longue distance ;\r\netc.\r\nNous nous assurerons de la réception de ce chantier au travers d\'un sondage proposé ultérieurement.', '2022-12-12 11:18:51', 1, 1, 1),
+	(2, '10 ans de Wakfu', NULL, '2022-11-12 12:51:30', 1, 1, 1),
+	(3, 'num 3', NULL, '2022-12-12 16:45:11', 1, 1, 1),
+	(4, 'num 4', NULL, '2022-12-12 16:45:23', 1, 1, 2);
 /*!40000 ALTER TABLE `topic` ENABLE KEYS */;
 
 -- Listage de la structure de la table wakfutournament. tournament
@@ -341,9 +381,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   `creation_date` datetime NOT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `discord_pseudo` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `twitch_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `discord_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `discord_pseudo` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitch_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitch_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
   UNIQUE KEY `UNIQ_8D93D6491FE3BDAF` (`pseudonyme`)
@@ -351,17 +392,17 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Listage des données de la table wakfutournament.user : ~10 rows (environ)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `pseudonyme`, `email`, `password`, `roles`, `is_verified`, `creation_date`, `avatar`, `discord_pseudo`, `twitch_link`, `discord_id`) VALUES
-	(1, 'Achanga', 'juliepicco@hotmail.fr', '$2y$13$JYZ2.JZBHe8yDs6PPJDWeOPYeAGYx9O0IXKWQ1aJZ1sL6T4NqU6HK', '[]', 1, '2022-10-05 10:30:16', 'profil-julie.jpg', 'Non renseigné', 'Non renseigné', ''),
-	(2, 'Testouille', 'test@test.fr', '$2y$13$.Tpxhg4nZKurm0eL7Zjgye5S//WWwkGUC2lON6c1iUOQF0BBRVxsC', '[]', 1, '2022-10-10 07:10:02', '46185fc7690f631eb861752c4c85b9ab.jpg', 'Rien', 'testwitch', NULL),
-	(3, 'Kevin', 'kevin@kevin.fr', '$2y$13$JHzC74pXnWJRhToFV1jvW.AMIXlQCctBFolOfrFQjBDKcyNZQ0Mqe', '[]', 1, '2022-10-04 14:22:45', 'e991d330310d948d85ef0bb1d4a3d9c4.jpg', 'Non renseigné', 'Non renseigné', NULL),
-	(4, 'Aman', 'aman@aman.fr', '$2y$13$JHzC74pXnWJRhToFV1jvW.AMIXlQCctBFolOfrFQjBDKcyNZQ0Mqe', '[]', 1, '2022-11-10 09:01:10', '137fa53c0e042aba90f167daecae6d62.jpg', 'Non renseigné', 'Non renseigné', NULL),
-	(5, 'Zimas', 'zimas@zimas.fr', '$2y$13$5UNx97iEAILOTon0kbhcKu6MH4q6AOMPj8AIFuNjhz8aJSFUv/F0y', '[]', 1, '2022-11-10 08:48:09', 'fd77d41aac43a41745f3f9c3d0a88f9e.png', 'Non renseigné', 'Non renseigné', NULL),
-	(6, 'Juju', 'juju@spaghetti.fr', '$13$5UNx97iEAILOTon0kbhcKu6MH4q6AOMPj8AIFuNjhz8aJSFUv/F0y', '[]', 1, '2022-11-10 09:02:45', 'profil-default.png', 'Non renseigné', 'Non renseigné', NULL),
-	(7, 'Ryouuu', 'ryou@ryou.fr', '$2y$13$9XzBAUiRreuyewImAiWs3.Ruz4eSOciwxaFzhn3eIeRVdwVHrdUc.', '[]', 1, '2022-11-19 09:19:07', 'profil-default.png', 'Non renseigné', 'Non renseigné', NULL),
-	(8, 'Kha\'rix', 'kha@rix.fr', '$2y$13$VCE1TnRqJ6yQpvmKSkjILOJkloDCpbf2RTefDJr9e1lf14srCDSk6', '[]', 1, '2022-11-19 09:19:56', 'profil-default.png', 'Non renseigné', 'Non renseigné', NULL),
-	(9, 'Soultrefle', 'soul@trefle.fr', '$2y$13$F71y/y7gCSzEC69w7ZG/RO5E2nS7RDTiuxRkKoj5enCNUoIg0zN16', '[]', 1, '2022-11-19 09:21:44', 'profil-default.png', 'Non renseigné', 'Non renseigné', NULL),
-	(10, 'Testa', 'testa@testa', '$2y$13$aBUqehTNG4BKbKXSpii5nuV9nTOiEXDEKY0jtxHdRm9gLsDkHZBtG', '[]', 1, '2022-11-19 09:26:18', 'profil-default.png', 'Non renseigné', 'Non renseigné', NULL);
+INSERT INTO `user` (`id`, `pseudonyme`, `email`, `password`, `roles`, `is_verified`, `creation_date`, `avatar`, `discord_id`, `discord_pseudo`, `twitch_id`, `twitch_link`) VALUES
+	(1, 'Achanga', 'juliepicco@hotmail.fr', '$2y$13$JYZ2.JZBHe8yDs6PPJDWeOPYeAGYx9O0IXKWQ1aJZ1sL6T4NqU6HK', '[]', 1, '2022-10-05 10:30:16', 'profil-julie.jpg', '', 'Non renseigné', NULL, 'Non renseigné'),
+	(2, 'Testouille', 'test@test.fr', '$2y$13$.Tpxhg4nZKurm0eL7Zjgye5S//WWwkGUC2lON6c1iUOQF0BBRVxsC', '[]', 1, '2022-10-10 07:10:02', '46185fc7690f631eb861752c4c85b9ab.jpg', NULL, 'Rien', NULL, 'testwitch'),
+	(3, 'Kevin', 'kevin@kevin.fr', '$2y$13$JHzC74pXnWJRhToFV1jvW.AMIXlQCctBFolOfrFQjBDKcyNZQ0Mqe', '[]', 1, '2022-10-04 14:22:45', 'e991d330310d948d85ef0bb1d4a3d9c4.jpg', NULL, 'Non renseigné', NULL, 'Non renseigné'),
+	(4, 'Aman', 'aman@aman.fr', '$2y$13$JHzC74pXnWJRhToFV1jvW.AMIXlQCctBFolOfrFQjBDKcyNZQ0Mqe', '[]', 1, '2022-11-10 09:01:10', '137fa53c0e042aba90f167daecae6d62.jpg', NULL, 'Non renseigné', NULL, 'Non renseigné'),
+	(5, 'Zimas', 'zimas@zimas.fr', '$2y$13$5UNx97iEAILOTon0kbhcKu6MH4q6AOMPj8AIFuNjhz8aJSFUv/F0y', '[]', 1, '2022-11-10 08:48:09', 'fd77d41aac43a41745f3f9c3d0a88f9e.png', NULL, 'Non renseigné', NULL, 'Non renseigné'),
+	(6, 'Juju', 'juju@spaghetti.fr', '$13$5UNx97iEAILOTon0kbhcKu6MH4q6AOMPj8AIFuNjhz8aJSFUv/F0y', '[]', 1, '2022-11-10 09:02:45', 'profil-default.png', NULL, 'Non renseigné', NULL, 'Non renseigné'),
+	(7, 'Ryouuu', 'ryou@ryou.fr', '$2y$13$9XzBAUiRreuyewImAiWs3.Ruz4eSOciwxaFzhn3eIeRVdwVHrdUc.', '[]', 1, '2022-11-19 09:19:07', 'profil-default.png', NULL, 'Non renseigné', NULL, 'Non renseigné'),
+	(8, 'Kha\'rix', 'kha@rix.fr', '$2y$13$VCE1TnRqJ6yQpvmKSkjILOJkloDCpbf2RTefDJr9e1lf14srCDSk6', '[]', 1, '2022-11-19 09:19:56', 'profil-default.png', NULL, 'Non renseigné', NULL, 'Non renseigné'),
+	(9, 'Soultrefle', 'soul@trefle.fr', '$2y$13$F71y/y7gCSzEC69w7ZG/RO5E2nS7RDTiuxRkKoj5enCNUoIg0zN16', '[]', 1, '2022-11-19 09:21:44', 'profil-default.png', NULL, 'Non renseigné', NULL, 'Non renseigné'),
+	(10, 'Testa', 'testa@testa', '$2y$13$aBUqehTNG4BKbKXSpii5nuV9nTOiEXDEKY0jtxHdRm9gLsDkHZBtG', '[]', 1, '2022-11-19 09:26:18', 'profil-default.png', NULL, 'Non renseigné', NULL, 'Non renseigné');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Listage de la structure de la table wakfutournament. user_team

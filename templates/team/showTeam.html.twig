@@ -84,9 +84,21 @@
                     {% endif %}
                     
                     {% for member in team.members %}
+
                         {% if app.user.id == member.id %}
-                            <a class="btn btn-warning" href="{{ path('leave_team', {'idTeam' : team.id}) }}">Quitter la team</a>
-                        {% endif %}                         
+
+                            {% if app.user.id  == team.leader.id %}
+
+                                <a class="btn btn-warning" href="{{ path('delete_team', {'idTeam' : team.id}) }}">Supprimer l'équipe</a>
+
+                                {% else %}
+
+                                <a class="btn btn-warning" href="{{ path('leave_team', {'idTeam' : team.id}) }}">Quitter la team</a>
+          
+                            {% endif %}
+
+                        {% endif %}    
+
                     {% endfor %}
 
                 {% endif %}
@@ -153,7 +165,7 @@
                 
                 {% for  tournament in team.tournaments %}
 
-                    {% if date(tournament.startDate) > date('d') %}
+                    {% if date(tournament.startDate) > date(now) %}
      
                         <div class="tournamentUserProfil">
                             
@@ -190,7 +202,7 @@
 
                 {% for  tournament in team.tournaments %}
 
-                    {% if date(tournament.endDate) < date('d') %}
+                    {% if date(tournament.endDate) < date(now) %}
                 
                         <div class="tournamentUserProfil">
                         

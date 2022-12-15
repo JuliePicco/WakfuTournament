@@ -6,7 +6,10 @@ use doctrine;
 use App\Entity\User;
 use App\Entity\Server;
 use App\Entity\Character;
+use App\Entity\Tournament;
 use App\Form\CharacterType;
+use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -112,13 +115,14 @@ class UserController extends AbstractController
     /**
      * @Route("/userProfil/{id}", name="profil_user")
      */
-    public function profil(ManagerRegistry $doctrine, User $user): Response
+    public function profil(User $user): Response
     {
-        $servers = $doctrine->getRepository(Server::class)->findBy([], ["serverName" => "ASC"]);
-        
+        $now = new DateTime() ;
+      
         return $this->render('user/profil.html.twig', [
-            'servers' =>$servers,
-            'user' => $user
+           'now' => $now,
+           'user' => $user,
+      
         ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TournamentRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -69,7 +70,7 @@ class Tournament
     private $descriptionTournament;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="boolean")
      */
     private $rewardChoice;
 
@@ -79,7 +80,7 @@ class Tournament
     private $reward;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="boolean")
      */
     private $limitedInscription;
 
@@ -92,8 +93,6 @@ class Tournament
      * @ORM\ManyToMany(targetEntity=Team::class, inversedBy="tournaments")
      */
     private $participatingTeams;
-
-
 
 
     public function __construct()
@@ -318,10 +317,6 @@ class Tournament
         return $reserved;
     }
 
-    
-
-
-    
-
    
+ 
 }

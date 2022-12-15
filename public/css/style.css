@@ -60,7 +60,7 @@ footer small {
 }
 
 .warningMessage{
-    color: red;
+    color: #df0000;
     margin-bottom: 15px;
 }
 
@@ -96,7 +96,7 @@ footer small {
 
 .btn-warning{
     cursor: pointer;
-    color: red;
+    color: #df0000;
     background: none;
     border: none;
     font-size: 25px;
@@ -130,7 +130,7 @@ footer small {
     align-self: center;
     border: solid 3px;
     padding: 3px;
-    color: red;
+    color: #df0000;
     background: rgb(255 255 255 / 70%);
 }
 
@@ -140,7 +140,7 @@ footer small {
     font-family: 'FontAwesome';
     border: unset;
     padding: 3px;
-    color: red;
+    color: #df0000;
     background: white;
 }
 
@@ -361,7 +361,7 @@ header a {
     margin-top: 25px;
 }
 
-/* stream */
+/* news */
 
 .newContent{
     display: flex;
@@ -374,6 +374,13 @@ header a {
     border-radius: 50px;
     background-color: rgba(255 255 255 / 80%);
 
+}
+
+
+.imgWarning{
+    width: 100%;
+    background: white;
+    border: solid 5px white;
 }
 
 
@@ -854,8 +861,20 @@ textarea:disabled{
 
 .inscriptionTeams{
     display: flex;
-    width: 25%;
-    justify-content: space-between;
+
+}
+
+.inscriptionTeams a{
+    margin-right: 20px;
+
+}
+
+
+
+.avalable-inscription .warningMessage{
+margin-bottom: 0px;
+font-family: 'Roboto Condensed', sans-serif;
+font-size: 18px;
 }
 
 .littleInfo{
@@ -1306,8 +1325,12 @@ background-color: rgba(0, 0, 0, 0.700);
 .forum-background{
     width: 80%;
     background: rgba(255, 255, 255, 0.5);
-    margin: 50px auto;
+    margin: auto;
+    margin-top: 50px;
     padding: 20px;
+}
+.main-forum{
+    margin-bottom: 50px;
 }
 
 .previous-links{
@@ -1450,7 +1473,7 @@ thead.accordion.active:after {
     border-color: lightgrey;
 }
 
-.table-forum tbody tr a{
+.topic-name{
     font-family: 'Roboto Condensed';
     font-weight: bold;
     font-size: 18px;
@@ -1458,7 +1481,7 @@ thead.accordion.active:after {
     text-decoration: none;
 }
 
-.table-forum tbody tr a:hover{
+.topic-name:hover{
     text-decoration: underline;
 }
 
@@ -1467,12 +1490,35 @@ thead.accordion.active:after {
 }
 
 .principal-subject{
+    display: flex;
+    align-items: center;
     width: 40%;
     text-align: left;
 }
 
+.avatar-subCategory{
+    background: white;
+    border: solid 3px #ffffff;
+    box-shadow: 0px 2px 10px black;
+    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px ;
+}
+
+
+.topic-user-creator{
+    color: #40b2b5;
+    text-decoration: none;
+}
+
+.topic-user-creator:hover{
+    text-decoration: underline;
+}
+
 .secondary-subject{
-    width: 40%;
+    width: 30%;
     text-align: center;
     padding: 0px 10px;
     }
@@ -1511,5 +1557,182 @@ td.tertiary-subject-accordeon{
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 100;
     text-align: justify;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
 }
+
+.answer-button-place{
+    background: white;
+    padding: 10px 75px;
+}
+
+.answer-button-place a{
+    text-decoration: none;
+    color: #015a5b;
+    font-size: 18px;
+}
+
+.answer-button-place a:hover{
+    text-decoration: underline;
+    color: #40b2b5;
+    
+}
+
+.avatar-topic{
+    object-fit: cover;
+    background: white;
+    border: solid 3px #ffffff;
+    box-shadow: 0px 2px 10px black;
+    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+}
+
+.topic-title{
+    display: flex;
+    background: #40b2b5;
+    width: 100%;
+    align-items: center;
+}
+
+.topic-title-name{
+    display: flex;
+    flex-direction: column;
+}
+
+.topic-title-name h1{
+    font-size: 36px;
+    color: white;
+    text-shadow: 0px 1px 1px black;
+    margin-left: 20px;
+}
+
+.topic-title-name span{
+    font-size: 20px;
+    margin-left: 20px;
+    color: #0d2f31;
+}
+
+.topic-title-name a{
+    color: #0d2f31;
+    text-decoration: none;
+}
+
+.topic-title-name a:hover{
+    color:#ffffff;
+    text-decoration: underline;
+}
+
+/* topic commentaire */
+
+.forum-commentary-background{
+    width: 80%;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 10px auto;
+    padding: 20px;  
+}
+
+.forum-answer-background{
+    width: 80%;
+    background: rgba(255, 255, 255, 0.5);
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 20px;  
+}
+
+.commentary-section{
+    display: flex;
+    background: white;
+    padding: 10px;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
+}
+
+.commentary-section .avatar-topic{
+    margin-right: 40px;
+}
+
+.commentary small{
+    color: #000000;
+}
+
+.commentary-user, .commentary-user a{
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #40b2b5;
+    text-decoration: none;
+}
+
+.commentary-user a:hover{
+    text-decoration: underline;
+}
+
+.commentary p{
+    text-align: justify;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-right: 30px;
+}
+
+
+/* topic réponse */
+
+.answer-title{
+    display: flex;
+    background: #ebebeb;
+    width: 100%;
+    align-items: center;
+}
+
+.answer-title h1{
+    font-size: 25px;
+    color: black;
+    padding: 15px 0px;
+    margin-left: 10px;
+}
+
+.answer-section{
+    display: flex;
+    padding: 10px;
+    background: white;
+}
+
+.formulaire-post{
+    width: 85%;
+    margin: auto;
+}
+
+.form-answer-post{
+    margin: 10px auto;
+}
+
+.submit-post{
+   text-align: right;
+}
+
+.btn-submit-post{
+    cursor: pointer;
+    margin-bottom: 10px;
+    color:#015a5b;
+    font-size: 25px;
+    border: none;
+    background-color: unset;
+    
+}
+
+.btn-submit-post:hover{
+    color: #40b2b5;
+    text-decoration: underline;
+   
+}
+
+.answer-section .warningMessage{
+    font-size: 25px;
+    margin-bottom: 0;
+}
+
+
+
+
 

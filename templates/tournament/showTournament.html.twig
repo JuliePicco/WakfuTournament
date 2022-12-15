@@ -28,8 +28,8 @@
                     </div>
 
                     <div class="infoPartTwo">
-                        <p>Place limitée : {% if tournament.limitedInscription == "true" %} Oui {% else %} Non {% endif %}</p>
-                        <p>Nombre de participant : {% if tournament.limitedInscription == "true" %} {{tournament.Nbreserved}}/{{tournament.nbTeamLimit}} {% else %} {{tournament.Nbreserved}} {% endif %}</p>
+                        <p>Place limitée : {% if tournament.limitedInscription == true %} Oui {% else %} Non {% endif %}</p>
+                        <p>Nombre de participant : {% if tournament.limitedInscription == true %} {{tournament.Nbreserved}}/{{tournament.nbTeamLimit}} {% else %} {{tournament.Nbreserved}} {% endif %}</p>
                     </div>
                     
                 </div>
@@ -40,7 +40,7 @@
 
                 <div>
                     <h2>Récompenses à la clef </h2> 
-                    <p> {% if tournament.rewardChoice == "true" %} 
+                    <p> {% if tournament.rewardChoice == true %} 
         
                         {{tournament.reward}}
                         
@@ -65,12 +65,12 @@
         <div class="tournamentInscription">
 
             {# si la date est dépassé alors tournois terminé #}
-            {% if date(tournament.endDate) < date('d') %}
+            {% if date(tournament.endDate) < date(now) %}
 
                 <p class="warningMessage">Tournois terminé !</p>
 
             {# si la date est en cours, alors tournois en cours#}
-            {% elseif date(tournament.startDate) < date('d') or date(tournament.startDate) == date('d')%}
+            {% elseif date(tournament.startDate) < date(now) or date(tournament.startDate) == date(now) %}
 
                 <p class="warningMessage">Tournois en cours, vous ne pouvez plus vous inscrire !</p>
 
@@ -78,14 +78,14 @@
 
                 {% if app.user.id == tournament.organisator.id %}
 
-                    <a class="btn btn-edit btn-editProfil" href="#">Supprimer Tournois</a>
+                    <a class="btn btn-edit btn-editProfil" href="{{ path('delete_tournament', {'idTournament' : tournament.id}) }}">Supprimer Tournois</a>
                     <br><br>
                     <p class="warningMessage">Vous ne pouvez pas vous inscrire à un tournois que vous organisez</p>
 
                 {% else %}
 
                 {# Condition si le tournois est limité #}
-                    {% if tournament.limitedInscription == "true" %}
+                    {% if tournament.limitedInscription == true %}
 
                         {% if tournament.Nbreserved == tournament.nbTeamLimit %}
                                     
@@ -102,16 +102,37 @@
                             {% else %}
 
                                 {% for team in unregisteredTeams %}
-            
+                              
                                     {% if team.server == tournament.server %}
-                                    
-                                        {% if app.user.id == team.leader.id %}                                 
 
-                                            <p class="inscriptionTeams">
-                                                {{team}} 
-                                                <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
-                                            </p>
-                                            
+                                    
+                                    {% if app.user.id == team.leader.id %} 
+{# 
+                                    {% for app.user.leaderTeam.id in tournament.participatingTeams. %}
+                                    {{ dump( app.user.leaderTeam.id) }}
+                                        
+                                    {% endfor %} #}
+
+                                    
+                                                    {# <p class="warningMessage">Vous avez déjà inscrit une équipe à ce tournoi</p> #}
+
+                                                    <div class="avalable-inscription">
+
+                                                        <div class="inscriptionTeams">
+                                                            <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
+                                                            <p>{{team}}</p>                                      
+                                                        </div>
+                                                        
+                                                        {% for member in team.members %}
+                                                        
+                                                            {% if member.id == tournament.organisator.id %}
+                                                                <p class="warningMessage">Attention, un membre de votre équipe "{{team}}" est l'organisateur du tournoi, il ne pourra pas participer aux matchs</p>
+                                                            {% endif %}
+                                                        
+                                                        {% endfor %}
+    
+                                                    </div>      
+
                                         {% endif %}
 
                                     {% endif %}
@@ -119,11 +140,11 @@
                                 {% endfor %}
                                 
                                         {# todo a modifier #}
-                                {% if app.user.nbLeaderTeams in tournament.server == 0 %}
+                                {# {% if app.user.nbLeaderTeams in tournament.server == 0 %}
 
                                     <br><p class="warningMessage">Vous n'avez pas d'autre équipe dans ce serveur</p>
 
-                                {% endif %}
+                                {% endif %} #}
                                 
                             {% endif %}
 
@@ -147,10 +168,20 @@
                                 
                                     {% if app.user.id == team.leader.id %}                                 
                                     
-                                        <p class="inscriptionTeams">
-                                            {{team}} 
-                                            <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
-                                        </p>
+                                        <div class="avalable-inscription">
+                                            <div class="inscriptionTeams">
+                                                <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
+                                                <p>{{team}}</p>                                      
+                                            </div>
+                                            {% for member in team.members %}
+
+                                                {% if member.id == tournament.organisator.id %}
+                                                    <p class="warningMessage">Attention, un membre de votre équipe "{{team}}" est l'organisateur du tournoi, il ne pourra pas participer aux matchs</p>
+                                                {% endif %}
+                                                
+                                            {% endfor %}
+                                            
+                                        </div>
                                     
                                     {% endif %}
                                 
@@ -181,8 +212,8 @@
                     {% if app.user.id == team.leader.id %}
 
                         <p class="inscriptionTeams">
-                            {{team}} 
                             <a class="btn btn-warning" href="{{ path('desinscrire_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Désinscrire</a>
+                            {{team}} 
                         </p>
 
                     {% endif %} 

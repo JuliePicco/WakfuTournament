@@ -441,41 +441,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-   // Fonction qui permet de compter le nombre de fois ou on est leader d une team
-
-    public function nbLeaderTeams(){
-
-        $nbLeaderTeams = count($this->leaderTeams);
-
-        return $nbLeaderTeams;
-    }
-
-    //Fonction qui permet de compter le nombre d'équipe dans lequel on est présent
-
-    public function nbTeams(){
-
-        $nbTeams = count($this->teams);
-
-        return $nbTeams;
-    }
-
-
-    // Fonction qui permet de compter le nombre de tournois créé
-
-        public function nbTournaments(){
-
-            $nbTournaments = count($this->tournaments);
-
-            return $nbTournaments;
-        }
-
-
-    
-    public function __toString()
-    {
-        return $this->pseudonyme;
-    }
-
     /**
      * @return Collection<int, Post>
      */
@@ -534,6 +499,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+
+      // Fonction qui permet de compter le nombre de fois ou on est leader d une team
+
+      public function nbLeaderTeams(){
+
+        $nbLeaderTeams = count($this->leaderTeams);
+
+        return $nbLeaderTeams;
+    }
+
+    //Fonction qui permet de compter le nombre d'équipe dans lequel on est présent
+
+    public function nbTeams(){
+
+        $nbTeams = count($this->teams);
+
+        return $nbTeams;
+    }
+
+
+    // Fonction qui permet de compter le nombre de tournois créés
+
+    public function nbTournaments(){
+
+        $nbTournaments = count($this->tournaments);
+
+        return $nbTournaments;
+    }
+
+ 
+    public function __toString()
+    {
+        return $this->pseudonyme;
     }
 
    

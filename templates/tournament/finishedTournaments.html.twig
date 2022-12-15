@@ -7,7 +7,7 @@
 
 <div class="listBackground">
 
-    <h1>Liste des tournois en cours et terminés</h1>
+    <h1>Liste des tournois terminés</h1>
 
     <div class="searchBarList">
         <p>Trié par :</p>
@@ -16,7 +16,7 @@
 
     <div class="list">
         {% for tournament in tournaments %}
-            {% if date(tournament.startDate) <= date('d') %} 
+            {% if date(tournament.endDate) < date(now) %} 
             
                 <div class="entity">
                     
@@ -30,17 +30,7 @@
 
                             <div class="infoEntity-one">
                                 <h3>{{tournament.tournamentName}}</h3>
-
-                                {% if date(tournament.endDate) < date('+1d') %}
-    
-                                        <p>{{tournament.startDate | date('d-m-Y')}} au {{tournament.endDate | date('d-m-Y')}}</p>
-    
-                                {% else %}
-
-                                    <p>tournois en cours</p>
-
-                                {% endif %}
-
+                                <p>Tournoi terminé du {{tournament.startDate | date('d-m-Y')}} au {{tournament.endDate | date('d-m-Y')}}</p>
                                 <p>Serveur : {{tournament.server}}</p>
                             </div>
         
@@ -52,13 +42,13 @@
                             <p>Mode de jeu : {{tournament.mode.modeName}}</p>
 
                             <p>Nombre de participant : 
-                                {% if tournament.limitedInscription == "true" %} 
+                                {% if tournament.limitedInscription == true %} 
                                     {{tournament.Nbreserved}}/{{tournament.nbTeamLimit}} 
                                 {% else %} 
                                     {{tournament.Nbreserved}} 
                                 {% endif %}</p>
                                 
-                            <p>Récompenses à la clef : {% if tournament.rewardChoice == "true" %} Oui {% else %} Non {% endif %}</p>
+                            <p>Récompenses à la clef : {% if tournament.rewardChoice == true %} Oui {% else %} Non {% endif %}</p>
                         </div>
 
                     </div>
