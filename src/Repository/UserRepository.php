@@ -88,6 +88,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $query->getResult();
     }
 
+// SELECT t.leader_id, t.team_name, u.pseudonyme
+// FROM team t
+// INNER JOIN user u
+// ON t.leader_id = u.id
+// WHERE t.id IN (
+// 	SELECT tt.team_id
+// 	FROM tournament_team tt
+// 	INNER JOIN tournament tr
+// 	ON tt.tournament_id = tr.id
+// 	WHERE tr.id = 1
+// )
+
 
 
 

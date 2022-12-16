@@ -36,6 +36,11 @@ class SubCategory
      */
     private $topics;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $statut;
+
     
     public function __construct()
     {
@@ -97,6 +102,18 @@ class SubCategory
                 $topic->setSubCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?bool $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

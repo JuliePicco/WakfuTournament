@@ -19,8 +19,23 @@
             </figure>
 
             <div class="forum-title-name">
-                <h1>{{subCategory.subCategoryName}}</h1>
+            <h1>{{subCategory.subCategoryName}}</h1>
+
+            {% if subCategory.statut == false %}
+
+                {% if is_granted ("ROLE_ADMIN") %}
+
+                    <a href="{{ path('newTopic', {'id' : subCategory.id}) }}">Créer un nouveau sujet</a>
+                    
+                {% endif %}
+
+            {% else %}
+             
                 <a href="{{ path('newTopic', {'id' : subCategory.id}) }}">Créer un nouveau sujet</a>
+                
+            {% endif %}
+
+
             </div>
         </div>
 
@@ -51,14 +66,29 @@
                             <tr>
                                 <td class="principal-subject">
 
-                                    <figure>
-                                        <img class="avatar-subCategory" src="{{ asset('img/user/avatar/' ~ topic.user.avatar) }}" >
-                                    </figure>
-                                    <div>
-                                        <a class="topic-name" href="{{ path('topic', {'id' : topic.id}) }}">{{topic.topicName}}</a>
+                                    {% if topic.user == null %}
+
+                                        <figure>
+                                            <img class="avatar-subCategory" src="{{ asset('img/user/avatar/profil-default.jpg') }}" >
+                                        </figure>
+                                        <div>
+                                            <a class="topic-name" href="{{ path('topic', {'id' : topic.id}) }}">{{topic.topicName}}</a>
+                                            
+                                            <p>Par Profil Supprimé le {{topic.creationDate | date('d-m-Y')}} à {{topic.creationDate | date('h:i:s')}}</p>
+                                        </div>
+
+                                    {% else %}
                                         
-                                        <p>Par <a class="topic-user-creator" href="{{path('profil_user', {'id' : topic.user.id})}}">{{topic.user.pseudonyme}}</a> le {{topic.creationDate | date('d-m-Y')}} à {{topic.creationDate | date('h:i:s')}}</p>
-                                    </div>
+                                        <figure>
+                                            <img class="avatar-subCategory" src="{{ asset('img/user/avatar/' ~ topic.user.avatar) }}" >
+                                        </figure>
+                                        <div>
+                                            <a class="topic-name" href="{{ path('topic', {'id' : topic.id}) }}">{{topic.topicName}}</a>
+                                            
+                                            <p>Par <a class="topic-user-creator" href="{{path('profil_user', {'id' : topic.user.id})}}">{{topic.user.pseudonyme}}</a> le {{topic.creationDate | date('d-m-Y')}} à {{topic.creationDate | date('h:i:s')}}</p>
+                                        </div>
+                                    {% endif %}
+
                                 </td>
 
                                 <td class="secondary-subject"></td>

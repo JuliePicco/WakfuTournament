@@ -5,13 +5,15 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\EditProfilType;
 use App\Form\EditAccountType;
+use App\Repository\PostRepository;
+use App\Repository\TopicRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -391,7 +393,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/security/deleteAccount", name="delete_account")
      */
-    public function deleteAccount(ManagerRegistry $doctrine, Request $request)
+    public function deleteAccount(ManagerRegistry $doctrine, TopicRepository $tr, PostRepository $pr, Request $request)
     {
         // Si il existe un user en session
         if($this -> getUser()){
@@ -400,6 +402,23 @@ class SecurityController extends AbstractController
             
            // On accède à la BDD
             $entityManager = $doctrine->getManager(); 
+
+            $posts = $pr->findBy(['user' => $user -> getId()]);
+            $topics = $tr->findBy(['user' => $user -> getId()]);
+           
+    
+            foreach($posts as $post){
+    
+                $post->setUser(null);
+                $entityManager->persist($post);
+                $entityManager->flush();
+            }
+    
+            foreach($topics as $topic){
+                $topic->setUser(null);
+                $entityManager->persist($topic);
+                $entityManager->flush();
+            }
 
             // On persiste/prepare l'objet
             $entityManager->remove($user);

@@ -18,6 +18,11 @@
 
             <div class="forum-title-name">
                 <h1>Forum Wakfu Tournament</h1>
+
+                {% if is_granted ("ROLE_ADMIN")%}
+                    <a href="{{ path('new_SubCategory') }}">Créer une nouvelle sous-catégorie</a>
+                {% endif %}
+
             </div>
         </div>
 

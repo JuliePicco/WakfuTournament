@@ -8,6 +8,7 @@ parameters:
     avatar_directory: '%kernel.project_dir%/public/img/user/avatar'
     tournamentImg_directory: '%kernel.project_dir%/public/img/user/tournament'
     teamLogo_directory: '%kernel.project_dir%/public/img/user/team'
+    newsImg_directory: '%kernel.project_dir%/public/img/news'
 
 services:
     # default configuration for services in *this* file

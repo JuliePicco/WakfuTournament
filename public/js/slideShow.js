@@ -19,17 +19,17 @@ function showDivs(n) {
 }
 
 //  transforme le slider en carousel qui fait en sorte que les info change toute les 5 secondes
-var myIndex = 0;
-carousel();
+// var myIndex = 0;
+// carousel();
 
-function carousel() {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  myIndex++;
-  if (myIndex > x.length) {myIndex = 1}    
-  x[myIndex-1].style.display = "flex";  
-  setTimeout(carousel, 5000); // Change image every 5 seconds
-}
+// function carousel() {
+//   var i;
+//   var x = document.getElementsByClassName("mySlides");
+//   for (i = 0; i < x.length; i++) {
+//     x[i].style.display = "none";  
+//   }
+//   myIndex++;
+//   if (myIndex > x.length) {myIndex = 1}    
+//   x[myIndex-1].style.display = "flex";  
+//   setTimeout(carousel, 5000); // Change image every 5 seconds
+// }

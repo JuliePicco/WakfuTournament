@@ -82,6 +82,10 @@
                             {# fin menu burger #}
     
                             <ul class="ul-navLeft">
+
+                                {% if is_granted ("ROLE_ADMIN") %}
+                                    <li class="menu-item"><a href="{{ path('app_admin') }}">Admin</a></li> 
+                                {% endif %}
     
                                 <div class="dropdown">
                                     <li class="menu-item">Tournois  <i class="fa-solid fa-caret-down"></i></li>

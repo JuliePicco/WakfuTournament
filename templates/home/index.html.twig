@@ -6,56 +6,97 @@
 
 <div class="homeBackground">
 
-    <h1>Bienvenue sur Wakfu Tournament</h1><br>
+    <h1>Bienvenue sur Wakfu Tournament</h1>
 
-    <div class="newContent">
-        <h2>News du moment</h2>
+    <div class="news-background">
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum eros nibh, venenatis tristique neque dignissim vel. Morbi rutrum orci in tortor ultrices, in feugiat arcu tincidunt. In iaculis vulputate tincidunt. Suspendisse semper odio non dolor pharetra, eget molestie libero tincidunt. Nam molestie orci metus, eget interdum urna euismod at. Duis ipsum nisi, venenatis at libero in, vestibulum feugiat sem. Etiam imperdiet magna sit amet tortor sodales, sit amet condimentum odio pellentesque. Ut vitae lectus blandit, aliquam erat nec, rhoncus mauris. Donec finibus nibh a urna dapibus, a porta dolor mattis.</p>
+        <div class="home-news-informations">
+            <figure>
+                <img src="{{ asset('img/exclamation.png')}}" alt="logo point d'exclamation">
+            </figure>
 
-    </div>
+            <div class="home-news-title">
+                <h2>Actualités Récentes</h2>
 
-    <div class="slideShowTournament">
-
-        <h2>prochain tournois prévus</h2>
-        
-        <div class="slider">
-    
-            {% for tournament in tournaments %}
-    
-                {% if date(tournament.startDate) > date('d') %} 
-    
-                <div class="mySlides">
-    
-                    <figure>
-                        <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois">
-                    </figure>
-    
-                    <div>
-    
-                        <p class="slideTournamentName">{{tournament.tournamentName}}</p>
-    
-                        <div class="slideTournamentInfo">
-                            <p>du {{tournament.startDate | date('d-m-Y')}} au {{tournament.endDate | date('d-m-Y')}}</p>
-                            <p>sur {{tournament.server}}</p>
-                        </div>
-    
-                    </div>
-    
-                </div>
-    
+                {% if is_granted ("ROLE_ADMIN")%}
+                    <a href="{{ path('add_news')}}">Ajouter une actualité</a>
                 {% endif %}
-            
-            {% endfor %}
-    
-            <button class="slideButton left-button" onclick="plusDivs(-1)">&#10094;</button>
-            <button class="slideButton right-button" onclick="plusDivs(+1)">&#10095;</button>
-    
+
+            </div>
         </div>
 
+        <div class="news-place">
+
+            {% for new in news %}
+
+                <div class="block-news">
+                    <figure>
+                        <img class="news-illustration" src="{{ asset('img/news/' ~ new.newsIllustration) }}" alt="Illustration de l'actualité">
+                    </figure>
+                    
+                    <div class="all-news-content">
+
+                        <div class="news-title">
+                            <h2>{{new.newsTitle}}</h2>
+                            <small>le {{new.newsCreationDate | date('d-m-Y')}} à {{new.newsCreationDate | date('h:i:s')}}</small>
+                        </div>
+                        <p class="news-content">{{new.newsContent}}</p>
+                        
+                    </div>
+
+                    <div class="more-info-news">
+                        <a href="{{ path('show_news', {'id' : new.id}) }}">en savoir +</a>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="slideShowTournament">
+
+            <h2>prochain tournois prévus</h2>
+            
+            <div class="slider">
+        
+                {% for tournament in tournaments %}
+        
+                    {% if date(tournament.startDate) > date('d') %} 
+        
+                    <div class="mySlides">
+        
+                        <figure>
+                            <img src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" alt="Logo du tournois">
+                        </figure>
+        
+                        <div>
+        
+                            <a class="slideTournamentName" href="{{ path('show_tournament', {'id' : tournament.id}) }}">{{tournament.tournamentName}}</a>
+        
+                            <div class="slideTournamentInfo">
+                                <p>du {{tournament.startDate | date('d-m-Y')}} au {{tournament.endDate | date('d-m-Y')}}</p>
+                                <p>sur {{tournament.server}}</p>
+                            </div>
+        
+                        </div>
+        
+                    </div>
+        
+                    {% endif %}
+                
+                {% endfor %}
+        
+                <button class="slideButton left-button" onclick="plusDivs(-1)">&#10094;</button>
+                <button class="slideButton right-button" onclick="plusDivs(+1)">&#10095;</button>
+        
+            </div>
+    
+        </div>
+        
+
     </div>
 
-    
 
 
 </div>

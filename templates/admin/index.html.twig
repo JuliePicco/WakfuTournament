@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+
+{% if is_granted ("ROLE_ADMIN") %}
+
+    <div class="admin-background">
+
+        
+        <div class="admin-title">
+            <h1>Panneaux Administrateur</h1>
+        </div>
+
+        <div class="all-table-admin">
+
+            <table class="table-admin">
+                                            
+                <thead class="accordion accordion-admin">
+                    <tr>
+                        <th class="principal-subject">Utilisateurs</th>
+                    </tr>
+                </thead>
+                
+                <div class="panel">
+                    
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td class="info-admin">
+                                <div class="info-element-admin">
+                                    <figure>
+                                        <img class="avatar-subCategory" src="{{ asset('img/user/avatar/' ~ user.avatar) }}" >
+                                    </figure>
+                                  
+                                    <a class="info-name" href="{{path('profil_user', {'id' : user.id})}}">{{user.pseudonyme}}</a>
+                                </div>
+                                
+                                <div class="control-element-admin">
+                                
+                                    {# Modal suppression compte #}
+                                    <button class="btn-delete-admin" onclick="document.getElementById('{{user.id}}').style.display='flex'">Supprimer</button>
+
+                                    <div id="{{user.id}}" class="modalUser">
+                            
+                                        <div class="modalContainer">
+                            
+                                            <h1>Suppression de compte</h1>
+                            
+                                            <div class="deleteAccountWarning">
+                                                <p class="warningMessage">ATTENTION ! Cette action sera définitive !</p>
+                            
+                                                <p>êtes vous bien sur de vouloir supprimer le compte de {{user.pseudonyme}} ?</p>
+                                            </div>
+                                            
+                                            <div class="deleteAccountButtons">
+                            
+                                                <button class="cancelbtn" onclick="document.getElementById('{{user.id}}').style.display='none'" >Annuler</button>
+                            
+                                                <button class="deletebtn">
+                                                    <a href="{{path('delete_user_account', {'idUser' : user.id})}}">Supprimer</a>
+                                                </button>
+                                                
+                                            </div>
+                            
+                                        </div>
+                            
+                                    </div>
+                                    {# fin de la modal #}
+                                   
+                                </div>
+                            </td> 
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </div>
+    
+            </table>
+    
+    
+            <table class="table-admin">
+                                            
+                <thead class="accordion accordion-admin">
+                    <tr>
+                        <th class="principal-subject">Equipes</th>
+                    </tr>
+                </thead>
+                
+                <div class="panel">
+                    
+                    <tbody>
+                       
+                        {% for team in teams %}
+                        <tr>
+                            <td class="info-admin">
+                                <div class="info-element-admin">
+                                    <figure>
+                                        <img class="avatar-subCategory" src="{{ asset('img/user/team/' ~ team.teamLogo) }}" >
+                                    </figure>
+                                  
+                                    <a class="info-name" href="{{path('show_team', {'id' : team.id})}}">{{team.teamName}}</a>
+                                </div>
+                                
+                                <div class="control-element-admin">
+
+                                    <a class="btn-delete-admin" href="{{path('admin_delete_team', {'idTeam' : team.id})}}">Supprimer</a>
+                                    
+                                </div>
+                            </td> 
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </div>
+    
+            </table>
+
+
+            <table class="table-admin">
+                                            
+                <thead class="accordion accordion-admin">
+                    <tr>
+                        <th class="principal-subject">Tournois</th>
+                    </tr>
+                </thead>
+                
+                <div class="panel">
+                    
+                    <tbody>
+                       
+                        {% for tournament in tournaments %}
+                        <tr>
+                            <td class="info-admin">
+                                <div class="info-element-admin">
+                                    <figure>
+                                        <img class="avatar-subCategory" src="{{ asset('img/user/tournament/' ~ tournament.imgTournament) }}" >
+                                    </figure>
+                                  
+                                    <a class="info-name" href="{{path('show_team', {'id' : tournament.id})}}">{{tournament.tournamentName}}</a>
+                                </div>
+                                
+                                <div class="control-element-admin">
+                                    <a class="btn-delete-admin" href="{{path('admin_delete_tournament', {'idTournament' : tournament.id})}}">Supprimer</a>
+                                </div>                            
+                            </td> 
+                        </tr>
+                        {% endfor %}
+ 
+                    </tbody>
+                    
+                </div>
+    
+            </table>
+
+        </div>
+
+
+    {% else %}
+
+        <p></p>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/accordeon.js') }}"></script>
+    <script src="{{ asset('js/modalAdmin.js') }}"></script>
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}
+

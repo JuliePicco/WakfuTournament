@@ -39,16 +39,14 @@ class TournamentRepository extends ServiceEntityRepository
         }
     }
 
-
-
-    //* Fonction  permettant de trouver les teams non inscrit
+    //* Fonction permettant de trouver les teams non inscrit
     
     public function findUnregistered($tournament_id){
 
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
 
-        // Requete permettant de cherche les teams inscrits dans un tournoi
+        // Requete permettant de chercher les teams inscrits dans un tournoi
         $qb = $sub;
         $qb->select('t')
             ->from('App\Entity\Team', 't')
@@ -68,6 +66,28 @@ class TournamentRepository extends ServiceEntityRepository
         $query = $sub->getQuery();
         return $query->getResult();
     }
+
+
+     //* Fonction  permettant de chercher les teams inscrits dans un tournoi
+    
+     public function findRegistered($tournament_id){
+
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
+
+        $qb = $sub;
+        $qb->select('t')
+            ->from('App\Entity\Team', 't')
+            ->leftJoin('t.tournaments', 'to')
+            ->where('to.id = :id')
+            ->setParameter('id', $tournament_id)
+            ->orderBy('t.teamName', 'ASC');
+
+        $query = $sub->getQuery();
+        return $query->getResult();
+    }
+
+
     
 
 //    /**

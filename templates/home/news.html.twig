@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <div class="news-background news-page-background">
+
+        <div class="previous-links">
+            <a href="{{ path('app_home') }}">Accueil</a>
+        </div>
+
+        <div class="news-page-title">
+
+            <h2>{{news.newsTitle}}</h2>
+            <small>{{news.newsCreationDate | date('d-m-Y')}} à {{news.newsCreationDate | date('h:i:s')}}</small>
+         
+        </div>
+
+        <div class="news-page-allContent">
+        
+            <figure>
+                <img class="news-page-illustration" src="{{ asset('img/news/' ~ news.newsIllustration) }}" alt="Illustration de l'actualité">
+            </figure>
+            
+
+            <div class="forum-subject">
+    
+                <p class="news-page-content">{{news.newsContent}}</p>
+    
+            </div> 
+        </div>
+   
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}

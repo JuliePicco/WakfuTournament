@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Sous-Catégorie{% endblock %}
+
+{% block body %}
+
+<div class="formulaireBackground">
+
+    {% if app.user %}
+        
+        <h1>Nouvelle Sous-Catégorie</h1>
+
+
+        <div class="addTournapmentFormulaire">   
+            {{ form_start(newSubCategoryForm) }}
+                
+                {{ form_row(newSubCategoryForm.category) }}
+                {{ form_row(newSubCategoryForm.subCategoryName) }}
+                {{ form_row(newSubCategoryForm.statut) }}
+
+                {{ form_row(newSubCategoryForm.submit) }}
+ 
+                
+            {{ form_end(newSubCategoryForm)}}
+
+        </div> 
+                
+
+        
+    {% else %}
+        
+    <p>Veuillez vous connecter !</p>
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}

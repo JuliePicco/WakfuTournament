@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ["ROLE_USER"];
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
@@ -502,7 +502,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-      // Fonction qui permet de compter le nombre de fois ou on est leader d une team
+    // Fonction qui permet de compter le nombre de fois ou on est leader d une team
 
       public function nbLeaderTeams(){
 
@@ -510,6 +510,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $nbLeaderTeams;
     }
+
+
 
     //Fonction qui permet de compter le nombre d'équipe dans lequel on est présent
 

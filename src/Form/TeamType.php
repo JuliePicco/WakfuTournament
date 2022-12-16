@@ -48,13 +48,10 @@ class TeamType extends AbstractType
                 'label' => 'Description de votre team',
             ])
 
-          
-
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'submitAddTournament'],
                 'label' => 'Enregistrer',
-                ])
-         
+                ]) 
         ;
     }
 
