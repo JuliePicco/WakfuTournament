@@ -23,16 +23,25 @@
                 <div class="modifyInfoP">
 
                     <p>
-                        <i class="fa-brands fa-discord"></i> Discord : {{ user.discordPseudo}} 
+                        <i class="fa-brands fa-discord"></i> Discord : <span class="profil-socialNetworkInfo">{{ user.discordPseudo}}</span>
                         <br>
-                        <i class="fa-brands fa-twitch"></i> Twitch : {{ user.twitchLink}}
+
+                        {% if  app.user.twitchId is empty  %}
+
+                            <i class="fa-brands fa-twitch"></i> Twitch : <span class="profil-socialNetworkInfo">{{ user.twitchLink}}</span>
+
+                        {% else %}
+                            
+                            <i class="fa-brands fa-twitch"></i> Twitch : <a href="https://twitch.tv/{{user.twitchLink}}" class="profil-socialNetworkInfo">{{ user.twitchLink}}</a>
+                            
+                        {% endif %}
                     </p>                 
     
                     
                     {% if app.user %}
 
                         {% if app.user.id == user.id %}
-                        <a class="btn btn-edit btn-editProfil" href="{{ path('edit_profil')}}">Modifier</a>
+                            <a class="btn btn-edit btn-editProfil" href="{{ path('edit_profil')}}">Modifier</a>
                         {% endif %}
 
                     {% endif %}

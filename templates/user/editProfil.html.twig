@@ -4,48 +4,79 @@
 
 {% block body %}
 
-<div class="editProfilBackground">
+<div class="edit-profil-background">
 
     {% if app.user %}
         
         <h1>Modifier profil</h1>
 
-        <figure class="preview avatarPosition">
-            <img id="preview_img" class="editAvatar" src="{{ asset('img/user/avatar/' ~ app.user.avatar) }}" alt="Preview de l'avatar">
-        </figure>
+        
+        {{ form_start(editProfilForm) }}
+            <div class="edit-profil-form">   
+                
+                <div class="info-edit-profil">
 
-        <div class="profilFormulaire">   
-            {{ form_start(editProfilForm) }}
-
-                <div class="avatarForm">{{ form_row(editProfilForm.avatar) }}</div>
-
-                {# la div "buffer" sert uniquement pour acceder à la div créée par le formulaire dont on a pas accès #}
-
-                <div class="profilFormGroup">
-                    <div class="buffer editMailPseudo">
+                    <div class="edit-profil-avatar">
+                        <figure class="preview">
+                            <img id="preview_img" class="edit-avatar" src="{{ asset('img/user/avatar/' ~ app.user.avatar) }}" alt="Preview de l'avatar">
+                        </figure>
+        
+                        <div class="avatarForm">{{ form_row(editProfilForm.avatar) }}</div>
+                    </div>
+    
+    
+                    <div class="edit-mail-pseudo">
+                      
                         {{ form_row(editProfilForm.email) }}
                         {{ form_row(editProfilForm.pseudonyme) }}
+    
+                        <div class="specific-socialNetwork">
+    
+                            <label>Pseudo discord:</label>
+    
+                            {% if app.user.discordId is empty %}
+
+                                <a href="{{path('connect_discord_start')}}" class="socialNetwork-update"> 
+                                    <i class="fa-brands fa-discord socialNetwork-logo"></i>M'authentifier via discord ?
+                                </a>
+
+                                {% else %}
+
+                                <p>{{app.user.discordPseudo}}<a class="btn btn-delete-cross" href="{{path('remove_discord')}}">X</a></p>
+
+                            {% endif %}
+    
+                        </div>
+    
+                        <div class="specific-socialNetwork">
+    
+                            <label>Lien Twitch:</label>
+        
+                            {% if app.user.twitchId is empty  %}
+
+                                <a href="{{path('connect_twitch_start')}}" class="socialNetwork-update"> 
+                                    <i class="fa-brands fa-twitch socialNetwork-logo"></i>M'authentifier via twitch ?
+                                </a>
+
+                            {% else %}
+
+                                <p>{{app.user.twitchLink}} <a class="btn btn-delete-cross" href="{{path('remove_twitch')}}">X</a></p>
+                                
+
+                            {% endif %}    
+    
+                        </div>
+    
                     </div>
 
-                    <div class="buffer">
-                        {{ form_row(editProfilForm.discordPseudo) }}
-                        {{ form_row(editProfilForm.twitchLink) }}
-                    </div>
                 </div>
 
-                
-                {% if app.user.discordId is empty %}
-                <a href="{{path('connect_discord_start')}}" class="socialNetwork-update"> 
-                    <i class="fa-brands fa-discord socialNetwork-logo"></i>M'authentifier via discord ?
-                </a>
-                {% endif %}
 
-                <div class="profilFormSubmit">{{form_row(editProfilForm.submit)}}</div>
-                
-            {{ form_end(editProfilForm)}}
+            </div> 
+            
+            <div class="edit-profil-submit">{{form_row(editProfilForm.submit)}}</div>
 
-        </div> 
-    
+        {{ form_end(editProfilForm)}}
                 
 
         

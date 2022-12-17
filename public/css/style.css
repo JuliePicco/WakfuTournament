@@ -419,8 +419,9 @@ header a {
 .block-news {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 350px;
-    max-height: 500px;
+    height: 500px;
     background: white;
     padding: 20px;
     margin: 10px;
@@ -443,7 +444,7 @@ header a {
     position:absolute;
     left:0;
     top:0;
-    background:linear-gradient(transparent 150px, white);
+    background:linear-gradient(transparent 400px, white);
 }
 
 .more-info-news{
@@ -485,7 +486,15 @@ header a {
 .news-content{
     font-family: 'Roboto Condensed', sans-serif;
     text-align: justify;
-   
+}
+
+.news-pagination{
+    margin-top: 15px;
+    padding: 5px;
+    background: white;
+    color: #51068a;
+    text-align: center;
+    font-size: 20px;
 }
 
 
@@ -988,7 +997,7 @@ textarea:disabled{
 }
 
 .profilInfo {
-    width: 35%;
+    width: 40%;
     font-size: 25px;
     display: flex;
     flex-direction: column;
@@ -1007,7 +1016,7 @@ textarea:disabled{
 
 /* css PROFIL USER ET TEAM */
 .profilInfoMatch{
-    width: 35%;
+    width: 30%;
     font-size: 25px;
 }
 
@@ -1023,6 +1032,10 @@ textarea:disabled{
     flex-direction: column;
     justify-content: space-between;
     margin-top: 10px;
+}
+
+.profil-socialNetworkInfo{
+    font-family:'Roboto Condensed', sans-serif ;
 }
 
 .characterClass{
@@ -1249,70 +1262,75 @@ font-size: 18px;
 
 /**  MODIFIER PROFILE */
 
-.editProfilBackground{
+.edit-profil-background{
     background: rgba(255 255 255);
-    width: 45%;
+    width: 60%;
     margin: 50px auto;
     padding: 30px 60px;
     border-radius: 50px;
 }
 
-.editProfilBackground h1{
+.edit-profil-background h1{
     margin-bottom: 20px;
     text-align: -webkit-center;
     font-size: 40px;
 }
 
-.profilFormulaire label {
-    font-size: 25px;
-    
-  }
-
-.avatarPosition{
-    text-align: -webkit-center;
-}
-
-.profilFormGroup{
+.edit-profil-form{
     display: flex;
-    justify-content: space-evenly;
-    margin: 20px 0px;
-
+    flex-direction: column;
 }
 
-.editAvatar{
+.edit-profil-form label{
+    font-size: 20px;
+}
+
+.info-edit-profil{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+   
+}
+
+.edit-avatar{
     background: #ffffff;
     border: solid 5px #ffffff;
     box-shadow: 0px 2px 5px 1px black;
     border-radius: 15px;
-    height: 250px;
-    width: 250px;
+    height: 220px;
+    width: 220px;
     object-fit: cover;
     margin-bottom: 20px;
 }
 
-.avatarForm, .profilFormSubmit{
-    text-align: center;
+.edit-profil-avatar{
+    margin-right: 20px;
 }
 
-.editMailPseudo{
-    margin-right: 15px;
+.edit-mail-pseudo{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
 }
 
-.buffer div{
+.edit-mail-pseudo div{
     margin-bottom: 15px;
+}
+
+
+.specific-socialNetwork p{
+    font-size: 22px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .socialNetwork-update{
     display: flex;
-    width: 60%;
+    justify-content: center;
     align-items: center;
-    place-content: center;
-    margin: auto;
-    margin-bottom: 30px;
+    width: 280px;
     padding: 5px 0px;
     border: solid 3px;
     border-radius: 5px;
-
     text-decoration: none;
     color: #51068a;
     font-size: 20px;
@@ -1322,6 +1340,10 @@ font-size: 18px;
 .socialNetwork-update:hover{
     background-color: #e9ccff;
 
+}
+
+.edit-profil-submit{
+    text-align: center;
 }
 
 

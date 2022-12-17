@@ -7,11 +7,12 @@ knpu_oauth2_client:
             redirect_route: connect_discord_check
             redirect_params: {}
                 
-        # twitch:
-        #     type: twitch
-        #     client_id: '%env(TWITCH_ID)%'
-        #     client_secret: '%env(TWITCH_SECRET)%'
-        #     redirect_route: connect_twitch_check
-        #     redirect_params: {}
+        twitch_helix:
+            type: twitch_helix
+            client_id: '%env(TWITCH_ID)%'
+            client_secret: '%env(TWITCH_SECRET)%'
+            redirect_route: connect_twitch_check
+            redirect_params: {}
 
         # configure your clients as described here: https://github.com/knpuniversity/oauth2-client-bundle#configuration
+        # Il faut chercher le type voulu dans la doc car ce n'est pas nous qui choisissont sont nom

@@ -7,11 +7,13 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "depotwarehouse/oauth2-twitch": "^1.3",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
+        "knplabs/knp-paginator-bundle": "^5.9",
         "knpuniversity/oauth2-client-bundle": "^2.10",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.8",
@@ -46,6 +48,7 @@
         "symfonycasts/verify-email-bundle": "^1.12",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
+        "vertisan/oauth2-twitch-helix": "^1.1",
         "wohali/oauth2-discord-new": "^1.2"
     },
     "require-dev": {

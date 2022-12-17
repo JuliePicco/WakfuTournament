@@ -30,19 +30,22 @@
             {% for new in news %}
 
                 <div class="block-news">
-                    <figure>
-                        <img class="news-illustration" src="{{ asset('img/news/' ~ new.newsIllustration) }}" alt="Illustration de l'actualité">
-                    </figure>
-                    
-                    <div class="all-news-content">
 
-                        <div class="news-title">
-                            <h2>{{new.newsTitle}}</h2>
-                            <small>le {{new.newsCreationDate | date('d-m-Y')}} à {{new.newsCreationDate | date('h:i:s')}}</small>
-                        </div>
-                        <p class="news-content">{{new.newsContent}}</p>
+                   
+                    <div class="all-news-content">
+                        <figure>
+                            <img class="news-illustration" src="{{ asset('img/news/' ~ new.newsIllustration) }}" alt="Illustration de l'actualité">
+                        </figure>
                         
+    
+                            <div class="news-title">
+                                <h2>{{new.newsTitle}}</h2>
+                                <small>le {{new.newsCreationDate | date('d-m-Y')}} à {{new.newsCreationDate | date('h:i:s')}}</small>
+                            </div>
+                            <p class="news-content">{{new.newsContent}}</p>
+                            
                     </div>
+                   
 
                     <div class="more-info-news">
                         <a href="{{ path('show_news', {'id' : new.id}) }}">en savoir +</a>
@@ -54,6 +57,10 @@
 
         </div>
 
+        <div class="news-pagination">
+            {{ knp_pagination_render(news) }}
+        </div>
+        
         <div class="slideShowTournament">
 
             <h2>prochain tournois prévus</h2>

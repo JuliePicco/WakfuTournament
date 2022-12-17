@@ -308,6 +308,47 @@ class SecurityController extends AbstractController
 
     }
 
+    // Suppression discord
+
+    /**
+     * @Route("/security/removeDiscord", name="remove_discord")
+    */
+    public function removeDiscord(ManagerRegistry $doctrine, Request $request){
+
+        $user= $this->getUser();
+        $entityManager =  $doctrine -> getManager(); 
+
+        $user->setDiscordId(null);
+        $user->setDiscordPseudo('Non renseigné');
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('edit_profil');
+        
+    }
+
+        // Suppression twitch
+
+    /**
+     * @Route("/security/removeTwitch", name="remove_twitch")
+    */
+    public function removeTwitch(ManagerRegistry $doctrine, Request $request){
+
+        $user= $this->getUser();
+        $entityManager =  $doctrine -> getManager(); 
+
+        
+        $user->setTwitchId(null);
+        $user->setTwitchLink('Non renseigné');
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('edit_profil');
+        
+    }
+
 
     //* MODIFICATION DU MOT DE PASSE
 

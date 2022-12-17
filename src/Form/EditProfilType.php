@@ -35,18 +35,6 @@ class EditProfilType extends AbstractType
                 'mapped' => false,
                 ])
 
-            ->add('discordPseudo', TextType::class, [
-                'label' => 'Pseudo discord',
-                'attr' => ['class' => 'form-control'],
-                'required' => false,
-                ])
-                
-            ->add('twitchLink', TextType::class, [
-                'label' => 'Chaîne Twitch',
-                'attr' => ['class' => 'form-control'],
-                'required' => false,
-                ])
-
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-edit btn-margin'],
                 'label' => 'Modifier',

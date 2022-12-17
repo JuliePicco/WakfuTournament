@@ -10,24 +10,28 @@
        
         <h1>Nouvelle Actualité</h1>
 
-        <div class="addNewsFormulaire">   
-
-            <div class="news-img-formulaire">
-                <figure class="preview">
-                    <img id="preview_img" class="news-preview-img" src="{{ asset('img/news/news-default.jpg') }}" alt="Preview de l'image de la news">
-                </figure>
-
-                {{ form_row(newsForm.newsIllustration) }}
-            </div>
-
-            <div class="news-content-formulaire">
-                <div>{{ form_row(newsForm.newsTitle) }}</div>
-                {{ form_row(newsForm.newsContent) }}
-            </div>
-
-        </div> 
+        {{ form_start(newsForm) }}
         
-        <div class="position-news-submit">{{ form_row(newsForm.submit) }}</div>
+            <div class="addNewsFormulaire">  
+
+                <div class="news-img-formulaire">
+                    <figure class="preview">
+                        <img id="preview_img" class="news-preview-img" src="{{ asset('img/news/news-default.jpg') }}" alt="Preview de l'image de la news">
+                    </figure>
+
+                    {{ form_row(newsForm.newsIllustration) }}
+                </div>
+
+                <div class="news-content-formulaire">
+                    <div>{{ form_row(newsForm.newsTitle) }}</div>
+                        {{ form_row(newsForm.newsContent) }}
+                </div>
+
+            </div> 
+            
+            <div class="position-news-submit">{{ form_row(newsForm.submit) }}</div>
+
+        {{ form_end(newsForm) }}
 
     </div>
 

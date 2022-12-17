@@ -50,6 +50,9 @@
             "./config/packages/fos_ckeditor.yaml"
         ]
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.9.0"
+    },
     "knpuniversity/oauth2-client-bundle": {
         "version": "2.10",
         "recipe": {
