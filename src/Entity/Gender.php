@@ -24,11 +24,12 @@ class Gender
      */
     private $genderType;
 
-    
+   
 
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -78,4 +79,8 @@ class Gender
 
         return $this;
     }
+
+
+
+
 }

@@ -59,34 +59,30 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     
 
-    // ! a voir demain
-    //* fonction permettant de retrouver un leader enregistrer dans un tournois
+   
+    //* fonction permettant de retrouver les leaders enregistré dans le tournoi
 
-    public function findregistered($user_id){
+    public function findLeaderRegisteredInTournament($team_id){
 
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
 
-        // Requete permettant de cherche les équipes du leader/user
         $qb = $sub;
-        $qb->select('t')
-            ->from('App\Entity\Team', 't')
+        $qb->select('u')
+            ->from('App\Entity\User', 'u')
+            ->leftJoin('u.leaderTeams', 't')
             ->leftJoin('t.tournaments', 'to')
-            ->where('t.leader = :id');
-
-        $sub = $em->createQueryBuilder();
-
-        // Sous requete pour obtenir les équipes inscrite du leader
-            $sub->select('te')
-            ->from('App\Entity\Team', 'te')
-            ->leftJoin('to.tournaments', 'to')
-            ->andWhere($sub->expr()->notIn('te.id', $qb->getDQL()))
-            ->setParameter('id', $user_id);
-         
-
+            ->where('to.id = :id')
+            ->setParameter('id', $team_id);
+            
         $query = $sub->getQuery();
         return $query->getResult();
     }
+
+    
+
+
+    
 
 // SELECT t.leader_id, t.team_name, u.pseudonyme
 // FROM team t

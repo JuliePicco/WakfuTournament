@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use DateTime;
 use doctrine;
 use App\Entity\User;
 use App\Entity\Server;
 use App\Entity\Character;
+use App\Entity\ClassCharacter;
+use App\Entity\Gender;
+use App\Entity\ImgGender;
 use App\Entity\Tournament;
 use App\Form\CharacterType;
 use App\Repository\UserRepository;
-use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,7 +121,7 @@ class UserController extends AbstractController
     public function profil(User $user): Response
     {
         $now = new DateTime() ;
-      
+
         return $this->render('user/profil.html.twig', [
            'now' => $now,
            'user' => $user,
@@ -132,7 +135,8 @@ class UserController extends AbstractController
     public function account(User $user): Response
     {
         return $this->render('user/account.html.twig', [
-            'user' => $user
+            'user' => $user,
+
         ]);
     }
 

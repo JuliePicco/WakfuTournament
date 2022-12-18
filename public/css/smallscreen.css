@@ -158,19 +158,23 @@ display: block;
 
    /** CSS relatif à toutes les pages */
 
-
-   footer{
+  .footer-link {
     display: flex;
-    height: 80px;
-    background: #51068a;
-    box-shadow: 0px 0px 5px black;
-    padding: 5px 10px;
-    
-}
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-link a {
+    margin: 5px 0;
+    font-size: 20px;
+  }
 
   footer small{
-    font-size: 11px;
+    font-size: 15px;
   }
+
+
 
   /* bouton */
 
@@ -189,6 +193,109 @@ display: block;
     margin-top: 25px;
     padding: 7px;
 }
+
+  /** ACCUEIL */
+
+  .homeBackground{
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .homeBackground h1{
+    color: #0d2f31;
+    text-shadow: none;
+  }
+
+  .news-background{
+    width: 100%;
+    background: none;
+    padding: 20px 0px;
+    margin-bottom: 0px;
+  }
+
+  .home-news-informations figure{
+    display: flex;
+  }
+
+  .home-news-informations img{
+    place-self: center;
+  }
+
+  .home-news-title{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .home-news-title h2{
+    margin-left: 0px;
+    padding: 5px 10px;
+  }
+
+  .home-news-title a{
+    margin-right: 0px;
+  }
+
+
+
+  /* block news */
+
+  .news-place {
+    display: flex;
+    flex-direction: column;
+    height: 420px;
+    overflow-y: scroll;
+}
+  .block-news{
+    width: 300px;
+    height: 400px;
+  }
+
+  .news-title{
+    flex-direction: column;
+    justify-content: none;
+  }
+
+  .pagination{
+    display: flex;
+    place-content: space-evenly;
+    align-items: baseline;
+  }
+
+  .pagination span a{
+    font-size: 30px;
+
+  }
+
+  /* slide */
+
+  .slider {
+    width: 100%;
+  }
+
+  .mySlides{
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .mySlides figure{
+    margin-right: 0px;
+  }
+
+  .slideTournamentName{
+    font-size: 35px;
+  }
+
+  .slideTournamentInfo {
+    font-size: 25px;
+}
+
+.slideButton {
+  padding: 16px 10px;
+}
+
+
 
 
   /** INSCRIPTION, CONNECTION et FORMULAIRE */

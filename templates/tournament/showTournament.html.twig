@@ -76,6 +76,8 @@
 
         {% endif %}
 
+       
+
         <div class="tournamentInscription">
 
             {# Permet d'inscrire son équipe #}
@@ -118,32 +120,29 @@
                                     <h2>Inscrire son équipe<span class="littleInfo">(Vous devez être leader de votre équipe pour pouvoir l'inscrire)</span></h2>
 
                                     {% for team in unregisteredTeams %}
-
+                                   
                                         {% if team.server == tournament.server %}
 
                                             {% if app.user.id == team.leader.id %} 
 
-                                                {% if app.user.id %}
-                                                    
-                                                {% endif %}
-     
                                                 <div class="avalable-inscription">
-                                                    
+                                                
                                                     <div class="inscriptionTeams">
                                                         <a href="{{ path('inscription_team', {'idTournament' : tournament.id, 'idTeam' : team.id}) }}">Inscrire</a>
                                                         <p>{{team}}</p>                                      
                                                     </div>
                                                     
                                                     {% for member in team.members %}
-                                                    
-                                                    {% if member.id == tournament.organisator.id %}
-                                                    <p class="warningMessage">Attention, un membre de votre équipe "{{team}}" est l'organisateur du tournoi, il ne pourra pas participer aux matchs</p>
-                                                    {% endif %}
+                                                        
+                                                        {% if member.id == tournament.organisator.id %}
+                                                            <p class="warningMessage">Attention, un membre de votre équipe "{{team}}" est l'organisateur du tournoi, il ne pourra pas participer aux matchs</p>
+                                                        {% endif %}
                                                     
                                                     {% endfor %}
                                                     
                                                 </div> 
-
+                                                              
+                                            
                                             {% endif %}
 
                                         {% endif %}

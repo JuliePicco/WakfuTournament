@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Entity\User;
 
 class TournamentController extends AbstractController
 {
@@ -281,17 +282,20 @@ class TournamentController extends AbstractController
     /**
      * @Route("/showTournament/{id}", name="show_tournament")
      */
-    public function show(Tournament $tournament, TournamentRepository $unregistered, TournamentRepository $registered): Response
+    public function show(Tournament $tournament, Team $team, UserRepository $registeredLeader, TournamentRepository $unregistered, TournamentRepository $registered): Response
     {
+       
         // fonction qui permet de trouver les teams ou l'on est leader qui ne sont pas enregistré dans un tournois
         $unregisteredTeams = $unregistered -> findUnregistered($tournament->getId());
-        $registeredTeams = $registered -> findRegistered($tournament->getId());
+        $registeredLeaders = $registeredLeader -> findLeaderRegisteredInTournament($team->getId());
         $now = new DateTime() ;
+
+      
 
         return $this->render('tournament/showTournament.html.twig', [
             'tournament' => $tournament,
             'unregisteredTeams' => $unregisteredTeams,
-            'registeredTeams' => $registeredTeams,
+            'registeredLeaders' => $registeredLeaders,
             'now' => $now,
         ]);
     }

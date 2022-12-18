@@ -33,6 +33,51 @@ class HomeController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/home/reglement-forum", name="app_reglement")
+     */
+    public function reglement(): Response
+    {
+        return $this->render('home/reglementForum.html.twig', [
+            
+        ]);
+    }
+
+
+
+    /**
+     * @Route("/home/cgu", name="app_cgu")
+     */
+    public function cgu(): Response
+    {
+        return $this->render('home/cgu.html.twig', [
+            
+        ]);
+    }
+
+
+    /**
+     * @Route("/home/politique-confidentialite", name="app_politique_confidentialite")
+     */
+    public function politiqueConfidentialite(): Response
+    {
+        return $this->render('home/politiqueConfi.html.twig', [
+            
+        ]);
+    }
+
+    /**
+     * @Route("/home/contact", name="app_contact")
+     */
+    public function contact(): Response
+    {
+        return $this->render('home/contact.html.twig', [
+            
+        ]);
+    }
+
+   
+
 
     /**
      * @Route("/home/news/{id}", name="show_news")

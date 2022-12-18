@@ -38,24 +38,36 @@ article{
  
 footer{
     display: flex;
-    height: 80px;
+    flex-direction: column;
     background: #51068a;
     box-shadow: 0px 0px 5px black;
-    padding: 5px 10px;
-    left: 0;
-    bottom: 0;
+    padding: 10px;
     width: 100%;
 }
 
 footer small {
     color:white;
+    margin-top: 10px;
 }
+
+.footer-link{
+    display: flex;;
+    justify-content: space-around;
+    align-self: center;
+    width: 50%;
+}
+
+.footer-link a{
+    color:white;
+}
+
 
 .droit{
     display: flex;
-    flex-direction: column;
-    align-self: self-end;
+    align-self: center;
+
 }
+
 
 .warningMessage{
     color: #df0000;
@@ -344,6 +356,18 @@ header a {
 
 .alert-icon{
     margin-right: 10px;
+} 
+
+/** PAGE REGLEMENT   */
+
+.page-reglement p{
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+
+}
+
+.reglement-important{
+    font-weight: bold;
 }
 
 /** ACCUEIL */

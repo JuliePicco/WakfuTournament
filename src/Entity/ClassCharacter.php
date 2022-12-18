@@ -29,24 +29,19 @@ class ClassCharacter
      */
     private $logo;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $imgFemale;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $imgMale;
 
     /**
      * @ORM\OneToMany(targetEntity=Character::class, mappedBy="classCharacter", orphanRemoval=true)
      */
     private $characters;
 
+
+
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -78,29 +73,6 @@ class ClassCharacter
         return $this;
     }
 
-    public function getImgFemale(): ?string
-    {
-        return $this->imgFemale;
-    }
-
-    public function setImgFemale(string $imgFemale): self
-    {
-        $this->imgFemale = $imgFemale;
-
-        return $this;
-    }
-
-    public function getImgMale(): ?string
-    {
-        return $this->imgMale;
-    }
-
-    public function setImgMale(string $imgMale): self
-    {
-        $this->imgMale = $imgMale;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Character>
@@ -131,6 +103,8 @@ class ClassCharacter
 
         return $this;
     }
+
+   
 
 
     

@@ -74,7 +74,7 @@
                                     </div>
     
                                     <li><a href="{{ path('app_forum') }}" onclick="navigation()">Forum</a></li>
-                                    <li><a href="{{ path('app_home')}}" onclick="navigation()">Règlements</a></li>
+                                    <li><a href="{{path('app_reglement')}}" onclick="navigation()">Règlements</a></li>
         
                                 </ul>
                             </div>
@@ -113,7 +113,7 @@
                                 </div>
                                 
                                 <li class="menu-item"><a href="{{ path('app_forum') }}">Forum</a></li>
-                                <li class="menu-item"><a href="">Règlements</a></li>
+                                <li class="menu-item"><a href="{{path('app_reglement')}}">Règlements</a></li>
                                 
     
                             </ul>
@@ -195,12 +195,20 @@
     
             
             <footer>
+                <div class="footer-link">
+                    <a href="{{path('app_cgu')}}">Condiction général d'utilisation</a>
+                    <a href="{{path('app_politique_confidentialite')}}">Politique de confidentialité</a>
+                    <a href="{{path('app_contact')}}">Contact</a>
+                </div>
+                
                 <div class="droit">
-                    <small>Wakfu est un MMORPG édité par Ankama Studio. Tous droits réservés.<br>
-                        Le site internet “Wakfu Tournament” est un site non-officiel du MMORPG Wakfu entièrement développé par Achanga<br>
-                        Toutes les images du sites appartiennent à Ankama (pour les images officiels) et à Achanga (pour les créations originales)</small>
-                    </div>
-                </footer>
+                    <small>
+                        WAKFU MMORPG : © 2022 Ankama Studio. Tous droits réservés. "Wakfu Tournament" est un site non-officiel sans aucun lien avec Ankama.
+                    </small>
+                </div>
+
+
+            </footer>
                 
             </article>
 

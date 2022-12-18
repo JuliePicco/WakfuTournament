@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <div class="news-background news-page-background">
+
+        <div class="previous-links">
+            <a href="{{ path('app_home') }}">Accueil</a>
+        </div>
+
+        <div class="news-page-title">
+            <h2>Contact</h2>
+        </div>
+
+        <div class="news-page-content page-reglement">
+
+            <p class="reglement-important">Vous pouvez nous contacter par voie postale :</p>
+
+            <p>WAKFU TOURNAMENT <br>
+                Service Support <br>
+                BP 60403. <br>
+                68000 Colmar Cedex 1
+            </p>
+
+            <br>
+
+            <p class="reglement-important">Ou par téléphone au</p>
+            <p>03.89.00.00.00</p>
+
+        </div>
+
+   
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/menuBurger.js') }}"></script>
+{% endblock %}
