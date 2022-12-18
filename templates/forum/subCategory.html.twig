@@ -47,8 +47,11 @@
                 <thead>
                     <tr>
                         <th class="principal-subject">Toutes les discussions</th>
-                        <th class="secondary-subject">Dernière activé</th>
-                        <th class="tertiary-subject">Réponses</th>
+                        <th class="secondary-subject">Réponses</th>
+
+                        {% if is_granted ("ROLE_ADMIN") %}
+                            <th class="tertiary-subject">Modération</th>                       
+                        {% endif %}
                         
                     </tr>
     
@@ -91,8 +94,12 @@
 
                                 </td>
 
-                                <td class="secondary-subject"></td>
-                                <td class="tertiary-subject">{{topic.posts|length}}</td>
+                                <td class="secondary-subject">{{topic.posts|length}}</td>
+
+                                {% if is_granted ("ROLE_ADMIN") %}
+                                    <td class="tertiary-subject"><a href="{{path('admin_delete_topic', {'idTopic' : topic.id})}}">suppresion</a></td>                       
+                                {% endif %}
+                                
                             </tr>
                                     
                         {% endfor %}

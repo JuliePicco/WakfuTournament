@@ -80,10 +80,6 @@ class ForumController extends AbstractController
     }
 
 
-
-    
-    // ! il est préférable de mettre ces fonction à la fin pour pas qu'elle rentre en conflit avec les autres (à cause de la route "/{id}")
-
     //* VUE DES SOUS CATEGORIES
 
     /**

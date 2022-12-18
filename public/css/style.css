@@ -1916,12 +1916,33 @@ td.tertiary-subject-accordeon{
     padding: 20px;  
 }
 
+.all-commentary-section{
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
 .commentary-section{
     display: flex;
-    background: white;
     padding: 10px;
     border-bottom: solid 1px;
     border-color: lightgrey;
+}
+
+.admin-suppression-post{
+    padding: 10px 20px;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
+    text-align: right;
+}
+
+.admin-suppression-post a{
+    color: red;
+    text-decoration: none;
+}
+
+.admin-suppression-post a:hover{
+    text-decoration: underline;
 }
 
 .commentary-section .avatar-topic{

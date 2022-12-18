@@ -61,36 +61,45 @@
         </div>
 
         {% for post in topic.posts %}
-            <div class="commentary-section">
+            <div class="all-commentary-section">
 
-                {% if post.user == null %}
-        
-                    <figure>
-                        <img class="avatar-topic" src="{{ asset('img/user/avatar/profil-default.jpg') }}" >
-                    </figure>
-                    
-                    <div class="commentary">
-                        <h3 class="commentary-user">Profil Supprimé <small>le {{post.creationDate | date('d-m-Y')}} à {{post.creationDate | date('h:i:s')}}</small></h3>
-                        <p>{{post.content}}</p>
+                <div class="commentary-section">
 
+                    {% if post.user == null %}
+            
+                        <figure>
+                            <img class="avatar-topic" src="{{ asset('img/user/avatar/profil-default.jpg') }}" >
+                        </figure>
+                        
+                        <div class="commentary">
+                            <h3 class="commentary-user">Profil Supprimé <small>le {{post.creationDate | date('d-m-Y')}} à {{post.creationDate | date('h:i:s')}}</small></h3>
+                            <p>{{post.content}}</p>
+
+                        </div>
+
+                    {% else %}
+                        
+                        <figure>
+                            <img class="avatar-topic" src="{{ asset('img/user/avatar/' ~ post.user.avatar) }}" >
+                        </figure>
+                        
+
+                        <div class="commentary">
+                            <h3 class="commentary-user"><a href="{{path('profil_user', {'id' : post.user.id})}}">{{post.user.pseudonyme}}</a> <small>le {{post.creationDate | date('d-m-Y')}} à {{post.creationDate | date('h:i:s')}}</small></h3>
+                            <p>{{post.content}}</p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% if is_granted ("ROLE_ADMIN") %}
+                    <div class="admin-suppression-post">
+                        <a href="{{path('admin_delete_post', {'idPost' : post.id})}}">suppresion</a>                      
                     </div>
-
-                {% else %}
-                    
-                    <figure>
-                        <img class="avatar-topic" src="{{ asset('img/user/avatar/' ~ post.user.avatar) }}" >
-                    </figure>
-                    
-
-                    <div class="commentary">
-                        <h3 class="commentary-user"><a href="{{path('profil_user', {'id' : post.user.id})}}">{{post.user.pseudonyme}}</a> <small>le {{post.creationDate | date('d-m-Y')}} à {{post.creationDate | date('h:i:s')}}</small></h3>
-                        <p>{{post.content}}</p>
-
-                    </div>
-
                 {% endif %}
-                
-                    
+
             </div>
         {% endfor %}
 

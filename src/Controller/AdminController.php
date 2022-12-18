@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\News;
+use App\Entity\Post;
 use App\Entity\Team;
 use App\Entity\User;
 use App\Entity\Topic;
@@ -262,6 +263,42 @@ class AdminController extends AbstractController
         ]);
     }
 
+    // suppression d'un topic
+
+    /**
+     * @Route("/admin/adminDeleteTopic/{idTopic}", name="admin_delete_topic")
+     * @ParamConverter("topic", options={"mapping": {"idTopic" : "id"}})
+    */
+    public function delete_topic(ManagerRegistry $doctrine, Topic $topic): Response{
+
+        $this-> denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+      
+        $entityManager = $doctrine->getManager(); 
+        $entityManager->remove($topic);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_forum');
+    }
+
+
+    // suppresion d'un post
+
+     /**
+     * @Route("/admin/adminDeletePost/{idPost}", name="admin_delete_post")
+     * @ParamConverter("post", options={"mapping": {"idPost" : "id"}})
+    */
+    public function delete_post(ManagerRegistry $doctrine, Post $post): Response{
+
+        $this-> denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+      
+        $entityManager = $doctrine->getManager(); 
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_forum');
+
+    }
+
   
 
 
@@ -270,10 +307,13 @@ class AdminController extends AbstractController
     // lock unlock un topic
 
     /**
-     * @Route("/admin/lockTopic/{id}", name="lockTopic")
+     * @Route("/admin/lockTopic/{idLockTopic}", name="lockTopic")
+     * @ParamConverter("topic", options={"mapping": {"idLockTopic" : "id"}})
      */
     public function lockTopic(ManagerRegistry $doctrine, Topic $topic): Response
     {
+        $this-> denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $topic = $doctrine->getRepository(TopicRepository::class)->findOneBy(['topic' => $topic->getId()],[]);
   
     
@@ -283,10 +323,13 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/unlockTopic/{id}", name="unlockTopic")
+     * @Route("/admin/unlockTopic/{idUnLockTopic}", name="unlockTopic")
+     * @ParamConverter("topic", options={"mapping": {"idUnLockTopic" : "id"}})
      */
     public function unlockTopic(ManagerRegistry $doctrine, Topic $topic): Response
     {
+        $this-> denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $topic = $doctrine->getRepository(TopicRepository::class)->findOneBy(['topic' => $topic->getId()],[]);
   
         return $this->render('forum/topic.html.twig', [
