@@ -15,6 +15,6 @@ Ce que l'on pourra faire:
 - s'inscrire à un tournois
 
 
-
+Le projet est en court d'amélioration afin qu'il puisse correspondre à son but final. 
 
 
