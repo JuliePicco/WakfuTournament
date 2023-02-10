@@ -36,7 +36,7 @@
                     <thead class="accordion">
                         <tr>
                             <th class="principal-subject">{{category.categoryName}}</th>
-                            <th class="secondary-subject">Derniers Topics</th>
+                            {# <th class="secondary-subject">Derniers Topics</th> #}
                             <th class="tertiary-subject">Sujets</th>
                         </tr>
                     </thead>
@@ -50,8 +50,8 @@
                                     <tr>
                                         <td class="principal-subject"><a class="topic-name" href="{{ path('subCategory', {'id' : subCategory.id}) }}">{{subCategory.subCategoryName}}</a></td>
 
-                                        <td class="secondary-subject short-list-topic">
-                                           {# ! question sur la limitation de 3 #}
+                                        {# <td class="secondary-subject short-list-topic">
+                                          
                                             {% for limitedTopic in limitedTopics %}
 
                                                 {% if limitedTopic.subCategory.id == subCategory.id  %}
@@ -62,7 +62,7 @@
                                         
                                             {% endfor %}
                                             
-                                        </td>
+                                        </td> #}
 
                                         <td class="tertiary-subject-accordeon">{{subCategory.topics|length}}</td>
                                     

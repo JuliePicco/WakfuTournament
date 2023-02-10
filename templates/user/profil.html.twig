@@ -23,17 +23,21 @@
                 <div class="modifyInfoP">
 
                     <p>
+                        {% if app.user %}
                         <i class="fa-brands fa-discord"></i> Discord : <span class="profil-socialNetworkInfo">{{ user.discordPseudo}}</span>
                         <br>
 
-                        {% if  app.user.twitchId is empty  %}
-
+                        
+                            {% if  app.user.twitchId is empty  %}
+                            
                             <i class="fa-brands fa-twitch"></i> Twitch : <span class="profil-socialNetworkInfo">{{ user.twitchLink}}</span>
-
-                        {% else %}
+                            
+                            {% else %}
                             
                             <i class="fa-brands fa-twitch"></i> Twitch : <a href="https://twitch.tv/{{user.twitchLink}}" class="profil-socialNetworkInfo">{{ user.twitchLink}}</a>
                             
+                            {% endif %}
+
                         {% endif %}
                     </p>                 
     
@@ -53,14 +57,7 @@
                 <h2>Match</h2>
     
                 <p class="warningMessage"> PROCHAINEMENT DISPONIBLE</p>
-                {# <p>A participé dans XX Match</p>
 
-                <p class="stats">
-                    Victoires : <br>
-                    Défaites:   <br>
-                    Match nul: <br>
-                </p> #}
-    
             </div>
         </div>
     

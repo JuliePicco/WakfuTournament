@@ -46,6 +46,10 @@
                                 <a href="#" id="closeBtn"  class="close">×</a>
                                 <ul class="ul-burger">
                                     <li class="homeBurger"><a href="{{ path('app_home')}}" onclick="navigation()">Accueil</a></li>
+
+                                    {% if is_granted ("ROLE_ADMIN") %}
+                                        <li class="menuBurger-item"><a href="{{ path('app_admin') }}">Admin</a></li> 
+                                    {% endif %}
     
                                     <div class="dropdown-burger">
                                         <li class="menuBurger-item">Tournois <i class="fa-solid fa-caret-down"></i></li>

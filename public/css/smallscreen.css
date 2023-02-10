@@ -211,6 +211,7 @@ display: block;
     background: none;
     padding: 20px 0px;
     margin-bottom: 0px;
+    margin-top: 0;
   }
 
   .home-news-informations figure{
@@ -331,6 +332,7 @@ display: block;
 
 .profil{
   background-color: rgba(255, 255, 255, 0.5);
+  border: none;
   border-radius: 0px;
   margin-bottom: 0px;
 }
@@ -419,7 +421,7 @@ display: block;
 
 /**  MODIFIER PROFILE */
 
-.editProfilBackground {
+.edit-profil-background {
   background: white;
   width: 100%;
   height: 100%;
@@ -428,27 +430,30 @@ display: block;
   border-radius: 0;
 }
 
-.editProfilBackground h1{
+.edit-profil-background h1{
   font-size: 45px;
 }
 
-.profilFormGroup {
+.info-edit-profil {
   flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 0px;
 }
-
-.profilFormulaire label {
-  font-size: 25px;
   
+
+.edit-profil-avatar {
+  margin-right: 0px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
-.avatarForm div{
+.edit-mail-pseudo {
+
+  margin: auto;
+}
+
+.edit-mail-pseudo div {
   display: flex;
   flex-direction: column;
-  align-items: center;
-
+  align-self: center;
 }
 
 .form-select{
@@ -613,6 +618,106 @@ display: block;
 
 .limitedInscription, .rewardChoice{
   margin-bottom: 40px;
+}
+
+
+/** FORUM */
+
+.forum-background{
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.forum-title-name h1 {
+  text-align: center;
+  margin-left: 0px; 
+}
+
+.forum-title-name {
+  flex-direction: column;
+}
+
+.forum-title-name a{
+  margin-right: 0;
+}
+
+thead.accordion:after {
+
+  margin-right: 0px;
+}
+
+.principal-subject {
+ 
+  flex-direction: column;
+
+}
+
+.secondary-subject{
+  width: unset;
+  
+}
+
+.tertiary-subject{
+  width: unset;
+}
+
+.forum-commentary-background, .forum-answer-background{
+  width: 100%;
+}
+
+/* ADMIN */
+
+.admin-background{
+  width: 100%;
+}
+
+.all-table-admin {
+  flex-direction: column;
+}
+
+.table-admin{
+  width: 100%;
+  margin: auto;
+}
+
+.table-admin .principal-subject{
+  width: 100%;
+}
+
+/** NEWS */
+
+/* formlulaire */
+
+.fomulaire-news-background {
+  margin: 0;
+  padding: 20px;
+  border-radius: 0;
+}
+
+.addNewsFormulaire {
+ 
+  flex-direction: column;
+
+}
+.news-img-formulaire{
+  margin-right: 0;
+  margin-bottom: 20px;
+}
+
+/* info news */
+
+.news-page-allContent {
+  padding: 20px; 
+  background: white;
+}
+
+.news-page-content {
+  padding: 20px;
+}
+
+.news-page-background{
+  background: rgba(255, 255, 255, 0.5)
 }
 
 
