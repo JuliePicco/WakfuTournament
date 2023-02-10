@@ -290,8 +290,6 @@ class TournamentController extends AbstractController
         $registeredLeaders = $registeredLeader -> findLeaderRegisteredInTournament($team->getId());
         $now = new DateTime() ;
 
-      
-
         return $this->render('tournament/showTournament.html.twig', [
             'tournament' => $tournament,
             'unregisteredTeams' => $unregisteredTeams,
