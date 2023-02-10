@@ -11,8 +11,10 @@ Ce que l'on pourra faire:
 - modifier son profil
 - ajouter des personnages
 - organiser un tournois
-- créer une équipe (inviter des joueurs dans la dite équipe)
+- créer une équipe (inviter des joueurs)
 - s'inscrire à un tournois
 
+
+Le projet est en court d'amélioration afin qu'il puisse correspondre à son but final. 
 
 
