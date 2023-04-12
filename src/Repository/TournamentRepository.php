@@ -68,24 +68,24 @@ class TournamentRepository extends ServiceEntityRepository
     }
 
 
-     //* Fonction  permettant de chercher les teams inscrits dans un tournoi
+     //* Fonction permettant de chercher les teams inscrits dans un tournoi (pas utilisé pour le moment)
     
-     public function findRegistered($tournament_id){
+    //  public function findRegistered($tournament_id){
 
-        $em = $this->getEntityManager();
-        $sub = $em->createQueryBuilder();
+    //     $em = $this->getEntityManager();
+    //     $sub = $em->createQueryBuilder();
 
-        $qb = $sub;
-        $qb->select('t')
-            ->from('App\Entity\Team', 't')
-            ->leftJoin('t.tournaments', 'to')
-            ->where('to.id = :id')
-            ->setParameter('id', $tournament_id)
-            ->orderBy('t.teamName', 'ASC');
+    //     $qb = $sub;
+    //     $qb->select('t')
+    //         ->from('App\Entity\Team', 't')
+    //         ->leftJoin('t.tournaments', 'to')
+    //         ->where('to.id = :id')
+    //         ->setParameter('id', $tournament_id)
+    //         ->orderBy('t.teamName', 'ASC');
 
-        $query = $sub->getQuery();
-        return $query->getResult();
-    }
+    //     $query = $sub->getQuery();
+    //     return $query->getResult();
+    // }
 
 
     

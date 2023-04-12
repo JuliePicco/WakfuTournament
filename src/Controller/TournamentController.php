@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use App\Entity\User;
+
 
 class TournamentController extends AbstractController
 {
@@ -280,11 +280,12 @@ class TournamentController extends AbstractController
 
      // ! il est préférable de mettre cette fonction à la fin pour pas qu'elle rentre en conflit avec les autres (à cause de la route "/{id}")
     /**
-     * @Route("/showTournament/{id}", name="show_tournament")
+     * @Route("/showTournament/{idTournament}", name="show_tournament")
+     * @ParamConverter("tournament", options={"mapping": {"idTournament" : "id"}})
      */
-    public function show(Tournament $tournament, Team $team, UserRepository $registeredLeader, TournamentRepository $unregistered, TournamentRepository $registered): Response
+    public function show(Tournament $tournament, Team $team, UserRepository $registeredLeader, TournamentRepository $unregistered): Response
     {
-       
+    //    ! probleme avec Team $team
         // fonction qui permet de trouver les teams ou l'on est leader qui ne sont pas enregistré dans un tournois
         $unregisteredTeams = $unregistered -> findUnregistered($tournament->getId());
         $registeredLeaders = $registeredLeader -> findLeaderRegisteredInTournament($team->getId());

@@ -79,7 +79,7 @@
         
                         <div>
         
-                            <a class="slideTournamentName" href="{{ path('show_tournament', {'id' : tournament.id}) }}">{{tournament.tournamentName}}</a>
+                            <a class="slideTournamentName" href="{{ path('show_tournament', {'idTournament' : tournament.id}) }}">{{tournament.tournamentName}}</a>
         
                             <div class="slideTournamentInfo">
                                 <p>du {{tournament.startDate | date('d-m-Y')}} au {{tournament.endDate | date('d-m-Y')}}</p>

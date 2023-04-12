@@ -88,6 +88,12 @@
 
                     <p class="warningMessage">Vous ne pouvez pas vous inscrire à un tournois que vous organisez</p>
 
+                    {% if date(tournament.endDate) < date(now) %}
+
+                    <p class="warningMessage">Tournoi terminé !</p>
+   
+                    {% endif %}
+                    
                 {% else %}
 
                     {# si la date est dépassé alors tournois terminé #}
@@ -243,10 +249,9 @@
         <!-- Contenu des onglets -->
         <div id="Teams" class="tabcontentProfil participatingTeam">
 
-            
+ 
             {% for participatingTeam in tournament.participatingTeams %}
-
-               
+    
                 <div class="entity">
 
                     <figure>
@@ -274,13 +279,11 @@
                 
                 <p class="noParticipation"> il n'y a pas de participation pour le moment</p>
                 
-                {% endfor %}
-                
-                
-           
+                {% endfor %} 
             
         </div>
 
+        
         <div id="Bracket" class="tabcontentProfil participatingTeam">
 
             <div class="bracketInfo">
